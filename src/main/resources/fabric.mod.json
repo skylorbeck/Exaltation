@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "apotheosis",
+  "version": "1.0.0",
+  "name": "Apotheosis",
+  "description": "Apotheosis, Ascensions and Classes",
+  "authors": [
+    "SkylorBeck"
+  ],
+  "contact": {
+    "homepage": "https://www.skylorbeck.website",
+    "source": "https://github.com/Skylortrexler/",
+    "repo": "https://github.com/Skylortrexler/",
+    "issues": "https://github.com/Skylortrexler//issues"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/apotheosis/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "website.skylorbeck.minecraft.apotheosis.client.ApotheosisClient"
+    ],
+    "main": [
+      "website.skylorbeck.minecraft.apotheosis.Apotheosis"
+    ]
+  },
+  "mixins": [
+    "apotheosis.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  }
+}
