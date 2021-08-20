@@ -1,0 +1,11 @@
+{
+  "powers": [
+    "origins:elytra"
+  ],
+  "icon": "minecraft:iron_ingot",
+  "unchoosable": "true",
+  "order": 1,
+  "impact": 1,
+  "name": "Warsmith",
+  "description": "Warsmith description TODO"
+}

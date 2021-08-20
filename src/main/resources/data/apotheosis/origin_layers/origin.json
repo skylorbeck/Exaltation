@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "order": 1,
+  "enabled": true,
+  "origins": [
+    "apotheosis:blacksmith",
+    "apotheosis:warsmith"
+  ],
+  "allow_random": true,
+  "exclude_random": [
+  ],
+  "allow_random_unchoosable": false
+}

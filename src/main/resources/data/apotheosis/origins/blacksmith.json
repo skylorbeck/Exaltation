@@ -1,0 +1,16 @@
+{
+  "powers": [
+    "origins:fire_immunity"
+  ],
+  "icon": "minecraft:iron_ingot",
+  "order": 0,
+  "impact": 1,
+  "name": "Blacksmith",
+  "description": "Blacksmith description TODO",
+  "upgrades":
+  {
+    "condition": "apotheosis:warsmith",
+    "origin":"apotheosis:warsmith",
+    "announcement": "Warsmith Activated"
+  }
+}
