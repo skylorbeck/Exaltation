@@ -6,7 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 
 public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
     private float XP = 0;
-    private int Level = 0;
+    private int Level = 1;
     private final PlayerEntity playerEntity;
 
     public XPComponent(PlayerEntity provider) {

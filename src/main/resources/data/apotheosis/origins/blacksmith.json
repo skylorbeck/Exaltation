@@ -1,6 +1,7 @@
 {
   "powers": [
-    "origins:fire_immunity"
+    "origins:fire_immunity",
+    "apotheosis:lucky"
   ],
   "icon": "minecraft:iron_ingot",
   "order": 0,
