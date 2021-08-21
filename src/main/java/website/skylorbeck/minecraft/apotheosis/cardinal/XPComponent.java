@@ -1,6 +1,5 @@
 package website.skylorbeck.minecraft.apotheosis.cardinal;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
