@@ -22,6 +22,9 @@
     ],
     "main": [
       "website.skylorbeck.minecraft.apotheosis.Apotheosis"
+    ],
+    "cardinal-components-entity": [
+      "website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents"
     ]
   },
   "mixins": [
@@ -31,5 +34,10 @@
     "fabricloader": ">=0.11.6",
     "fabric": "*",
     "minecraft": "1.17.1"
+  },
+  "custom": {
+    "cardinal-components": [
+      "apotheosis:xp"
+    ]
   }
 }

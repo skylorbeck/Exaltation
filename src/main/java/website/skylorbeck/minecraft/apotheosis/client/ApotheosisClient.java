@@ -17,6 +17,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
 
+import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
+
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class ApotheosisClient implements ClientModInitializer{
     public static KeyBinding testbind = KeyBindingHelper.registerKeyBinding(new KeyBinding("test",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z,"test"));
@@ -24,13 +26,18 @@ public class ApotheosisClient implements ClientModInitializer{
     public void onInitializeClient() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
-                MinecraftServer server = client.getServer();
+                PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
+                client.player.sendChatMessage("XP BEFORE: "+ APOXP.get(playerEntity).getXP());
+                APOXP.get(playerEntity).addXP(2.5f);
+                client.player.sendChatMessage("XP AFTER: "+ APOXP.get(playerEntity).getXP());
+                APOXP.sync(playerEntity);
+                /*MinecraftServer server = client.getServer();
                 assert server != null;
                 ServerWorld world = server.getOverworld();
                 PlayerEntity user = client.player;
                 assert user != null;
                 server.getCommandManager().execute(new ServerCommandSource(server, new Vec3d(user.getX(), user.getY(), user.getZ()), Vec2f.ZERO, world, 4, "Apotheosis", new LiteralText("Apotheosis"), server, null),
-                String.format("advancement grant "+client.player.getEntityName()+" only apotheosis:warsmith"));
+                String.format("advancement grant "+client.player.getEntityName()+" only apotheosis:warsmith"));*/
             }
         });
     }
