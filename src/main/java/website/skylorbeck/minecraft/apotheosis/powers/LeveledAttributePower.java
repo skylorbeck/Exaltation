@@ -13,13 +13,13 @@ import java.util.List;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
-public class ConditionedAttributePower extends Power {
+public class LeveledAttributePower extends Power {
 
-    private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<AttributedEntityAttributeModifier>();
+    private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<>();
     private final int tickRate;
     private double originalValue;
 
-    public ConditionedAttributePower(PowerType<?> type, LivingEntity entity, int tickRate) {
+    public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate) {
         super(type, entity);
         this.setTicking(true);
         this.tickRate = tickRate;
@@ -28,12 +28,8 @@ public class ConditionedAttributePower extends Power {
     @Override
     public void tick() {
         if(entity.age % tickRate == 0) {
-            if(this.isActive()) {
-                removeMods();
-                addMods();
-            } else {
-                removeMods();
-            }
+            removeMods();
+            addMods();
         }
     }
 
@@ -42,7 +38,7 @@ public class ConditionedAttributePower extends Power {
         removeMods();
     }
 
-    public ConditionedAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
+    public LeveledAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
         this.originalValue =modifier.getModifier().getValue();
         this.modifiers.add(modifier);
         return this;

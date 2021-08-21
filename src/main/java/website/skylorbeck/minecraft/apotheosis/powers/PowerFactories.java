@@ -1,6 +1,5 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
-import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
@@ -14,14 +13,14 @@ import java.util.List;
 
 public class PowerFactories {
     public static void register(){
-        register(new PowerFactory<>(new Identifier("apotheosis","conditioned_attribute"),
+        register(new PowerFactory<>(new Identifier("apotheosis","leveled_attribute"),
                 new SerializableData()
                         .add("modifier", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIER, null)
                         .add("modifiers", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIERS, null)
                         .add("tick_rate", SerializableDataTypes.INT, 20),
                 data ->
                         (type, player) -> {
-                            ConditionedAttributePower ap = new ConditionedAttributePower(type, player, data.getInt("tick_rate"));
+                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"));
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
                             }

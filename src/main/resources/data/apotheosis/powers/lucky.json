@@ -1,15 +1,9 @@
 {
-  "type": "apotheosis:conditioned_attribute",
+  "type": "apotheosis:leveled_attribute",
   "modifier": {
     "name": "Lucky",
     "attribute": "minecraft:generic.luck",
     "value": 0.02,
     "operation": "addition"
-  },
-  "tick_rate": 20,
-  "condition": {
-    "type": "apotheosis:level",
-    "comparison": ">=",
-    "compare_to": 1
   }
 }
