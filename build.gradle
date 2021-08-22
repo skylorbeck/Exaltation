@@ -45,6 +45,7 @@ repositories {
             includeGroup 'net.adriantodt.fabricmc'
         }
     }
+    mavenLocal()
 
 }
 dependencies {
@@ -71,6 +72,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modImplementation "com.github.apace100:origins-fabric:1.0.3"
+    modImplementation "website.skylorbeck.minecraft:SkylorLib:1.0.2"
 }
 
 processResources {

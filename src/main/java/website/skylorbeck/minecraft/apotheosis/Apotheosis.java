@@ -11,6 +11,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 public class Apotheosis implements ModInitializer {
     @Override
     public void onInitialize() {
+        Registrar.Register();
         ApoLevelCondition.register();
         PowerFactories.register();
 

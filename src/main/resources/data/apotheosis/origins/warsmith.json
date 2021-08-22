@@ -1,8 +1,10 @@
 {
   "powers": [
-    "origins:elytra"
+    "apotheosis:lucky",
+    "apotheosis:smithing_armor_power",
+    "apotheosis:smithing_weapon_power"
   ],
-  "icon": "minecraft:iron_ingot",
+  "icon": "minecraft:iron_sword",
   "unchoosable": "true",
   "order": 1,
   "impact": 1,

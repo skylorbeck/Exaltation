@@ -11,7 +11,7 @@
   "description": "Blacksmith description TODO",
   "upgrades":
   {
-    "condition": "apotheosis:warsmith",
+    "condition": "apotheosis:blacksmith_upgrade_a",
     "origin":"apotheosis:warsmith",
     "announcement": "Warsmith Activated"
   }
