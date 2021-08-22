@@ -33,6 +33,5 @@ public class Declarar {
                     altar
             ).build(null));
     public static ScreenHandlerType<AltarScreenHandler> ALTARSCREENHANDLER =
-            ScreenHandlerRegistry.registerSimple(getIdentifier("altarscreen"),
-                    ((syncId, inventory) -> new AltarScreenHandler(syncId)));
+            ScreenHandlerRegistry.registerSimple(getIdentifier("altarscreen"),(AltarScreenHandler::new));
 }

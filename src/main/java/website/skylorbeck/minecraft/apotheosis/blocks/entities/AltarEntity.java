@@ -27,7 +27,7 @@ public class AltarEntity extends BlockEntity implements NamedScreenHandlerFactor
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new AltarScreenHandler(syncId);
+    public ScreenHandler createMenu(int syncId, PlayerInventory pInv, PlayerEntity player) {
+        return new AltarScreenHandler(syncId,pInv);
     }
 }
