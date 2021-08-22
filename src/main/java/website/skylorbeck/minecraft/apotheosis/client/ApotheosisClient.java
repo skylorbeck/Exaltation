@@ -28,6 +28,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
+import website.skylorbeck.minecraft.apotheosis.Registrar;
 import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 
 import java.util.logging.Level;
@@ -41,6 +42,7 @@ public class ApotheosisClient implements ClientModInitializer{
     public static KeyBinding testbind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("test2",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C,"test"));
     @Override
     public void onInitializeClient() {
+        Registrar.ClientRegister();
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {

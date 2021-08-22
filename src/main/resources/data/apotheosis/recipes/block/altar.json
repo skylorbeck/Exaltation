@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:red_dye"
+    },
+    "B": {
+      "item": "minecraft:red_dye"
+    }
+  },
+  "result": {
+    "item": "apotheosis:altaritem"
+  }
+}
