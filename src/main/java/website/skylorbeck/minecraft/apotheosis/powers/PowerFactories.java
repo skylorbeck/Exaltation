@@ -35,6 +35,9 @@ public class PowerFactories {
         register(new PowerFactory<>(new Identifier("apotheosis","smithing_armor_power"),
                 new SerializableData().add("scaling",SerializableDataTypes.INT,0),
                 data -> (type,player) -> new SmithingArmorPower(type,player,data.getInt("scaling"))).allowCondition());
+        register(new PowerFactory<>(new Identifier("apotheosis","smithing_weapon_power"),
+                new SerializableData().add("scaling",SerializableDataTypes.INT,0),
+                data -> (type,player) -> new SmithingWeaponPower(type,player,data.getInt("scaling"))).allowCondition());
     }
 
     private static void register(PowerFactory serializer) {
