@@ -6,6 +6,7 @@ import io.github.apace100.apoli.util.AttributedEntityAttributeModifier;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.player.PlayerEntity;
 import website.skylorbeck.minecraft.apotheosis.mixin.EntityAttributeModifierMixin;
 
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ public class LeveledAttributePower extends Power {
     private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<>();
     private final int tickRate;
     private double originalValue;
+    private int playerLevelLast = 0;
 
     public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate) {
         super(type, entity);
@@ -27,9 +29,13 @@ public class LeveledAttributePower extends Power {
 
     @Override
     public void tick() {
-        if(entity.age % tickRate == 0) {
-            removeMods();
-            addMods();
+        if(entity.age % tickRate == 0 && entity instanceof PlayerEntity) {
+            int lvl = APOXP.get(entity).getLevel();
+            if (playerLevelLast != lvl){
+                playerLevelLast = lvl;
+                removeMods();
+                addMods();
+            }
         }
     }
 
@@ -51,7 +57,9 @@ public class LeveledAttributePower extends Power {
                 if(instance != null) {
                     if(!instance.hasModifier(mod.getModifier())) {
                         EntityAttributeModifier modifier = mod.getModifier();
-                        ((EntityAttributeModifierMixin)modifier).setValue(originalValue*APOXP.get(entity).getLevel());
+                        if (entity instanceof PlayerEntity) {
+                            ((EntityAttributeModifierMixin) modifier).setValue(originalValue * APOXP.get(entity).getLevel());
+                        }
                         instance.addTemporaryModifier(modifier);
                     }
                 }

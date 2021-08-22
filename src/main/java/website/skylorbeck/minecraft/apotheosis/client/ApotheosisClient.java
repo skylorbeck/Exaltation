@@ -17,6 +17,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
+import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
@@ -26,6 +27,7 @@ public class ApotheosisClient implements ClientModInitializer{
     public static KeyBinding testbind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("test2",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C,"test"));
     @Override
     public void onInitializeClient() {
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());

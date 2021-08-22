@@ -1,6 +1,8 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
+import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.data.ApoliDataTypes;
+import io.github.apace100.apoli.power.SwimmingPower;
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.apoli.util.AttributedEntityAttributeModifier;
@@ -30,7 +32,11 @@ public class PowerFactories {
                             }
                             return ap;
                         }).allowCondition());
+        register(new PowerFactory<>(new Identifier("apotheosis","smithing_armor_power"),
+                new SerializableData().add("scaling",SerializableDataTypes.INT,0),
+                data -> (type,player) -> new SmithingArmorPower(type,player,data.getInt("scaling"))).allowCondition());
     }
+
     private static void register(PowerFactory serializer) {
         Registry.register(ApoliRegistries.POWER_FACTORY, serializer.getSerializerId(), serializer);
     }
