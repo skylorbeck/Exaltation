@@ -7,8 +7,6 @@
   "icon": "minecraft:iron_ingot",
   "order": 0,
   "impact": 3,
-  "name": "Blacksmith",
-  "description": "Blacksmith description TODO",
   "upgrades":
   {
     "condition": "apotheosis:blacksmith_upgrade_a",

@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +29,6 @@ public class AltarEntity extends BlockEntity implements NamedScreenHandlerFactor
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory pInv, PlayerEntity player) {
-        return new AltarScreenHandler(syncId,pInv);
+        return new AltarScreenHandler(syncId,pInv, ScreenHandlerContext.create(world, pos));
     }
 }

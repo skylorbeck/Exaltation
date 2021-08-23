@@ -1,7 +1,6 @@
 {
   "type": "apotheosis:leveled_attribute",
   "modifier": {
-    "name": "Lucky",
     "attribute": "minecraft:generic.luck",
     "value": 0.02,
     "operation": "addition"

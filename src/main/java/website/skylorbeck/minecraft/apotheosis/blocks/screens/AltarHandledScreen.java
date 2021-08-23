@@ -2,7 +2,6 @@ package website.skylorbeck.minecraft.apotheosis.blocks.screens;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.github.apace100.origins.Origins;
 import io.github.apace100.origins.origin.*;
 import io.github.apace100.origins.registry.ModComponents;
 import net.minecraft.client.MinecraftClient;
@@ -10,14 +9,17 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerAdvancementLoader;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
@@ -27,37 +29,13 @@ import java.util.Optional;
 
 public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
     private static final Identifier TEXTURE = Declarar.getIdentifier("textures/gui/altarbg.png");
-    private PlayerEntity player;
     private Origin origin;
-    private Origin[] originUpgrades = new Origin[2];
-    private OriginLayer originLayer;
-    private Identifier[] advancementID = new Identifier[2];
-    private MinecraftServer server;
-    private ServerWorld serverWorld;
-    private ServerAdvancementLoader advancementLoader;
+    private final Origin[] originUpgrades = new Origin[2];
+    private final Identifier[] advancementID = new Identifier[2];
 
     public AltarHandledScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.client = MinecraftClient.getInstance();
-        server = client.getServer();
-        assert server != null;
-        advancementLoader = server.getAdvancementLoader();
-        player = server.getPlayerManager().getPlayer(client.player.getUuid());
-        originLayer = OriginLayers.getLayer(new Identifier("apotheosis", "class"));
-        origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
-        advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
-        advancementID[1] = new Identifier(origin.getIdentifier()+"_upgrade_b");
-        try {
-            originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
-        } catch (Exception ignored){
-            originUpgrades[0]=null;
-        }
-        try {
-            originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
-        } catch (Exception ignored){
-            originUpgrades[1]=null;
-        }
-        serverWorld = server.getOverworld();
+
     }
 
     @Override
@@ -71,24 +49,29 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
         x = x + 60;
         y = y + 14;
         for (int i = 0; i < 2; ++i) {
+            int t = 6839882;
             this.setZOffset(0);
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, TEXTURE);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            if (origin.hasUpgrade()) {
-                int u = mouseX - (x+(54*i));
-                int v = mouseY - y;
+            int u = mouseX - (x+(54*i));
+            int v = mouseY - y;
+
+            if (origin.hasUpgrade() && originUpgrades[i]!=null) {
+//                t = 4226832;
                 if (u >= 0 && v >= 0 && u < 54 && v < 57) {
                     this.drawTexture(matrices, x + (54 * i), y, 108, 166, 54, 57);//highlighted
+                    t = 16777088;
                 } else {
                     this.drawTexture(matrices, x + (54 * i), y, 0, 166, 54, 57);//has upgrade
                 }
             } else {
                 this.drawTexture(matrices, x + (54 * i), y, 54, 166, 54, 57);//no upgrade
+                t = 8453920;
             }
             if (originUpgrades[i] != null) {
                 Origin up = originUpgrades[i];
-                this.textRenderer.drawTrimmed(up.getName(),x+27+(54 * i)-this.textRenderer.getWidth(up.getName())/2,y+3,54, DyeColor.WHITE.getSignColor());
+                this.textRenderer.drawWithShadow(matrices,up.getName().asOrderedText(),x+27+(54 * i)-this.textRenderer.getWidth(up.getName())/2,y+3, t);
                 Impact impact = up.getImpact();
                 int impactValue = impact.getImpactValue();
                 int offset = impactValue*8;
@@ -102,8 +85,13 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                         this.drawTexture(matrices, x+13 + (j * 10), y + 15, 0, 223, 8, 8);
                     }
                 }
-                this.itemRenderer.renderGuiItemIcon(up.getDisplayItem(),x + 21 + (54 * i),y+36);
-
+                ItemStack item = up.getDisplayItem().copy();
+                if (u >= 0 && v >= 0 && u < 54 && v < 57) {
+                    item.addEnchantment(Enchantments.VANISHING_CURSE,1);
+                }
+                this.itemRenderer.renderGuiItemIcon(item,x + 21 + (54 * i),y+36);
+            } else {
+                this.textRenderer.drawTrimmed(Text.of("NULL"),x+27+(54 * i)-this.textRenderer.getWidth("NULL")/2,y+3,54, t);
             }
         }
     }
@@ -115,6 +103,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             if (this.isPointWithinBounds(60 + (54 * i), 14, 54,57, mouseX, mouseY) ) {
                 if (originUpgrades[i] != null) {
                     List<Text> list = Lists.newArrayList();
+                    list.add(originUpgrades[i].getDescription());
                     originUpgrades[i].getPowerTypes().forEach(powerType -> {
                        list.add(powerType.getName());
                     });
@@ -125,6 +114,22 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        int x = (this.width - this.backgroundWidth) / 2;
+        int y = (this.height - this.backgroundHeight) / 2;
+
+        for(int i = 0; i < 2; ++i) {
+            double u = mouseX - (double)(x + 60+(54*i));
+            double v = mouseY - (double)(y + 14);
+            if (originUpgrades[i]!=null && u >= 0.0D && v >= 0.0D && u < 54D && v < 57D && this.handler.onButtonClick(this.client.player, i)) {
+                this.client.interactionManager.clickButton(this.handler.syncId, i);
+                return true;
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
@@ -169,6 +174,25 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
 
     @Override
     protected void init() {
+        this.client = MinecraftClient.getInstance();
+        MinecraftServer server = client.getServer();
+        assert server != null;
+        ServerAdvancementLoader advancementLoader = server.getAdvancementLoader();
+        PlayerEntity player = server.getPlayerManager().getPlayer(client.player.getUuid());
+        OriginLayer originLayer = OriginLayers.getLayer(new Identifier("apotheosis", "class"));
+        origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
+        advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
+        advancementID[1] = new Identifier(origin.getIdentifier()+"_upgrade_b");
+        try {
+            originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
+        } catch (Exception ignored){
+            originUpgrades[0]=null;
+        }
+        try {
+            originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
+        } catch (Exception ignored){
+            originUpgrades[1]=null;
+        }
         super.init();
     }
 }
