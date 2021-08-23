@@ -46,10 +46,11 @@ public class ApotheosisClient implements ClientModInitializer{
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
+
                 //////////////UPGRADE CODE FOR TOTEMS
                 /* PlayerEntity playerEntity = client.player;
                 OriginLayer originLayer = OriginLayers.getLayer(new Identifier("apotheosis","class"));
-                Origin origin = OriginRegistry.get(originLayer.getOrigins(playerEntity).get(0));
+                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
                 String string = origin.getIdentifier().getPath()+"_upgrade_a";
                 Identifier identifier = new Identifier("apotheosis",string);
                 MinecraftServer server = client.getServer();
