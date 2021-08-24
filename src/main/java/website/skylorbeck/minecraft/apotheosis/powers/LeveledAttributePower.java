@@ -78,6 +78,8 @@ public class LeveledAttributePower extends Power {
     }
 
     public void removeMods() {
+        float previousMaxHealth = entity.getMaxHealth();
+        float previousHealthPercent = entity.getHealth() / previousMaxHealth;
         modifiers.forEach(mod -> {
             if (entity.getAttributes().hasAttribute(mod.getAttribute())) {
                 EntityAttributeInstance instance = entity.getAttributeInstance(mod.getAttribute());
@@ -88,5 +90,9 @@ public class LeveledAttributePower extends Power {
                 }
             }
         });
+        float afterMaxHealth = entity.getMaxHealth();
+        if(afterMaxHealth != previousMaxHealth) {
+            entity.setHealth(afterMaxHealth * previousHealthPercent);
+        }
     }
 }

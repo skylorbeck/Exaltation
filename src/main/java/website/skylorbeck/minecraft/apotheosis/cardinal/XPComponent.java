@@ -24,7 +24,9 @@ public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
     }
 
     public int getLevelUpCost(){
-        return (this.Level+1)%5==0?this.Level+6:this.Level+1;
+        int cost = Math.min(Level, 20);
+        cost+=(Level+1)%5==0?5:0;
+        return cost;
     }
 
     @Override

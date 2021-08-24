@@ -276,7 +276,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
         origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
 //        if (AXP>=50 ||(APOXP.get(player).getAscended() && (this.AXP==15||this.AXP==25||this.AXP==45))){
 //        Logger.getGlobal().log(Level.SEVERE,origin.hasUpgrade()+":"+PowerHolderComponent.hasPower(player, BranchingClassPower.class) +":"+PowerHolderComponent.getPowers(player, BranchingClassPower.class).get(0).getLevel()+":"+AXP);
-        if (origin.hasUpgrade() && PowerHolderComponent.hasPower(player, BranchingClassPower.class) && AXP == PowerHolderComponent.getPowers(player, BranchingClassPower.class).get(0).getLevel()){
+        if (origin.hasUpgrade() && PowerHolderComponent.hasPower(player, BranchingClassPower.class) && AXP >= PowerHolderComponent.getPowers(player, BranchingClassPower.class).get(0).getLevel()){
             mode = Mode.classfork;
             Identifier[] advancementID = new Identifier[2];
             advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
