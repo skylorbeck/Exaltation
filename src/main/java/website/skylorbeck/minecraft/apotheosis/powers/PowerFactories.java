@@ -31,10 +31,11 @@ public class PowerFactories {
                 new SerializableData()
                         .add("modifier", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIER, null)
                         .add("modifiers", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIERS, null)
-                        .add("tick_rate", SerializableDataTypes.INT, 20),
+                        .add("tick_rate", SerializableDataTypes.INT, 20)
+                        .add("scale", SerializableDataTypes.INT, 1),
                 data ->
                         (type, player) -> {
-                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"));
+                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"));
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
                             }
@@ -50,11 +51,11 @@ public class PowerFactories {
                         .add("modifier", SerializableDataTypes.ATTRIBUTE_MODIFIER, null)
                         .add("self_action", ApoliDataTypes.ENTITY_ACTION, null)
                         .add("attacker_action", ApoliDataTypes.ENTITY_ACTION, null)
-                        .add("scaling",SerializableDataTypes.INT,0),
+                        .add("scale",SerializableDataTypes.INT,0),
                 data ->
                         (type, player) -> {
                             ScalingModifyDamageTakenPower power = new ScalingModifyDamageTakenPower(
-                                    data.getInt("scaling"),
+                                    data.getInt("scale"),
                                     data.getModifier("modifier"),
                                     type,
                                     player,

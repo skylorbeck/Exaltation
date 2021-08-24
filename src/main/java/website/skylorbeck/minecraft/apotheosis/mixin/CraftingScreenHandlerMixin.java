@@ -77,6 +77,9 @@ public class CraftingScreenHandlerMixin {
 //        Logger.getGlobal().log(Level.SEVERE,"SMITHSCALECHECK: "+scale + "::: power count: "+PowerHolderComponent.getPowers(serverPlayerEntity,SmithingArmorPower.class).size());
 
         if (scale!=0) {
+            if (APOXP.get(serverPlayerEntity).getAscended()){
+                return Math.floorDiv(50,scale);
+            }
             return Math.floorDiv(APOXP.get(serverPlayerEntity).getLevel(), scale);
         }
             else
@@ -92,6 +95,9 @@ public class CraftingScreenHandlerMixin {
 //        Logger.getGlobal().log(Level.SEVERE,"SMITHSCALECHECK: "+scale + "::: power count: "+PowerHolderComponent.getPowers(serverPlayerEntity,SmithingArmorPower.class).size());
 
         if (scale!=0) {
+            if (APOXP.get(serverPlayerEntity).getAscended()){
+                return Math.floorDiv(50,scale);
+            }
             return Math.floorDiv(APOXP.get(serverPlayerEntity).getLevel(), scale);
         }
             else
