@@ -4,7 +4,9 @@
   "enabled": true,
   "origins": [
     "apotheosis:blacksmith",
-    "apotheosis:warsmith"
+    "apotheosis:warsmith",
+    "apotheosis:warsmitha",
+    "apotheosis:warsmithb"
   ],
   "allow_random": true,
   "exclude_random": [

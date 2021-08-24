@@ -8,7 +8,8 @@
     "CraftingScreenHandlerMixin",
     "EnchantmentScreenHandlerMixin",
     "EntityAttributeModifierMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "ServerPlayerEntityMixin"
   ],
   "client": [
   ],

@@ -2,6 +2,8 @@ package website.skylorbeck.minecraft.apotheosis.blocks.screens;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.power.PowerTypeRegistry;
 import io.github.apace100.origins.origin.*;
 import io.github.apace100.origins.registry.ModComponents;
 import net.minecraft.client.MinecraftClient;
@@ -25,9 +27,13 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
+import website.skylorbeck.minecraft.apotheosis.powers.BranchingClassPower;
+import website.skylorbeck.minecraft.apotheosis.powers.SmithingWeaponPower;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
@@ -42,34 +48,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
 
     public AltarHandledScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.client = MinecraftClient.getInstance();
-        MinecraftServer server = client.getServer();
-        assert server != null;
-        ServerAdvancementLoader advancementLoader = server.getAdvancementLoader();
-        PlayerEntity player = server.getPlayerManager().getPlayer(client.player.getUuid());
-        OriginLayer originLayer = OriginLayers.getLayer(new Identifier("apotheosis", "class"));
-        origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
-        Identifier[] advancementID = new Identifier[2];
-        advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
-        advancementID[1] = new Identifier(origin.getIdentifier()+"_upgrade_b");
-        try {
-            originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
-        } catch (Exception ignored){
-            originUpgrades[0]=null;
-        }
-        try {
-            originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
-        } catch (Exception ignored){
-            originUpgrades[1]=null;
-        }
-        MCXP = client.player.experienceLevel;
-        AXP = APOXP.get(client.player).getLevel();
-        AXPC = APOXP.get(client.player).getLevelUpCost();
-        if (AXP>=50){
-            mode = Mode.classfork;
-        } else {
-            mode = Mode.normal;
-        }
+        levelUpClicked();
     }
 
     private enum Mode{
@@ -140,6 +119,8 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                             t = 16777088;
                         } else {
                             this.drawTexture(matrices, x + (54 * i), y, 0, 166, 54, 57);//has upgrade
+                            t = 6839882;
+
                         }
                     } else {
                         this.drawTexture(matrices, x + (54 * i), y, 54, 166, 54, 57);//no upgrade
@@ -156,9 +137,9 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         for (int j = 0; j < 3; j++) {
                             if (j < impactValue) {
-                                this.drawTexture(matrices, x + 13 + (j * 10), y + 15, offset, 242, 8, 8);
+                                this.drawTexture(matrices, x + 13 + (j * 10) +(54*i), y + 15, offset, 242, 8, 8);
                             } else {
-                                this.drawTexture(matrices, x + 13 + (j * 10), y + 15, 0, 242, 8, 8);
+                                this.drawTexture(matrices, x + 13 + (j * 10)+(54*i), y + 15, 0, 242, 8, 8);
                             }
                         }
                         ItemStack item = up.getDisplayItem().copy();
@@ -188,9 +169,13 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                     if (this.isPointWithinBounds(60 + (54 * i), 14, 54, 57, mouseX, mouseY)) {
                         if (originUpgrades[i] != null) {
                             List<Text> list = Lists.newArrayList();
-                            list.add(originUpgrades[i].getDescription());
+//                            list.add(originUpgrades[i].getDescription());
                             originUpgrades[i].getPowerTypes().forEach(powerType -> {
-                                list.add(powerType.getName());
+                                if (!powerType.getName().toString().contains("branch") && !origin.hasPowerType(powerType)){
+                                    list.add(Text.of("New Powers:"));
+                                    list.add(powerType.getName());
+                                    list.add(powerType.getDescription());
+                                }
                             });
                             this.renderTooltip(matrices, list, mouseX, mouseY);
                             break;
@@ -287,21 +272,25 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
         MCXP = player.experienceLevel;
         AXP = APOXP.get(player).getLevel();
         AXPC = APOXP.get(player).getLevelUpCost();
-        OriginLayer originLayer = OriginLayers.getLayer(new Identifier("apotheosis", "class"));
+        OriginLayer originLayer = OriginLayers.getLayer(Declarar.getIdentifier("class"));
         origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
-        if (AXP>=50 ||(APOXP.get(player).getAscended() && (this.AXP==15||this.AXP==25||this.AXP==45))){
+//        if (AXP>=50 ||(APOXP.get(player).getAscended() && (this.AXP==15||this.AXP==25||this.AXP==45))){
+//        Logger.getGlobal().log(Level.SEVERE,origin.hasUpgrade()+":"+PowerHolderComponent.hasPower(player, BranchingClassPower.class) +":"+PowerHolderComponent.getPowers(player, BranchingClassPower.class).get(0).getLevel()+":"+AXP);
+        if (origin.hasUpgrade() && PowerHolderComponent.hasPower(player, BranchingClassPower.class) && AXP == PowerHolderComponent.getPowers(player, BranchingClassPower.class).get(0).getLevel()){
             mode = Mode.classfork;
             Identifier[] advancementID = new Identifier[2];
             advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
             advancementID[1] = new Identifier(origin.getIdentifier()+"_upgrade_b");
             try {
                 originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
-            } catch (Exception ignored){
+            } catch (Exception exception){
+//                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getCause()));
                 originUpgrades[0]=null;
             }
             try {
                 originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
-            } catch (Exception ignored){
+            } catch (Exception exception){
+//                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getMessage()));
                 originUpgrades[1]=null;
             }
         } else {

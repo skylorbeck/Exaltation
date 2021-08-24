@@ -1,0 +1,14 @@
+{
+  "powers": [
+    "apotheosis:branchat25",
+    "apotheosis:hearty",
+    "apotheosis:lucky",
+    "apotheosis:smithing_armor_power",
+    "apotheosis:smithing_weapon_power"
+  ],
+  "icon": "minecraft:iron_sword",
+  "unchoosable": "true",
+  "impact": 1,
+  "name": "origin.apotheosis.warsmith.name",
+  "description": "origin.apotheosis.warsmith.description"
+}

@@ -1,11 +1,12 @@
 {
   "powers": [
+    "apotheosis:branchat50",
     "apotheosis:lucky",
     "apotheosis:smithing_armor_power",
     "apotheosis:smithing_weapon_power"
+
   ],
   "icon": "minecraft:iron_ingot",
-  "order": 0,
   "impact": 1,
   "upgrades":
   {

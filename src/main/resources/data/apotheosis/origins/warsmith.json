@@ -1,11 +1,24 @@
 {
   "powers": [
+    "apotheosis:branchat10",
+    "apotheosis:hearty",
+    "apotheosis:warsmith_damage",
+    "apotheosis:warsmith_damage_reduction",
     "apotheosis:lucky",
     "apotheosis:smithing_armor_power",
     "apotheosis:smithing_weapon_power"
   ],
   "icon": "minecraft:iron_sword",
   "unchoosable": "true",
-  "order": 1,
-  "impact": 1
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "apotheosis:warsmith_upgrade_a",
+      "origin": "apotheosis:warsmitha"
+    },
+    {
+      "condition": "apotheosis:warsmith_upgrade_b",
+      "origin": "apotheosis:warsmithb"
+    }
+  ]
 }

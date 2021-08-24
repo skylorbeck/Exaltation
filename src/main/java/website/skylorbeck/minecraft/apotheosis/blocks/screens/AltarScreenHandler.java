@@ -114,8 +114,10 @@ public class AltarScreenHandler extends ScreenHandler {
 
                 server.getCommandManager().execute(new ServerCommandSource(server, new Vec3d(serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ()), Vec2f.ZERO, serverWorld, 4, "Apotheosis", new LiteralText("Apotheosis"), server, null),
                         String.format("advancement grant " + serverPlayer.getEntityName() + " only " + advancementID));
-                APOXP.get(serverPlayer).setLevel(1);
-                APOXP.get(serverPlayer).setAscended(true);
+                if (!APOXP.get(serverPlayer).getAscended()) {
+                    APOXP.get(serverPlayer).setLevel(1);
+                    APOXP.get(serverPlayer).setAscended(true);
+                }
                 APOXP.sync(serverPlayer);
                 serverWorld.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.BLOCKS, 1.0F, serverWorld.random.nextFloat() * 0.1F + 0.9F);
 

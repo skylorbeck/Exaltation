@@ -35,10 +35,10 @@ public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
     @Override
     public void addLevel(int level) {
         this.Level+=level;
-        if (this.Level ==50 && ModComponents.ORIGIN.get(playerEntity).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis","class"))).hasUpgrade()){
-            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup1"),false);
-            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup2"),false);
-        }
+//        if (this.Level ==50 && ModComponents.ORIGIN.get(playerEntity).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis","class"))).hasUpgrade()){
+//            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup1"),false);
+//            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup2"),false);
+//        }
     }
 
     @Override
