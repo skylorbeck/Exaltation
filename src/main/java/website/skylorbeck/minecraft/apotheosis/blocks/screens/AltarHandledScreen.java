@@ -171,7 +171,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                             List<Text> list = Lists.newArrayList();
 //                            list.add(originUpgrades[i].getDescription());
                             originUpgrades[i].getPowerTypes().forEach(powerType -> {
-                                if (!powerType.getName().toString().contains("branch") && !origin.hasPowerType(powerType)){
+                                if (!powerType.isHidden() && !origin.hasPowerType(powerType)){
                                     list.add(Text.of("New Powers:"));
                                     list.add(powerType.getName());
                                     list.add(powerType.getDescription());
@@ -257,7 +257,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
 
     @Override
     protected void init() {
-
+        this.client = MinecraftClient.getInstance();
         super.init();
     }
 

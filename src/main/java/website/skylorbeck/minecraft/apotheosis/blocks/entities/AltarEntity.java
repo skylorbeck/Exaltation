@@ -20,11 +20,12 @@ public class AltarEntity extends BlockEntity implements NamedScreenHandlerFactor
         super(Declarar.ALTARENTITY, pos, state);
     }
 
-
     @Override
     public Text getDisplayName() {
         return new TranslatableText("apotheosis.altar.name");
     }
+
+
 
     @Nullable
     @Override

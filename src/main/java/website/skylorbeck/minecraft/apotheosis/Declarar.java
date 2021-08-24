@@ -17,21 +17,21 @@ import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 
 public class Declarar {
-    public static String MODID = "apotheosis";
+    public static final String MODID = "apotheosis";
     public static Identifier getIdentifier(String string){
         return new Identifier(MODID,string);
     }
 
-    public static Block altar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK));
-    public static BlockItem altarItem = new BlockItem(altar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Block altar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE),0);
+    public static final BlockItem altarItem = new BlockItem(altar,new FabricItemSettings().group(ItemGroup.MISC));
 
-    public static BlockEntityType<AltarEntity> ALTARENTITY = Registry.register(
+    public static final BlockEntityType<AltarEntity> ALTARENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             getIdentifier("altarentity"),
             FabricBlockEntityTypeBuilder.create(
                     AltarEntity::new,
                     altar
             ).build(null));
-    public static ScreenHandlerType<AltarScreenHandler> ALTARSCREENHANDLER =
-            ScreenHandlerRegistry.registerSimple(getIdentifier("altarscreen"),(AltarScreenHandler::new));
+    public static final ScreenHandlerType<AltarScreenHandler> ALTARSCREENHANDLER =
+            ScreenHandlerRegistry.registerSimple(getIdentifier("altarscreen"),AltarScreenHandler::new);
 }

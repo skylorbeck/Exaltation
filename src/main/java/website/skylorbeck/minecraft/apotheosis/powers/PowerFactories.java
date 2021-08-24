@@ -26,6 +26,10 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("branching"),
                 new SerializableData().add("level",SerializableDataTypes.INT,0),
                 data -> (type,player) -> new BranchingClassPower(type,player,data.getInt("level"))));
+        register(new PowerFactory<>(Declarar.getIdentifier("consuming"),
+                new SerializableData()
+                        .add("item",SerializableDataTypes.STRING,"minecraft:air"),
+                data -> (type,player) -> new ConsumingItemPower(type,player,data.getString("item"))));
 
         register(new PowerFactory<>(Declarar.getIdentifier("leveled_attribute"),
                 new SerializableData()
