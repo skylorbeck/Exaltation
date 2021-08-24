@@ -6,7 +6,7 @@
   ],
   "icon": "minecraft:iron_ingot",
   "order": 0,
-  "impact": 3,
+  "impact": 1,
   "upgrades":
   {
     "condition": "apotheosis:blacksmith_upgrade_a",

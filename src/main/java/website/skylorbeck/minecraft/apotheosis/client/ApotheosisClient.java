@@ -46,47 +46,17 @@ public class ApotheosisClient implements ClientModInitializer{
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
-
-                //////////////UPGRADE CODE FOR TOTEMS
-                /* PlayerEntity playerEntity = client.player;
-                OriginLayer originLayer = OriginLayers.getLayer(new Identifier("apotheosis","class"));
-                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
-                String string = origin.getIdentifier().getPath()+"_upgrade_a";
-                Identifier identifier = new Identifier("apotheosis",string);
-                MinecraftServer server = client.getServer();
-                ServerWorld world = server.getOverworld();
-
-                server.getCommandManager().execute(new ServerCommandSource(server, new Vec3d(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ()), Vec2f.ZERO, world, 4, "Apotheosis", new LiteralText("Apotheosis"), server, null),
-                        String.format("advancement grant "+playerEntity.getEntityName()+" only "+ identifier));*/
-                /////////////
-
-//                   Logger.getGlobal().log(Level.SEVERE,string);
-//                Logger.getGlobal().log(Level.SEVERE,"");
-
-
-//              ModComponents.ORIGIN.get(client.player).setOrigin("apotheosis:origin", OriginRegistry.get(new Identifier("apotheosis","blacksmith")).getUpgrade(MinecraftClient.getInstance().getServer().getAdvancementLoader().get(new Identifier("apotheosis","warsmith"))));
-
-
-                /* PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
-                client.player.sendChatMessage("Luck: "+ playerEntity.getAttributeValue(EntityAttributes.GENERIC_LUCK));*/
-                /*PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
-                client.player.sendChatMessage("XP BEFORE: "+ APOXP.get(playerEntity).getXP());
-                APOXP.get(playerEntity).addXP(2.5f);
-                client.player.sendChatMessage("XP AFTER: "+ APOXP.get(playerEntity).getXP());
-                APOXP.sync(playerEntity);*/
-                /*MinecraftServer server = client.getServer();
-                assert server != null;
-                ServerWorld world = server.getOverworld();
-                PlayerEntity user = client.player;
-                assert user != null;
-                server.getCommandManager().execute(new ServerCommandSource(server, new Vec3d(user.getX(), user.getY(), user.getZ()), Vec2f.ZERO, world, 4, "Apotheosis", new LiteralText("Apotheosis"), server, null),
-                String.format("advancement grant "+client.player.getEntityName()+" only apotheosis:warsmith"));*/
+                PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
+                APOXP.get(playerEntity).setLevel(1);
+                client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
+                APOXP.get(playerEntity).setAscended(false);
+                APOXP.sync(playerEntity);
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind2.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
-                APOXP.get(playerEntity).addLevel(1);
+                APOXP.get(playerEntity).setLevel(49);
                 client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
                 APOXP.sync(playerEntity);
             }

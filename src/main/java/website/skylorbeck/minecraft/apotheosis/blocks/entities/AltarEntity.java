@@ -23,7 +23,7 @@ public class AltarEntity extends BlockEntity implements NamedScreenHandlerFactor
 
     @Override
     public Text getDisplayName() {
-        return new TranslatableText("apotheosis.blocks.altar.name");
+        return new TranslatableText("apotheosis.altar.name");
     }
 
     @Nullable

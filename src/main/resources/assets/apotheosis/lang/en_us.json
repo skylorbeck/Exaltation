@@ -1,0 +1,19 @@
+{
+  "apotheosis.altar.name": "Altar",
+  "apotheosis.altar.xp": "Class Level",
+  "apotheosis.altar.xpcost": "Level Up Cost",
+  "apotheosis.altar.levelup": "Level Up!",
+  "apotheosis.altar.notenoughxp": "Not enough XP",
+  "apotheosis.levelup1": "You have reached maximum power",
+  "apotheosis.levelup2": "Use an Altar to Ascend",
+  "origin.apotheosis.warsmith.name": "Warsmith",
+  "origin.apotheosis.warsmith.description": "Warsmith Description TODO",
+  "origin.apotheosis.blacksmith.name": "Blacksmith",
+  "origin.apotheosis.blacksmith.description": "Blacksmith Description TODO",
+  "power.apotheosis.lucky.name": "Lucky",
+  "power.apotheosis.lucky.description": "Gain 0.02 Luck per class level",
+  "power.apotheosis.smithing_armor_power.name": "Armorsmith",
+  "power.apotheosis.smithing_armor_power.description": "All crafted armor has increased durability",
+  "power.apotheosis.smithing_weapon_power.name": "Weaponsmith",
+  "power.apotheosis.smithing_weapon_power.description": "All crafted melee weapons have increased damage"
+}
