@@ -24,6 +24,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
@@ -170,11 +171,12 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                         if (originUpgrades[i] != null) {
                             List<Text> list = Lists.newArrayList();
 //                            list.add(originUpgrades[i].getDescription());
+                            list.add(Text.of("New Powers:").copy().formatted(Formatting.LIGHT_PURPLE));
+
                             originUpgrades[i].getPowerTypes().forEach(powerType -> {
                                 if (!powerType.isHidden() && !origin.hasPowerType(powerType)){
-                                    list.add(Text.of("New Powers:"));
-                                    list.add(powerType.getName());
-                                    list.add(powerType.getDescription());
+                                    list.add(powerType.getName().formatted(Formatting.GOLD));
+                                    list.add(Text.of("  "+powerType.getDescription().getString()));
                                 }
                             });
                             this.renderTooltip(matrices, list, mouseX, mouseY);

@@ -6,6 +6,7 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Items;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoLevelCondition;
+import website.skylorbeck.minecraft.apotheosis.hud.ApoHud;
 import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 
 public class Apotheosis implements ModInitializer {

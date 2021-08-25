@@ -13,6 +13,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.screen.EnchantmentScreenHandler;
@@ -110,13 +111,14 @@ public class AltarScreenHandler extends ScreenHandler {
 
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
-        MinecraftServer server = MinecraftClient.getInstance().getServer();
         switch (id){
             case 0,1 ->{
                 Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class")));
                 Identifier advancementID = id == 0 ? new Identifier(origin.getIdentifier() + "_upgrade_a") : new Identifier(origin.getIdentifier() + "_upgrade_b");
-                server.getCommandManager().execute(new ServerCommandSource(server, new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, server.getOverworld(), 4, "Apotheosis", new LiteralText("Apotheosis"), server, null),
+                context.run(((world, blockPos) -> {
+                world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Apotheosis", new LiteralText("Apotheosis"), world.getServer(), null),
                         String.format("advancement grant " + player.getEntityName() + " only " + advancementID));
+                }));
                 if (!APOXP.get(player).getAscended()) {
                     APOXP.get(player).setLevel(1);
                     APOXP.get(player).setAscended(true);
@@ -133,8 +135,8 @@ public class AltarScreenHandler extends ScreenHandler {
                 if ((APOXPLVL+1)%5==0) {
                     if (PowerHolderComponent.hasPower(player, ConsumingItemPower.class)){
                         ItemStack item = inventory.getStack(0);
-                        Item itemcost = PowerHolderComponent.getPowers(player,ConsumingItemPower.class).get(0).getItem();
-                        int cost = Math.min(Math.floorDiv(APOXPLVL+1,5),4);
+                        Item itemcost = APOXPLVL>=44?Items.DIAMOND:PowerHolderComponent.getPowers(player,ConsumingItemPower.class).get(0).getItem();
+                        int cost = APOXPLVL>=44?APOXPLVL>=49?2:1:Math.min(Math.floorDiv(APOXPLVL+1,5),4);
 
                         if ((!item.getItem().equals(itemcost)||item.getCount()<5*cost) && !player.isCreative()) {
                             this.context.run(((world, blockPos) -> {

@@ -1,7 +1,9 @@
 {
   "powers": [
     "apotheosis:branchat25",
-    "apotheosis:hearty",
+    "apotheosis:hearty_scaling",
+    "apotheosis:warsmith_damage",
+    "apotheosis:warsmith_damage_reduction",
     "apotheosis:lucky",
     "apotheosis:smithing_armor_power",
     "apotheosis:smithing_weapon_power"

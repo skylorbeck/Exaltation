@@ -15,8 +15,13 @@
   "power.apotheosis.lucky.description": "Gain 0.02 Luck per class level",
   "power.apotheosis.hearty.name": "Hearty",
   "power.apotheosis.hearty.description": "+3 Hearts",
+  "power.apotheosis.hearty_scaling.description": "+1 Heart every 5 levels",
   "power.apotheosis.smithing_armor_power.name": "Armorsmith",
   "power.apotheosis.smithing_armor_power.description": "All crafted armor has increased durability",
   "power.apotheosis.smithing_weapon_power.name": "Weaponsmith",
-  "power.apotheosis.smithing_weapon_power.description": "All crafted melee weapons have increased damage"
+  "power.apotheosis.smithing_weapon_power.description": "All crafted melee weapons have increased damage",
+  "power.apotheosis.warsmith_damage_reduction.name": "Damage Reduction",
+  "power.apotheosis.warsmith_damage_reduction.description": "0.5 Damage Reduction every 5 levels",
+  "power.apotheosis.warsmith_damage.name": "Increased Damage",
+  "power.apotheosis.warsmith_damage.description": "0.05 increased damage per level"
 }

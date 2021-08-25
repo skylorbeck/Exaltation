@@ -29,6 +29,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.glfw.GLFW;
 import website.skylorbeck.minecraft.apotheosis.Registrar;
+import website.skylorbeck.minecraft.apotheosis.hud.ApoHud;
 import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 
 import java.util.logging.Level;
@@ -38,12 +39,13 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class ApotheosisClient implements ClientModInitializer{
+    public static ApoHud apoHud;
     public static KeyBinding testbind = KeyBindingHelper.registerKeyBinding(new KeyBinding("test",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z,"test"));
     public static KeyBinding testbind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("test2",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C,"test"));
     @Override
     public void onInitializeClient() {
         Registrar.ClientRegister();
-
+        apoHud = new ApoHud();
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
