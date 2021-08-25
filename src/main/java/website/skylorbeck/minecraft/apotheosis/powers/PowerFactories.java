@@ -39,7 +39,7 @@ public class PowerFactories {
                         .add("scale", SerializableDataTypes.INT, 1),
                 data ->
                         (type, player) -> {
-                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"));
+                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"),((AttributedEntityAttributeModifier)data.get("modifier")).getModifier().getValue());
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
                             }

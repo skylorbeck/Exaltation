@@ -20,14 +20,16 @@ public class LeveledAttributePower extends Power {
     private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<>();
     private final int tickRate;
     private final int scale;
-    private double originalValue;
+    private final double originalValue;
     private int playerLevelLast = 0;
 
-    public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate,int scale) {
+    public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate,int scale,double originalValue) {
         super(type, entity);
         this.setTicking(true);
         this.tickRate = tickRate;
         this.scale = scale;
+        this.originalValue =originalValue;
+
     }
 
     @Override
@@ -54,7 +56,6 @@ public class LeveledAttributePower extends Power {
     }
 
     public LeveledAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
-        this.originalValue =modifier.getModifier().getValue();
         this.modifiers.add(modifier);
         return this;
     }

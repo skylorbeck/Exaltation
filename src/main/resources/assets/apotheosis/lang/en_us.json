@@ -23,5 +23,7 @@
   "power.apotheosis.warsmith_damage_reduction.name": "Damage Reduction",
   "power.apotheosis.warsmith_damage_reduction.description": "0.5 Damage Reduction every 5 levels",
   "power.apotheosis.warsmith_damage.name": "Increased Damage",
-  "power.apotheosis.warsmith_damage.description": "0.05 increased damage per level"
+  "power.apotheosis.warsmith_damage.description": "0.05 increased damage per level",
+  "power.apotheosis.warsmith_damage_durability.name": "Nose to the Grindstone",
+  "power.apotheosis.warsmith_damage_durability.description": "Weapons +0.5 Damage if 50%+ durability"
 }

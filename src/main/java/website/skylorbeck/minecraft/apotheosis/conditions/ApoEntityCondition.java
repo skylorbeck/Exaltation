@@ -14,7 +14,7 @@ import net.minecraft.util.registry.Registry;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
-public class ApoLevelCondition {
+public class ApoEntityCondition {
     @SuppressWarnings("unchecked")
     public static void register() {
         register(new ConditionFactory<>(new Identifier("apotheosis", "level"), new SerializableData()
