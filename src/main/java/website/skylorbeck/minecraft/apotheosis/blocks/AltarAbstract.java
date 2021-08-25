@@ -37,7 +37,7 @@ public class AltarAbstract extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new AltarEntity(pos, state);
+        return new AltarEntity(pos, state, tier);
     }
 
     @Nullable
@@ -57,5 +57,9 @@ public class AltarAbstract extends BlockWithEntity {
 //            player.incrementStat(Stats.);//todo
             return ActionResult.CONSUME;
         }
+    }
+
+    public int getTier() {
+        return tier;
     }
 }

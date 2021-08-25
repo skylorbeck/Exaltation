@@ -1,4 +1,8 @@
 {
+  "enchantment.apotheosis.healthbooster": "Healthy",
+  "enchantment.apotheosis.armorsharpness": "Finesse",
+  "enchantment.apotheosis.knockbackresist": "Sturdy",
+
   "layer.apotheosis.class.name": "Class",
   "apotheosis.altar.name": "Altar",
   "apotheosis.altar.xp": "Class Level",

@@ -9,6 +9,7 @@
     "EnchantmentScreenHandlerMixin",
     "EntityAttributeModifierMixin",
     "ItemStackMixin",
+    "LivingEntityMixin",
     "ServerPlayerEntityMixin"
   ],
   "client": [

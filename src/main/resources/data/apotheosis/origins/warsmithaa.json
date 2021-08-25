@@ -13,15 +13,5 @@
   "unchoosable": "true",
   "impact": 1,
   "name": "origin.apotheosis.warsmith.name",
-  "description": "origin.apotheosis.warsmith.description",
-  "upgrades": [
-    {
-      "condition": "apotheosis:warsmitha_upgrade_a",
-      "origin": "apotheosis:warsmithaa"
-    },
-    {
-      "condition": "apotheosis:warsmitha_upgrade_b",
-      "origin": "apotheosis:warsmithab"
-    }
-  ]
+  "description": "origin.apotheosis.warsmith.description"
 }

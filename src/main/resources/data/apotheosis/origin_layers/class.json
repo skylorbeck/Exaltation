@@ -6,7 +6,11 @@
     "apotheosis:blacksmith",
     "apotheosis:warsmith",
     "apotheosis:warsmitha",
-    "apotheosis:warsmithb"
+    "apotheosis:warsmithaa",
+    "apotheosis:warsmithab",
+    "apotheosis:warsmithb",
+    "apotheosis:warsmithba",
+    "apotheosis:warsmithbb"
   ],
   "allow_random": true,
   "exclude_random": [

@@ -12,8 +12,23 @@ public class Apotheosis implements ModInitializer {
         ApoEntityCondition.register();
         ApoItemCondition.register();
         PowerFactories.register();
-
-/*        MinecraftClient.getInstance().getServer().getCommandManager().execute(new ServerCommandSource(server, new Vec3d(user.getX(), user.getY(), user.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Chunk Loader", new LiteralText("Chunk Loader"), server, null),
-                String.format("forceload %s %s %s", "remove", blockPos.getX(), blockPos.getZ()));*/
     }
 }
+
+//todo powers
+// --------------
+// WARSMITH
+// equipment repair - Field Repair
+// armor damage increase - True Symmetry
+// cruel art - blade damage increase
+// war smiths art - repair all equipment
+// --------------
+// ARCANE SMITH
+// +5 luck
+// arcane forge - health
+// whimsical design - move speed on boots
+// imbued blades - random potion effect - this will suck
+// refined arcana - 50% reduced enchant costs
+// magic metal - 25% double enchant level
+// purity of design - enchant no longer needs lapis
+// unearthed arcana

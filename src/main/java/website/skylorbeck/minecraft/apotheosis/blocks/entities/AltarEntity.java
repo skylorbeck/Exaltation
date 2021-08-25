@@ -16,8 +16,13 @@ import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 
 public class AltarEntity extends BlockEntity implements NamedScreenHandlerFactory {
+    int tier = 0;
     public AltarEntity(BlockPos pos, BlockState state) {
         super(Declarar.ALTARENTITY, pos, state);
+    }
+    public AltarEntity(BlockPos pos, BlockState state, int tier) {
+        super(Declarar.ALTARENTITY, pos, state);
+        this.tier = tier;
     }
 
     @Override

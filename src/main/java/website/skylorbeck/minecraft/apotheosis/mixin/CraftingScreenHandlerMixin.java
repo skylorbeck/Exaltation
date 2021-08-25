@@ -26,8 +26,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.SmithingArmorPower;
 import website.skylorbeck.minecraft.apotheosis.powers.SmithingWeaponPower;
+import website.skylorbeck.minecraft.apotheosis.powers.WarsmithShieldBuffPower;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -61,12 +63,27 @@ public class CraftingScreenHandlerMixin {
                 }
             }
         }
+        if (warsmithShield()){
+            Item item = stack.getItem();
+            if (item instanceof ShieldItem) {
+                stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+                    stack.addEnchantment(Declarar.HEALTHBOOST,1);
+                    stack.addEnchantment(Declarar.KNOCKBACKRESIST,1);
+                }
+            }
         return stack;
     }
+
     private static boolean isSmith(){
         assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingArmorPower.class);
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingArmorPower.class)||PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingWeaponPower.class);
     }
+    private static boolean warsmithShield(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithShieldBuffPower.class);
+    }
+
+
     private static int smithArmorScale(){
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient client = MinecraftClient.getInstance();
