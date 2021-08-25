@@ -2,17 +2,22 @@
   "powers": [
     "apotheosis:branchat50",
     "apotheosis:blacksmith_consuming",
-    "apotheosis:lucky",
     "apotheosis:smithing_armor_power",
-    "apotheosis:smithing_weapon_power"
-
+    "apotheosis:smithing_weapon_power",
+    "apotheosis:lucky"
   ],
   "icon": "minecraft:iron_ingot",
   "impact": 1,
-  "upgrades":
-  {
-    "condition": "apotheosis:blacksmith_upgrade_a",
-    "origin":"apotheosis:warsmith",
-    "announcement": "Warsmith Activated"
-  }
+  "upgrades": [
+    {
+      "condition": "apotheosis:blacksmith_upgrade_a",
+      "origin": "apotheosis:warsmith",
+      "announcement": "Warsmith Activated"
+    },
+    {
+      "condition": "apotheosis:blacksmith_upgrade_b",
+      "origin": "apotheosis:arcanesmith",
+      "announcement": "Arcanesmith Activated"
+    }
+  ]
 }

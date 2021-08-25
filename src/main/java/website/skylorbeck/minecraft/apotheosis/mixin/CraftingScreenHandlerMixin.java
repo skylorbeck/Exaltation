@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.SmithingArmorPower;
 import website.skylorbeck.minecraft.apotheosis.powers.SmithingWeaponPower;
+import website.skylorbeck.minecraft.apotheosis.powers.WarsmithArmorBuffPower;
 import website.skylorbeck.minecraft.apotheosis.powers.WarsmithShieldBuffPower;
 
 import java.util.Objects;
@@ -43,44 +44,63 @@ public class CraftingScreenHandlerMixin {
 
     @ModifyVariable(method = "updateResult",name = "itemStack", at = @At(value = "INVOKE",target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
     private static ItemStack injectedUpdateResult(ItemStack stack) {
-        if (isSmith()) {
+        if (smithArmor()) {
             Item item = stack.getItem();
             int scale= 0;
             if (item instanceof ArmorItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                 scale = smithArmorScale();
-                /*NbtList lore = new NbtList();
-                lore.add(NbtString.of("Crafted by: "+ MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(MinecraftClient.getInstance().player.getUuid()).getEntityName()));
-                stack.getOrCreateSubNbt("display").put("Lore",lore);*/
                 if (scale != 0) {
                     stack.addEnchantment(Enchantments.UNBREAKING, scale);
+                    stack.addEnchantment(Enchantments.PROTECTION, scale);
                 }
-            } else if (item instanceof SwordItem || item instanceof AxeItem) {
+            }
+        }
+        if (smithWeapon()) {
+            Item item = stack.getItem();
+            int scale= 0;
+            if (item instanceof SwordItem || item instanceof AxeItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                 scale = smithWeaponScale();
                 if (scale != 0) {
+                    stack.addEnchantment(Enchantments.UNBREAKING, scale);
                     stack.addEnchantment(Enchantments.SHARPNESS, scale);
                 }
             }
         }
-        if (warsmithShield()){
+        if (warsmithShield()) {
             Item item = stack.getItem();
             if (item instanceof ShieldItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                    stack.addEnchantment(Declarar.HEALTHBOOST,1);
-                    stack.addEnchantment(Declarar.KNOCKBACKRESIST,1);
-                }
+                stack.addEnchantment(Declarar.HEALTHBOOST, 1);
+                stack.addEnchantment(Declarar.KNOCKBACKRESIST, 1);
             }
+        }
+        if (warsmithArmor()) {
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+                stack.addEnchantment(Declarar.ARMORSHARPNESS, 1);
+            }
+        }
         return stack;
     }
 
-    private static boolean isSmith(){
+    private static boolean smithArmor(){
         assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingArmorPower.class)||PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingWeaponPower.class);
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingArmorPower.class);
+    }
+    private static boolean smithWeapon(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingWeaponPower.class);
     }
     private static boolean warsmithShield(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithShieldBuffPower.class);
+    }
+    private static boolean warsmithArmor(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithArmorBuffPower.class);
     }
 
 

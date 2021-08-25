@@ -100,7 +100,10 @@ public class PowerFactories {
                 data -> (type,player) -> new SmithingWeaponPower(type,player,data.getInt("scaling"))).allowCondition());
         register(new PowerFactory<>(Declarar.getIdentifier("warsmith_shield_buff"),
                 new SerializableData(),
-                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WarsmithShieldBuffPower::new).allowCondition());
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WarsmithShieldBuffPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("warsmith_armor_buff"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WarsmithShieldBuffPower::new));
     }
 
     private static void register(PowerFactory serializer) {

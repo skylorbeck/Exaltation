@@ -12,22 +12,18 @@
     "apotheosis:warsmith_damage",
     "apotheosis:warsmith_damage_reduction",
 
-    "apotheosis:warsmith_armor",
-    "apotheosis:warsmith_knockback_resist",
+    "apotheosis:warsmith_damage_durability",
 
-    "apotheosis:warsmith_repairing"
+    "apotheosis:warsmith_shield_buff",
+
+    "apotheosis:warsmith_armor_buff"
   ],
   "icon": "minecraft:iron_sword",
   "unchoosable": "true",
   "impact": 1,
-  "upgrades": [
+  "upgrades":
     {
-      "condition": "apotheosis:warsmithba_upgrade_a",
-      "origin": "apotheosis:warsmithbaa"
-    },
-    {
-      "condition": "apotheosis:warsmithba_upgrade_b",
-      "origin": "apotheosis:warsmithbab"
+      "condition": "apotheosis:warsmithaba_upgrade_a",
+      "origin": "apotheosis:warsmithabaa"
     }
-  ]
 }
