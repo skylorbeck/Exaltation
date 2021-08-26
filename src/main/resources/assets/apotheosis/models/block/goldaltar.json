@@ -1,6 +1,9 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "all": "apotheosis:block/goldaltar"
+    "top": "apotheosis:block/altartop",
+    "front": "apotheosis:block/goldaltar",
+    "bottom": "apotheosis:block/goldaltar_bottom",
+    "side": "#front"
   }
 }

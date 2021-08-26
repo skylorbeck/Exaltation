@@ -30,7 +30,7 @@ public class Declarar {
     public static Identifier getIdentifier(String string){
         return new Identifier(MODID,string);
     }
-
+//todo check breakbytool
     public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE),0);
     public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK),1);
     public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK),2);
