@@ -1,6 +1,7 @@
 package website.skylorbeck.minecraft.apotheosis;
 
 import net.fabricmc.api.ModInitializer;
+import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityActions;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityCondition;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoItemCondition;
 import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
@@ -11,17 +12,12 @@ public class Apotheosis implements ModInitializer {
         Registrar.Register();
         ApoEntityCondition.register();
         ApoItemCondition.register();
+        ApoEntityActions.register();
         PowerFactories.register();
     }
 }
 
 //todo powers
-// --------------
-// WARSMITH
-// equipment repair - Field Repair
-// armor damage increase - True Symmetry
-// cruel art - blade damage increase
-// war smiths art - repair all equipment
 // --------------
 // ARCANE SMITH
 // +5 luck

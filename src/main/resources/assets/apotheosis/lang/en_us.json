@@ -35,7 +35,17 @@
   "power.apotheosis.warsmith_damage.description": "0.05 increased damage per level",
   "power.apotheosis.warsmith_damage_durability.name": "Nose to the Grindstone",
   "power.apotheosis.warsmith_damage_durability.description": "Weapons +0.5 Damage if >50% durability",
+  "power.apotheosis.warsmith_repairing.name": "Field Repair",
+  "power.apotheosis.warsmith_repairing.description": "Equipment repairs 1pt/5s",
+  "power.apotheosis.warsmith_armor_buff.name": "True Symmetry",
+  "power.apotheosis.warsmith_armor_buff.description": "Crafted Armor gives +.5 Damage",
+  "power.apotheosis.warsmith_sword_buff.name": "Cruel Art",
+  "power.apotheosis.warsmith_sword_buff.description": "Crafted Sword +2.5 Damage",
+  "power.apotheosis.warsmith_shield_buff.name": "Warbanner March",
+  "power.apotheosis.warsmith_shield_buff.description": "Crafted Shields give +1 HP",
   "power.apotheosis.warsmith_armor.name": "Hardened Grit",
   "power.apotheosis.warsmith_armor.description": "+2 Armor",
-  "power.apotheosis.warsmith_knockback_resist.description": "+25% knockback resist"
+  "power.apotheosis.warsmith_knockback_resist.description": "+25% knockback resist",
+  "power.apotheosis.warsmith_ultimate.name": "Warsmiths Art (LVL 50)",
+  "power.apotheosis.warsmith_ultimate.description": "Full Repair 1/Day"
 }

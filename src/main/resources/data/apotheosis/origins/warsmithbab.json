@@ -2,7 +2,6 @@
   "name": "origin.apotheosis.warsmith.name",
   "description": "origin.apotheosis.warsmith.description",
   "powers": [
-    "apotheosis:branchat45",
     "apotheosis:blacksmith_consuming",
     "apotheosis:smithing_armor_power",
     "apotheosis:smithing_weapon_power",
@@ -17,14 +16,11 @@
 
     "apotheosis:warsmith_repairing",
 
-    "apotheosis:warsmith_sword_buff"
+    "apotheosis:warsmith_sword_buff",
+
+    "apotheosis:warsmith_ultimate"
   ],
   "icon": "minecraft:iron_sword",
   "unchoosable": "true",
-  "impact": 1,
-  "upgrades":
-    {
-      "condition": "apotheosis:warsmithbab_upgrade_a",
-      "origin": "apotheosis:warsmithbaba"
-    }
+  "impact": 1
 }

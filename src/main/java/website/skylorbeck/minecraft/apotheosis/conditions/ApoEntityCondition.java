@@ -11,13 +11,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
 public class ApoEntityCondition {
     @SuppressWarnings("unchecked")
     public static void register() {
-        register(new ConditionFactory<>(new Identifier("apotheosis", "level"), new SerializableData()
+        register(new ConditionFactory<>(Declarar.getIdentifier("level"), new SerializableData()
                         .add("comparison", ApoliDataTypes.COMPARISON)
                         .add("compare_to", SerializableDataTypes.INT),
                 (data, entity) -> {

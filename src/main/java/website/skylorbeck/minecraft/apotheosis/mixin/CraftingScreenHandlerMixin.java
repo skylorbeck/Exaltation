@@ -27,10 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
-import website.skylorbeck.minecraft.apotheosis.powers.SmithingArmorPower;
-import website.skylorbeck.minecraft.apotheosis.powers.SmithingWeaponPower;
-import website.skylorbeck.minecraft.apotheosis.powers.WarsmithArmorBuffPower;
-import website.skylorbeck.minecraft.apotheosis.powers.WarsmithShieldBuffPower;
+import website.skylorbeck.minecraft.apotheosis.powers.*;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -62,8 +59,12 @@ public class CraftingScreenHandlerMixin {
             if (item instanceof SwordItem || item instanceof AxeItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                 scale = smithWeaponScale();
+
                 if (scale != 0) {
                     stack.addEnchantment(Enchantments.UNBREAKING, scale);
+                    if (warsmithSword()){
+                        scale+=5;
+                    }
                     stack.addEnchantment(Enchantments.SHARPNESS, scale);
                 }
             }
@@ -101,6 +102,11 @@ public class CraftingScreenHandlerMixin {
     private static boolean warsmithArmor(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithArmorBuffPower.class);
+    }
+
+    private static boolean warsmithSword(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithSwordBuffPower.class);
     }
 
 

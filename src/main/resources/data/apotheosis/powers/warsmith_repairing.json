@@ -1,0 +1,7 @@
+{
+  "type": "origins:action_over_time",
+  "entity_action": {
+    "type": "apotheosis:mending"
+  },
+  "interval": 100
+}
