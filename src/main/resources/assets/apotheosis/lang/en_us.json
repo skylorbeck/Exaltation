@@ -1,15 +1,25 @@
 {
+  "block.apotheosis.stonealtarblock": "Stone Altar",
+  "block.apotheosis.ironaltarblock": "Iron Altar",
+  "block.apotheosis.goldaltarblock": "Gold Altar",
+  "block.apotheosis.diamondaltarblock": "Diamond Altar",
+  "block.apotheosis.netheritealtarblock": "Netherite Altar",
+
   "enchantment.apotheosis.healthbooster": "Healthy",
   "enchantment.apotheosis.armorsharpness": "Finesse",
   "enchantment.apotheosis.knockbackresist": "Sturdy",
 
   "layer.apotheosis.class.name": "Class",
+
   "apotheosis.altar.name": "Altar",
   "apotheosis.altar.xp": "Class Level",
   "apotheosis.altar.xpcost": "Level Up Cost",
   "apotheosis.altar.levelup": "Level Up!",
   "apotheosis.altar.notenoughxp": "Not enough XP",
 
+  "apotheosis.levelcap":"You have nothing to gain from using this",
+  "apotheosis.weakaltar":"This Altar is not strong enough",
+  "apotheosis.toostrong":"You are too strong for this Altar",
   "apotheosis.levelup1": "You have reached maximum power",
   "apotheosis.levelup2": "Use an Altar to Ascend",
 

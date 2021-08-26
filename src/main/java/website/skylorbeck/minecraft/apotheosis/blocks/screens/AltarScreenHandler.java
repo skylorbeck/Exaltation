@@ -29,6 +29,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
@@ -115,7 +116,7 @@ public class AltarScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         int xp =APOXP.get(player).getLevel();
-        boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class"))).hasUpgrade();
+        boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier("class"))).hasUpgrade();
         int altarLevel = 0;
         switch (((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()){
             case 0 -> altarLevel = 9;
@@ -129,7 +130,7 @@ public class AltarScreenHandler extends ScreenHandler {
         if (altarTier){
             if (!hasUpgrade){
                 if (xp >= 50) {
-                    player.sendMessage(Text.of("You have nothing to gain from using this"), true);
+                    player.sendMessage(new TranslatableText("apotheosis.levelcap"), true);
                     return false;
                 } else {
                     return true;
@@ -139,14 +140,14 @@ public class AltarScreenHandler extends ScreenHandler {
                     if (canAscend){
                         return true;
                     } else {
-                        player.sendMessage(Text.of("This Altar is not strong enough"), true);
+                        player.sendMessage(new TranslatableText("apotheosis.weakaltar"), true);
                         return false;
                     }
                 }
                 return true;
             }
         } else {
-            player.sendMessage(Text.of("You are too strong for this Altar"),true);
+            player.sendMessage(new TranslatableText("apotheosis.toostrong"),true);
             return false;
         }
     }
@@ -155,7 +156,7 @@ public class AltarScreenHandler extends ScreenHandler {
     public boolean onButtonClick(PlayerEntity player, int id) {
         switch (id){
             case 0,1 ->{
-                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class")));
+                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier( "class")));
                 Identifier advancementID = id == 0 ? new Identifier(origin.getIdentifier() + "_upgrade_a") : new Identifier(origin.getIdentifier() + "_upgrade_b");
                 context.run(((world, blockPos) -> {
                 world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Apotheosis", new LiteralText("Apotheosis"), world.getServer(), null),
