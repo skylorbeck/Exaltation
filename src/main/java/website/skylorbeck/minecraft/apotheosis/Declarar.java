@@ -31,18 +31,31 @@ public class Declarar {
         return new Identifier(MODID,string);
     }
 
-    public static final Block altar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE),0);
-    public static final BlockItem altarItem = new BlockItem(altar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE),0);
+    public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK),1);
+    public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK),2);
+    public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK),3);
+    public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK),4);
+
+    public static final BlockItem stonealtarItem = new BlockItem(stonealtar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem ironaltarItem = new BlockItem(ironaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem goldaltarItem = new BlockItem(goldaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem diamondaltarItem = new BlockItem(diamondaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem netheritealtarItem = new BlockItem(netheritealtar,new FabricItemSettings().group(ItemGroup.MISC));
 
     public static final BlockEntityType<AltarEntity> ALTARENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,
             getIdentifier("altarentity"),
             FabricBlockEntityTypeBuilder.create(
                     AltarEntity::new,
-                    altar
+                    stonealtar,
+                    ironaltar,
+                    goldaltar,
+                    diamondaltar,
+                    netheritealtar
             ).build(null));
     public static final ScreenHandlerType<AltarScreenHandler> ALTARSCREENHANDLER =
-            ScreenHandlerRegistry.registerSimple(getIdentifier("altarscreen"),AltarScreenHandler::new);
+            ScreenHandlerRegistry.registerExtended(getIdentifier("altarscreen"),AltarScreenHandler::new);
 
     public static final Enchantment HEALTHBOOST = Registry.register(
             Registry.ENCHANTMENT,

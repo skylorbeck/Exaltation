@@ -30,11 +30,13 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.core.jmx.Server;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.blocks.AltarAbstract;
+import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.cardinal.XPComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.ConsumingItemPower;
 
@@ -44,11 +46,22 @@ import java.util.logging.Logger;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
 public class AltarScreenHandler extends ScreenHandler {
+    private BlockPos pos = BlockPos.ORIGIN;
     private final Inventory inventory;
     private final ScreenHandlerContext context;
 
     public AltarScreenHandler(int syncId, PlayerInventory pInv) {
         this(syncId,pInv,ScreenHandlerContext.EMPTY);
+    }
+
+    public AltarScreenHandler(int syncid, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+        this(syncid,playerInventory);
+        this.pos = packetByteBuf.readBlockPos();
+    }
+
+    public AltarScreenHandler(int syncId, PlayerInventory pInv, ScreenHandlerContext context,BlockPos pos) {
+        this(syncId,pInv,context);
+        this.pos = pos;
     }
 
     public AltarScreenHandler(int syncId, PlayerInventory pInv, ScreenHandlerContext context) {
@@ -101,14 +114,26 @@ public class AltarScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         int xp =APOXP.get(player).getLevel();
-        if (xp<50){
-            return true;
+        boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class"))).hasUpgrade();
+        int altarLevel = 50;
+        altarLevel = 10+((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()*10;
+        boolean altarTier = !(xp>altarLevel);
+
+        if (altarTier){
+            if (!hasUpgrade){
+                if (xp >= 50) {
+                    player.sendMessage(Text.of("You have nothing to gain from using this"), true);
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            player.sendMessage(Text.of("You are too strong for this Altar"),true);
+            return false;
         }
-        boolean bool = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class"))).hasUpgrade();
-        if (!bool){
-            player.sendMessage(Text.of("You have nothing to gain from using this"),false);
-        }
-        return bool;
     }
 
     @Override
@@ -207,5 +232,13 @@ public class AltarScreenHandler extends ScreenHandler {
         this.context.run((world, pos) -> {
             this.dropInventory(player, this.inventory);
         });
+    }
+
+    public BlockPos getPos() {
+        return pos;
+    }
+
+    public void setPos(BlockPos pos) {
+        this.pos = pos;
     }
 }
