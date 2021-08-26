@@ -2,12 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "altar",
+      "name": "netheritealtar",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "apotheosis:altaritem"
+          "name": "apotheosis:netheritealtaritem"
         }
       ],
       "conditions": [

@@ -47,6 +47,7 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 
 public class AltarScreenHandler extends ScreenHandler {
     private BlockPos pos = BlockPos.ORIGIN;
+    private boolean canAscend = false;
     private final Inventory inventory;
     private final ScreenHandlerContext context;
 
@@ -115,8 +116,14 @@ public class AltarScreenHandler extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         int xp =APOXP.get(player).getLevel();
         boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis", "class"))).hasUpgrade();
-        int altarLevel = 50;
-        altarLevel = 10+((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()*10;
+        int altarLevel = 0;
+        switch (((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()){
+            case 0 -> altarLevel = 9;
+            case 1 -> altarLevel = 19;
+            case 2 -> altarLevel = 34;
+            case 3 -> altarLevel = 49;
+            case 4 -> {altarLevel = 50;canAscend = true;}
+        }
         boolean altarTier = !(xp>altarLevel);
 
         if (altarTier){
@@ -128,6 +135,14 @@ public class AltarScreenHandler extends ScreenHandler {
                     return true;
                 }
             } else {
+                if (xp == 50){
+                    if (canAscend){
+                        return true;
+                    } else {
+                        player.sendMessage(Text.of("This Altar is not strong enough"), true);
+                        return false;
+                    }
+                }
                 return true;
             }
         } else {

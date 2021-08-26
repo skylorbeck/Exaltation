@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "item": "apotheosis:altaritem"
+            "item": "apotheosis:netheritealtaritem"
           }
         ]
       }
@@ -19,7 +19,7 @@
   ],
   "rewards": {
     "recipes": [
-      "apotheosis:altar"
+      "apotheosis:netheritealtar"
     ]
   }
 }
