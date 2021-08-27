@@ -4,6 +4,7 @@
   "enabled": true,
   "origins": [
     "apotheosis:blacksmith/blacksmith",
+    "apotheosis:blacksmith/arcanesmith/arcanesmith",
     "apotheosis:blacksmith/warsmith/warsmith",
     "apotheosis:blacksmith/warsmith/warsmitha",
     "apotheosis:blacksmith/warsmith/warsmithaa",

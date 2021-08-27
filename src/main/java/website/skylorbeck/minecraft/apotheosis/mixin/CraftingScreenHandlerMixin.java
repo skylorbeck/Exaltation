@@ -4,6 +4,9 @@ import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -29,7 +32,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.*;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,6 +89,13 @@ public class CraftingScreenHandlerMixin {
                 stack.addEnchantment(Declarar.ARMORSHARPNESS, 1);
             }
         }
+        if (arcanesmithEnchant()) {
+            Item item = stack.getItem();
+            if ((item instanceof ToolItem || item instanceof ArmorItem) && item.isEnchantable(stack)) {
+                stack = EnchantmentHelper.enchant(MinecraftClient.getInstance().world.random, stack,0,false);
+                stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+            }
+        }
         return stack;
     }
 
@@ -107,6 +119,10 @@ public class CraftingScreenHandlerMixin {
     private static boolean warsmithSword(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithSwordBuffPower.class);
+    }
+    private static boolean arcanesmithEnchant(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithAlwaysEnchanted.class);
     }
 
 
