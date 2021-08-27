@@ -1,0 +1,32 @@
+{
+  "name": "origin.apotheosis.blacksmith/warsmith/warsmith.name",
+  "description": "origin.apotheosis.blacksmith/warsmith/warsmith.description",
+  "powers": [
+    "apotheosis:branchat45",
+    "apotheosis:blacksmith/blacksmith_consuming",
+    "apotheosis:blacksmith/smithing_armor_power",
+    "apotheosis:blacksmith/smithing_weapon_power",
+    "apotheosis:blacksmith/lucky",
+
+    "apotheosis:blacksmith/warsmith/hearty_scaling",
+    "apotheosis:blacksmith/warsmith/warsmith_damage",
+    "apotheosis:blacksmith/warsmith/warsmith_damage_reduction",
+
+    "apotheosis:blacksmith/warsmith/warsmith_damage_durability",
+
+    "apotheosis:blacksmith/warsmith/warsmith_shield_buff"
+  ],
+  "icon": "minecraft:iron_sword",
+  "unchoosable": "true",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "apotheosis:blacksmith/warsmith/warsmithab_upgrade_a",
+      "origin": "apotheosis:blacksmith/warsmith/warsmithaba"
+    },
+    {
+      "condition": "apotheosis:blacksmith/warsmith/warsmithab_upgrade_b",
+      "origin": "apotheosis:blacksmith/warsmith/warsmithabb"
+    }
+  ]
+}

@@ -1,18 +1,15 @@
 {
-  "name": "origin.apotheosis.warsmith.name",
-  "description": "origin.apotheosis.warsmith.description",
+  "name": "origin.apotheosis.arcanesmith.name",
+  "description": "origin.apotheosis.arcanesmith.description",
   "powers": [
     "apotheosis:branchat10",
     "apotheosis:blacksmith_consuming",
     "apotheosis:smithing_armor_power",
     "apotheosis:smithing_weapon_power",
-    "apotheosis:lucky",
+    "apotheosis:lucky"
 
-    "apotheosis:hearty_scaling",
-    "apotheosis:warsmith_damage",
-    "apotheosis:warsmith_damage_reduction"
   ],
-  "icon": "minecraft:iron_sword",
+  "icon": "minecraft:potion",
   "unchoosable": "true",
   "impact": 1,
   "upgrades": [
