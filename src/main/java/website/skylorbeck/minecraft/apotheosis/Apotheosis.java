@@ -20,9 +20,8 @@ public class Apotheosis implements ModInitializer {
 //todo powers
 // --------------
 // ARCANE SMITH
-// whimsical design - move speed on boots
-// imbued blades - random potion effect - this will suck
-// refined arcana - 50% reduced enchant costs
+// imbued blades - random potion effect
+// refined arcana - 50% reduced enchant costs (anvil only?)
 // magic metal - 25% double enchant level
 // purity of design - enchant no longer needs lapis
 // unearthed arcana

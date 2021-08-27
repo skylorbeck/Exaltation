@@ -40,6 +40,7 @@ import website.skylorbeck.minecraft.apotheosis.blocks.AltarAbstract;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.cardinal.XPComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.ConsumingItemPower;
+import website.skylorbeck.minecraft.apotheosis.powers.ResetLevelPower;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -158,14 +159,14 @@ public class AltarScreenHandler extends ScreenHandler {
             case 0,1 ->{
                 Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier( "class")));
                 Identifier advancementID = id == 0 ? new Identifier(origin.getIdentifier() + "_upgrade_a") : new Identifier(origin.getIdentifier() + "_upgrade_b");
-                context.run(((world, blockPos) -> {
-                world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Apotheosis", new LiteralText("Apotheosis"), world.getServer(), null),
-                        String.format("advancement grant " + player.getEntityName() + " only " + advancementID));
-                }));
-                if (PowerHolderComponent.hasPower(player, ConsumingItemPower.class)) {
+                if (PowerHolderComponent.hasPower(player, ResetLevelPower.class)) {
                     APOXP.get(player).setLevel(1);
                     APOXP.get(player).setAscended(true);
                 }
+                context.run(((world, blockPos) -> {
+                    world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Apotheosis", new LiteralText("Apotheosis"), world.getServer(), null),
+                            String.format("advancement grant " + player.getEntityName() + " only " + advancementID));
+                }));
                 APOXP.sync(player);
                 this.context.run(((world, blockPos) -> {
                     world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);

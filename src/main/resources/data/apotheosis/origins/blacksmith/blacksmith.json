@@ -1,5 +1,6 @@
 {
   "powers": [
+    "apotheosis:resetlevel",
     "apotheosis:branchat50",
     "apotheosis:blacksmith/blacksmith_consuming",
     "apotheosis:blacksmith/smithing_armor_power",
@@ -17,7 +18,7 @@
     {
       "condition": "apotheosis:blacksmith/blacksmith_upgrade_b",
       "origin": "apotheosis:blacksmith/arcanesmith/arcanesmith",
-      "announcement": "Arcanesmith Activated"
+      "announcement": "Magesmith Activated"
     }
   ]
 }

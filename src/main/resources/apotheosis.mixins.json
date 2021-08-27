@@ -4,12 +4,14 @@
   "package": "website.skylorbeck.minecraft.apotheosis.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AnvilScreenHandlerAccessor",
     "AnvilScreenHandlerMixin",
     "CraftingScreenHandlerMixin",
     "EnchantmentScreenHandlerMixin",
     "EntityAttributeModifierMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "PlayerEntityMixin",
     "ServerPlayerEntityMixin"
   ],
   "client": [

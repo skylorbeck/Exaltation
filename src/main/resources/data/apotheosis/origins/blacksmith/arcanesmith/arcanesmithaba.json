@@ -9,7 +9,9 @@
     "apotheosis:blacksmith/arcanesmith/lucky",
     "apotheosis:blacksmith/arcanesmith/arcanesmith_always_enchant",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_chest_buff"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_chest_buff",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_cheap_enchanting"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",

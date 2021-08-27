@@ -65,6 +65,8 @@
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_boot_buff.description": "Crafted Boots +10% speed",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_chest_buff.name": "Arcane Forge",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_chest_buff.description": "Crafted Chestplates +2 Hearts",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_cheap_enchanting.name": "Refined Arcana",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_cheap_enchanting.description": "50% cheaper anvils",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_always_enchant.name": "Arcane Tools",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_always_enchant.description": "All Equipment crafted is Enchanted",
   "power.apotheosis.blacksmith/arcanesmith/lucky.description": "+6 Luck"
