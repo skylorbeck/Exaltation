@@ -110,6 +110,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_always_enchant"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithAlwaysEnchanted::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_chest_buff"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithChestBuffPower::new));
     }
 
     private static void register(PowerFactory serializer) {

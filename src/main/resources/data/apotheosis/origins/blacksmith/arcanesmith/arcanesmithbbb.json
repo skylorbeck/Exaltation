@@ -12,15 +12,5 @@
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",
-  "impact": 1,
-  "upgrades": [
-    {
-      "condition": "apotheosis:arcanesmith_upgrade_a",
-      "origin": "apotheosis:arcanesmitha"
-    },
-    {
-      "condition": "apotheosis:arcanesmith_upgrade_b",
-      "origin": "apotheosis:arcanesmithb"
-    }
-  ]
+  "impact": 1
 }

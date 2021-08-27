@@ -8,6 +8,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -96,6 +97,15 @@ public class CraftingScreenHandlerMixin {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
             }
         }
+        if (arcanesmithChest()) {
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                if (((ArmorItem)item).getSlotType()== EquipmentSlot.CHEST){
+                    stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+                    stack.addEnchantment(Declarar.HEALTHBOOST,2);
+                }
+            }
+        }
         return stack;
     }
 
@@ -123,6 +133,10 @@ public class CraftingScreenHandlerMixin {
     private static boolean arcanesmithEnchant(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithAlwaysEnchanted.class);
+    }
+    private static boolean arcanesmithChest(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithChestBuffPower.class);
     }
 
 

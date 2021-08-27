@@ -15,12 +15,12 @@
   "impact": 1,
   "upgrades": [
     {
-      "condition": "apotheosis:arcanesmith_upgrade_a",
-      "origin": "apotheosis:arcanesmitha"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmithb_upgrade_a",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmithba"
     },
     {
-      "condition": "apotheosis:arcanesmith_upgrade_b",
-      "origin": "apotheosis:arcanesmithb"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmithb_upgrade_b",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmithbb"
     }
   ]
 }

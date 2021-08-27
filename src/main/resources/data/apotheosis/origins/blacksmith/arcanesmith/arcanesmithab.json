@@ -8,19 +8,20 @@
     "apotheosis:blacksmith/smithing_weapon_power",
 
     "apotheosis:blacksmith/arcanesmith/lucky",
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_always_enchant"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_always_enchant",
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_chest_buff"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",
   "impact": 1,
   "upgrades": [
     {
-      "condition": "apotheosis:arcanesmith_upgrade_a",
-      "origin": "apotheosis:arcanesmitha"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmithab_upgrade_a",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmithaba"
     },
     {
-      "condition": "apotheosis:arcanesmith_upgrade_b",
-      "origin": "apotheosis:arcanesmithb"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmithab_upgrade_b",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmithabb"
     }
   ]
 }
