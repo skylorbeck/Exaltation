@@ -4,5 +4,6 @@
     "attribute": "minecraft:generic.luck",
     "value": 6.0,
     "operation": "addition"
-  }
+  },
+  "name": "power.apotheosis.blacksmith/lucky.name"
 }

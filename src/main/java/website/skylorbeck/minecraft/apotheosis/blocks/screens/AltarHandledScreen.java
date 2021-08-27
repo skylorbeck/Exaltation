@@ -21,8 +21,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerAdvancementLoader;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.*;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -129,7 +128,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                     }
                     if (originUpgrades[i] != null) {
                         Origin up = originUpgrades[i];
-                        this.textRenderer.drawTrimmed(up.getName(), (int) (x + 27 + (54 * i) - this.textRenderer.getWidth(up.getName()) / 2f), y + 3,54, t);
+                        this.textRenderer.drawTrimmed(up.getName(), (int) (x + 27 + (54 * i) - this.textRenderer.getWidth(up.getName()) / 2f), y + 3,100, t);
                         Impact impact = up.getImpact();
                         int impactValue = impact.getImpactValue();
                         int offset = impactValue * 8;
@@ -169,17 +168,29 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                 for (int i = 0; i < 2; ++i) {
                     if (this.isPointWithinBounds(60 + (54 * i), 14, 54, 57, mouseX, mouseY)) {
                         if (originUpgrades[i] != null) {
-                            List<Text> list = Lists.newArrayList();
-//                            list.add(originUpgrades[i].getDescription());
-                            list.add(Text.of("New Powers:").copy().formatted(Formatting.LIGHT_PURPLE));
+                            List<Text> newPowers = Lists.newArrayList();
+                            List<Text> lostPowers = Lists.newArrayList();
+                            newPowers.add(Text.of("New Powers:").copy().formatted(Formatting.LIGHT_PURPLE));
 
                             originUpgrades[i].getPowerTypes().forEach(powerType -> {
                                 if (!powerType.isHidden() && !origin.hasPowerType(powerType)){
-                                    list.add(powerType.getName().formatted(Formatting.GOLD));
-                                    list.add(Text.of("  "+powerType.getDescription().getString()));
+                                    newPowers.add(powerType.getName().formatted(Formatting.GOLD));
+                                    newPowers.add(Text.of("  "+powerType.getDescription().getString()));
                                 }
                             });
-                            this.renderTooltip(matrices, list, mouseX, mouseY);
+                            int finalI = i;
+                            origin.getPowerTypes().forEach((powerType -> {
+                                if (!powerType.isHidden() && !originUpgrades[finalI].hasPowerType(powerType)){
+                                    lostPowers.add(powerType.getName().formatted(Formatting.GOLD).formatted(Formatting.STRIKETHROUGH));
+                                    LiteralText literalText = new LiteralText("  "+powerType.getDescription().getString());
+                                    lostPowers.add(literalText.formatted(Formatting.STRIKETHROUGH));
+                                }
+                            }));
+                            if (lostPowers.size()>0){
+                                newPowers.add(Text.of("Lost Powers:").copy().formatted(Formatting.DARK_PURPLE));
+                                newPowers.addAll(lostPowers);
+                            }
+                            this.renderTooltip(matrices, newPowers, mouseX, mouseY);
                             break;
                         } else {
                             this.renderTooltip(matrices, Text.of("ERROR"), mouseX, mouseY);

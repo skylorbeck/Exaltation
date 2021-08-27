@@ -65,7 +65,6 @@ public class CraftingScreenHandlerMixin {
             if (item instanceof SwordItem || item instanceof AxeItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                 scale = smithWeaponScale();
-
                 if (scale != 0) {
                     stack.addEnchantment(Enchantments.UNBREAKING, scale);
                     if (warsmithSword()){
@@ -106,6 +105,15 @@ public class CraftingScreenHandlerMixin {
                 }
             }
         }
+        if (arcanesmithBoots()) {
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                if (((ArmorItem)item).getSlotType()== EquipmentSlot.FEET){
+                    stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+                    stack.addEnchantment(Declarar.SPEEDBOOSTER,1);
+                }
+            }
+        }
         return stack;
     }
 
@@ -137,6 +145,10 @@ public class CraftingScreenHandlerMixin {
     private static boolean arcanesmithChest(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithChestBuffPower.class);
+    }
+    private static boolean arcanesmithBoots(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithBootBuffPower.class);
     }
 
 

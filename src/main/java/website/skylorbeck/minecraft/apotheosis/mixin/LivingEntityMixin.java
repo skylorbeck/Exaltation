@@ -22,6 +22,7 @@ public class LivingEntityMixin {
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
         LivingEntity entity = ((LivingEntity) (Object) this);
+        //todo config for time checked
         if (entity instanceof PlayerEntity && entity.age%20==0) {
             float previousMaxHealth = entity.getMaxHealth();
             float previousHealthPercent = entity.getHealth() / previousMaxHealth;
@@ -97,6 +98,30 @@ public class LivingEntityMixin {
                     if (instance != null) {
                         if (instance.hasModifier(Declarar.armorsharpnessEAM(entity))) {
                             instance.removeModifier(Declarar.armorsharpnessUUID);
+                        }
+                    }
+                }
+            }
+
+
+            if (EnchantmentHelper.getEquipmentLevel(Declarar.SPEEDBOOSTER, entity) > 0) {
+                if (entity.getAttributes().hasAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED)) {
+                    EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+                    if (instance != null) {
+                        if (!instance.hasModifier(Declarar.speedboosterEAM(entity))) {
+                            instance.addTemporaryModifier(Declarar.speedboosterEAM(entity));
+                        } else if (instance.getModifier(Declarar.speedboosterUUID).getValue() != Declarar.speedboosterEAM(entity).getValue()) {
+                            instance.removeModifier(Declarar.speedboosterUUID);
+                            instance.addTemporaryModifier(Declarar.speedboosterEAM(entity));
+                        }
+                    }
+                }
+            } else {
+                if (entity.getAttributes().hasAttribute(EntityAttributes.GENERIC_MOVEMENT_SPEED)) {
+                    EntityAttributeInstance instance = entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+                    if (instance != null) {
+                        if (instance.hasModifier(Declarar.speedboosterEAM(entity))) {
+                            instance.removeModifier(Declarar.speedboosterUUID);
                         }
                     }
                 }

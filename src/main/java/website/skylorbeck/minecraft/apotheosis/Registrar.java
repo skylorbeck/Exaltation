@@ -10,7 +10,6 @@ import static website.skylorbeck.minecraft.skylorlib.Registrar.regItem;
 
 public class Registrar {
     public static void Register(){
-
         regBlock("stonealtar",Declarar.stonealtar,MODID);
         regItem("stonealtar",Declarar.stonealtarItem,MODID);
         regBlock("ironaltar",Declarar.ironaltar,MODID);

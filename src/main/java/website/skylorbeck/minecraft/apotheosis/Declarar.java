@@ -18,10 +18,7 @@ import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.blocks.AltarAbstract;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
-import website.skylorbeck.minecraft.apotheosis.enchantment.ArmorSharpness;
-import website.skylorbeck.minecraft.apotheosis.enchantment.EnchantmentHelper;
-import website.skylorbeck.minecraft.apotheosis.enchantment.HealthBooster;
-import website.skylorbeck.minecraft.apotheosis.enchantment.KnockbackResist;
+import website.skylorbeck.minecraft.apotheosis.enchantment.*;
 
 import java.util.UUID;
 
@@ -67,16 +64,21 @@ public class Declarar {
             getIdentifier("knockbackresist"),
             new KnockbackResist()
     );
-
     public static final Enchantment ARMORSHARPNESS = Registry.register(
             Registry.ENCHANTMENT,
             getIdentifier("armorsharpness"),
             new ArmorSharpness()
     );
+    public static final Enchantment SPEEDBOOSTER = Registry.register(
+            Registry.ENCHANTMENT,
+            getIdentifier("speedbooster"),
+            new SpeedBooster()
+    );
 
     public static UUID healthBoostUUID = UUID.randomUUID();
     public static UUID knockbackResistUUID = UUID.randomUUID();
     public static UUID armorsharpnessUUID = UUID.randomUUID();
+    public static UUID speedboosterUUID = UUID.randomUUID();
 
     public static EntityAttributeModifier healthBoostEAM(LivingEntity entity){
         return new EntityAttributeModifier(healthBoostUUID,"apohpboost", EnchantmentHelper.getEquipmentLevel(Declarar.HEALTHBOOST,entity)*2, EntityAttributeModifier.Operation.ADDITION);
@@ -86,6 +88,9 @@ public class Declarar {
     }
     public static EntityAttributeModifier armorsharpnessEAM(LivingEntity entity){
         return new EntityAttributeModifier(armorsharpnessUUID,"apoarmorsharpness", EnchantmentHelper.getEquipmentLevel(Declarar.ARMORSHARPNESS,entity)*0.5, EntityAttributeModifier.Operation.ADDITION);
+    }
+    public static EntityAttributeModifier speedboosterEAM(LivingEntity entity){
+        return new EntityAttributeModifier(speedboosterUUID,"speedbooster", EnchantmentHelper.getEquipmentLevel(Declarar.SPEEDBOOSTER,entity)*0.01, EntityAttributeModifier.Operation.ADDITION);
     }
 
 }

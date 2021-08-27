@@ -30,7 +30,9 @@ public class PowerFactories {
                 new SerializableData()
                         .add("item",SerializableDataTypes.STRING,"minecraft:air"),
                 data -> (type,player) -> new ConsumingItemPower(type,player,data.getString("item"))));
-
+        register(new PowerFactory<>(Declarar.getIdentifier("reset_level"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ResetLevelPower::new));
 
         register(new PowerFactory<>(Declarar.getIdentifier( "conditioned_attribute"),
                 new SerializableData()
@@ -113,9 +115,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_chest_buff"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithChestBuffPower::new));
-        register(new PowerFactory<>(Declarar.getIdentifier("reset_level"),
+        register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_boot_buff"),
                 new SerializableData(),
-                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ResetLevelPower::new));
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithBootBuffPower::new));
     }
 
     private static void register(PowerFactory serializer) {

@@ -25,7 +25,7 @@
 
   "origin.apotheosis.blacksmith/warsmith/warsmith.name": "Warsmith",
   "origin.apotheosis.blacksmith/warsmith/warsmith.description": "Years of practicing your craft have taught you that the only way to ensure the quality of your gear is to use it yourself",
-  "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name": "Arcanesmith",
+  "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name": "Magesmith",
   "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description": "ARCANE SMITH DESCRIPTION TODO",
   "origin.apotheosis.blacksmith/blacksmith.name": "Blacksmith",
   "origin.apotheosis.blacksmith/blacksmith.description": "Blacksmith Description TODO",
@@ -59,5 +59,13 @@
   "power.apotheosis.blacksmith/warsmith/warsmith_armor.description": "+2 Armor",
   "power.apotheosis.blacksmith/warsmith/warsmith_knockback_resist.description": "+25% knockback resist",
   "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.name": "Warsmiths Art (LVL 50)",
-  "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "Full Repair 1/Day"
+  "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "Full Repair 1/Day",
+
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_boot_buff.name": "Whimsical Design",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_boot_buff.description": "Crafted Boots +10% speed",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_chest_buff.name": "Arcane Forge",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_chest_buff.description": "Crafted Chestplates +2 Hearts",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_always_enchant.name": "Arcane Tools",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_always_enchant.description": "All Equipment crafted is Enchanted",
+  "power.apotheosis.blacksmith/arcanesmith/lucky.description": "+6 Luck"
 }

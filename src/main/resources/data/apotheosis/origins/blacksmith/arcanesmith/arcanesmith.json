@@ -2,7 +2,6 @@
   "name": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name",
   "description": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description",
   "powers": [
-    "apotheosis:resetlevel",
     "apotheosis:branchat10",
     "apotheosis:blacksmith/blacksmith_consuming",
     "apotheosis:blacksmith/smithing_armor_power",
@@ -16,12 +15,12 @@
   "impact": 1,
   "upgrades": [
     {
-      "condition": "apotheosis:arcanesmith_upgrade_a",
-      "origin": "apotheosis:arcanesmitha"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmith_upgrade_a",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmitha"
     },
     {
-      "condition": "apotheosis:arcanesmith_upgrade_b",
-      "origin": "apotheosis:arcanesmithb"
+      "condition": "apotheosis:blacksmith/arcanesmith/arcanesmith_upgrade_b",
+      "origin": "apotheosis:blacksmith/arcanesmith/arcanesmithb"
     }
   ]
 }

@@ -20,8 +20,6 @@ public class Apotheosis implements ModInitializer {
 //todo powers
 // --------------
 // ARCANE SMITH
-// +5 luck
-// arcane forge - health
 // whimsical design - move speed on boots
 // imbued blades - random potion effect - this will suck
 // refined arcana - 50% reduced enchant costs

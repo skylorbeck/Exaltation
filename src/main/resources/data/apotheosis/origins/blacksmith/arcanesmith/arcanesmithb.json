@@ -2,13 +2,15 @@
   "name": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name",
   "description": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description",
   "powers": [
-    "apotheosis:branchat10",
+    "apotheosis:branchat25",
     "apotheosis:blacksmith/blacksmith_consuming",
     "apotheosis:blacksmith/smithing_armor_power",
     "apotheosis:blacksmith/smithing_weapon_power",
 
     "apotheosis:blacksmith/arcanesmith/lucky",
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_always_enchant"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_always_enchant",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_boot_buff"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",
