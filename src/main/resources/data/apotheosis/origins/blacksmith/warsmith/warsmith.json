@@ -2,6 +2,7 @@
   "name": "origin.apotheosis.blacksmith/warsmith/warsmith.name",
   "description": "origin.apotheosis.blacksmith/warsmith/warsmith.description",
   "powers": [
+    "apotheosis:resetlevel",
     "apotheosis:branchat10",
     "apotheosis:blacksmith/blacksmith_consuming",
     "apotheosis:blacksmith/smithing_armor_power",

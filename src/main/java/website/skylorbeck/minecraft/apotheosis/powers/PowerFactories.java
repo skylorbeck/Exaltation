@@ -113,6 +113,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_chest_buff"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithChestBuffPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("reset_level"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ResetLevelPower::new));
     }
 
     private static void register(PowerFactory serializer) {

@@ -162,7 +162,7 @@ public class AltarScreenHandler extends ScreenHandler {
                 world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "Apotheosis", new LiteralText("Apotheosis"), world.getServer(), null),
                         String.format("advancement grant " + player.getEntityName() + " only " + advancementID));
                 }));
-                if (!APOXP.get(player).getAscended()) {
+                if (PowerHolderComponent.hasPower(player, ConsumingItemPower.class)) {
                     APOXP.get(player).setLevel(1);
                     APOXP.get(player).setAscended(true);
                 }
