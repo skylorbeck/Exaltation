@@ -15,7 +15,9 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.MinecraftServer;
@@ -27,7 +29,9 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
+import website.skylorbeck.minecraft.apotheosis.cardinal.XPComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.BranchingClassPower;
+import website.skylorbeck.minecraft.apotheosis.powers.ConsumingItemPower;
 import website.skylorbeck.minecraft.apotheosis.powers.SmithingWeaponPower;
 
 import java.util.List;
@@ -160,9 +164,20 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
         super.render(matrices, mouseX, mouseY, delta);
         switch (mode){
             case normal -> {
-                /*if (this.isPointWithinBounds(60, 38, 107, 19, mouseX, mouseY)) {
-                   //unused for now
-                }*/
+                if (this.isPointWithinBounds(60, 53, 107, 19, mouseX, mouseY)) {
+                    PlayerEntity player =this.client.player;
+                    XPComponent xpComponent= APOXP.get(player);
+                    int APOXPLVL = xpComponent.getLevel();
+                    List<Text> tooltip = Lists.newArrayList();
+                    if ((APOXPLVL + 1) % 5 == 0 && PowerHolderComponent.hasPower(player, ConsumingItemPower.class) && !player.isCreative()) {
+                        Item itemcost = APOXPLVL>=44? Items.DIAMOND:PowerHolderComponent.getPowers(player,ConsumingItemPower.class).get(0).getItem();
+                        int cost = APOXPLVL>=44?APOXPLVL>=49?2:1:Math.min(Math.floorDiv(APOXPLVL+1,5),4);
+                        tooltip.add(Text.of("You will need:"));
+                        tooltip.add(Text.of(cost*5 + " " + itemcost.getDefaultStack().getItem().getName().getString()));
+                    }
+                    this.renderTooltip(matrices, tooltip, mouseX, mouseY);
+
+                }
             }
             case classfork -> {
                 for (int i = 0; i < 2; ++i) {
