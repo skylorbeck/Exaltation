@@ -20,7 +20,6 @@ public class Apotheosis implements ModInitializer {
 //todo powers
 // --------------
 // ARCANE SMITH
-// imbued blades - wither/poison/frost
 // magic metal - 10% double enchant level
 // purity of design - enchant no longer needs lapis
 // unearthed arcana - 24000 t - free tome of knowledge

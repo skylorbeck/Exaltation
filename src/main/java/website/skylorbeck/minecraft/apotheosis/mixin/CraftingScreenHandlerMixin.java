@@ -2,6 +2,7 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
@@ -93,6 +94,16 @@ public class CraftingScreenHandlerMixin {
                 }
             }
         }
+        if (arcanesmithSword()) {
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                if (((ArmorItem)item).getSlotType()== EquipmentSlot.FEET){
+                    stack.getOrCreateNbt().putBoolean("ApoSmith", true);
+                    Enchantment[] enchantment = new Enchantment[]{Declarar.WITHERASPECT,Declarar.POISONASPECT,Declarar.POISONASPECT};
+                    stack.addEnchantment(enchantment[MinecraftClient.getInstance().world.random.nextInt(enchantment.length)],3);
+                }
+            }
+        }
         return stack;
     }
 
@@ -128,6 +139,10 @@ public class CraftingScreenHandlerMixin {
     private static boolean arcanesmithBoots(){
         assert MinecraftClient.getInstance().player != null;
         return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithBootBuffPower.class);
+    }
+    private static boolean arcanesmithSword(){
+        assert MinecraftClient.getInstance().player != null;
+        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanemithSwordBuffPower.class);
     }
 
 

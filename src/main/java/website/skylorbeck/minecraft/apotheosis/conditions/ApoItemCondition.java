@@ -24,12 +24,6 @@ public class ApoItemCondition {
                     }
                     return Comparison.GREATER_THAN_OR_EQUAL.compare(durability, maxDurability * (data.getFloat("percent")));
                 }));
-        register(new ConditionFactory<>(Declarar.getIdentifier("isshield"), new SerializableData(),
-                (data, stack) -> {
-                    boolean shield = false;
-                    shield = stack.isOf(Items.SHIELD);
-                    return shield;
-                }));
     }
 
     private static void register(ConditionFactory<ItemStack> conditionFactory) {

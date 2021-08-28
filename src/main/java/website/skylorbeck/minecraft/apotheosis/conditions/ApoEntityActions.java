@@ -3,10 +3,14 @@ package website.skylorbeck.minecraft.apotheosis.conditions;
 import io.github.apace100.apoli.power.factory.action.ActionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.text.Text;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 
@@ -34,6 +38,14 @@ public class ApoEntityActions {
                                 stack.setDamage(0);
                             }
                         }
+                    }
+                }));
+        register(new ActionFactory<>(Declarar.getIdentifier("tome_of_knowledge"), new SerializableData(),
+                (data, entity) -> {
+                    if (entity instanceof PlayerEntity) {
+                        ItemStack book = EnchantmentHelper.enchant(MinecraftClient.getInstance().world.random, new ItemStack(Items.BOOK),MinecraftClient.getInstance().world.random.nextInt(5),true);
+                        book.setCustomName(Text.of("Tome Of Knowledge"));
+                        ((PlayerEntity) entity).giveItemStack(book);
                     }
                 }));
     }
