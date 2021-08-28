@@ -1,18 +1,15 @@
 package website.skylorbeck.minecraft.apotheosis.conditions;
 
-import io.github.apace100.apoli.Apoli;
-import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.apoli.util.Comparison;
 import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ToolItem;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ApoItemCondition {
     public static void register() {

@@ -1,14 +1,8 @@
 package website.skylorbeck.minecraft.apotheosis.cardinal;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import io.github.apace100.origins.origin.OriginLayer;
-import io.github.apace100.origins.origin.OriginLayers;
-import io.github.apace100.origins.registry.ModComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class XPComponent implements XPComponentInterface, AutoSyncedComponent {

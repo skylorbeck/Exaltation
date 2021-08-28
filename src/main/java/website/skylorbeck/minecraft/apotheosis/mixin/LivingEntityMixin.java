@@ -1,14 +1,10 @@
 package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import io.netty.handler.codec.http.multipart.Attribute;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,10 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
-import website.skylorbeck.minecraft.apotheosis.enchantment.HealthBooster;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
-
-import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {

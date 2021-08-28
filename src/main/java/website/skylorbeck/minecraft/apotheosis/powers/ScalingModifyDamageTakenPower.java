@@ -12,8 +12,6 @@ import website.skylorbeck.minecraft.apotheosis.mixin.EntityAttributeModifierMixi
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 

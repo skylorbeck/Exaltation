@@ -1,6 +1,5 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
-import io.github.apace100.apoli.power.AttributePower;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.util.AttributedEntityAttributeModifier;
