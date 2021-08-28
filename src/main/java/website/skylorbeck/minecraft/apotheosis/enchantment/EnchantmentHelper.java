@@ -1,8 +1,10 @@
 package website.skylorbeck.minecraft.apotheosis.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 import java.util.Iterator;
 
@@ -27,5 +29,14 @@ public class EnchantmentHelper {
 
             return i;
         }
+    }
+    public static int getWitherAspect(LivingEntity entity) {
+        return getEquipmentLevel(Declarar.WITHERASPECT, entity);
+    }
+    public static int getPoisonAspect(LivingEntity entity) {
+        return getEquipmentLevel(Declarar.POISONASPECT, entity);
+    }
+    public static int getFrostAspect(LivingEntity entity) {
+        return getEquipmentLevel(Declarar.FROSTASPECT, entity);
     }
 }

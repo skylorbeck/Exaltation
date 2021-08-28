@@ -11,6 +11,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -75,10 +76,30 @@ public class Declarar {
             new SpeedBooster()
     );
 
+    public static final Enchantment WITHERASPECT = Registry.register(
+            Registry.ENCHANTMENT,
+            getIdentifier("witheraspect"),
+            new WitherAspect()
+    );
+    public static final Enchantment POISONASPECT = Registry.register(
+            Registry.ENCHANTMENT,
+            getIdentifier("poisonaspect"),
+            new PoisonAspect()
+    );
+    public static final Enchantment FROSTASPECT = Registry.register(
+            Registry.ENCHANTMENT,
+            getIdentifier("frostaspect"),
+            new FrostAspect()
+    );
+
     public static UUID healthBoostUUID = UUID.randomUUID();
     public static UUID knockbackResistUUID = UUID.randomUUID();
     public static UUID armorsharpnessUUID = UUID.randomUUID();
     public static UUID speedboosterUUID = UUID.randomUUID();
+    public static UUID witheraspectUUID = UUID.randomUUID();
+    public static UUID poisonaspectUUID = UUID.randomUUID();
+    public static UUID frostaspectUUID = UUID.randomUUID();
+
 
     public static EntityAttributeModifier healthBoostEAM(LivingEntity entity){
         return new EntityAttributeModifier(healthBoostUUID,"apohpboost", EnchantmentHelper.getEquipmentLevel(Declarar.HEALTHBOOST,entity)*2, EntityAttributeModifier.Operation.ADDITION);

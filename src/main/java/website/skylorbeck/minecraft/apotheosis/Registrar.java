@@ -19,6 +19,7 @@ public class Registrar {
         regItem("diamondaltar",Declarar.diamondaltarItem,MODID);
         regBlock("netheritealtar",Declarar.netheritealtar,MODID);
         regItem("netheritealtar",Declarar.netheritealtarItem,MODID);
+
     }
     public static void ClientRegister(){
         ScreenRegistry.register(Declarar.ALTARSCREENHANDLER, AltarHandledScreen::new);
