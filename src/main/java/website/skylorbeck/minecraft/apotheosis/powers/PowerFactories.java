@@ -125,6 +125,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_double_enchant"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithDoubleEnchantPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_free_lapis"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithFreeLapisPower::new));
         register(new PowerFactory<>(Declarar.getIdentifier("draco_shield_power"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DracoKnightShieldPower::new));

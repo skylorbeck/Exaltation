@@ -11,7 +11,11 @@
 
     "apotheosis:blacksmith/arcanesmith/arcanesmith_boot_buff",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_sword_buff"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_sword_buff",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_free_lapis",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_ultimate"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",

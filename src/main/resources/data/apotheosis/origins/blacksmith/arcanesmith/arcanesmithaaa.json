@@ -13,7 +13,9 @@
 
     "apotheosis:blacksmith/arcanesmith/arcanesmith_sword_buff",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_double_enchant"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_double_enchant",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_ultimate"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",

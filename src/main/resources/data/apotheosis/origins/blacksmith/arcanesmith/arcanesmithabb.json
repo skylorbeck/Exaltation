@@ -11,7 +11,11 @@
 
     "apotheosis:blacksmith/arcanesmith/arcanesmith_chest_buff",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_cheap_enchanting"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_cheap_enchanting",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_free_lapis",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_ultimate"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",
