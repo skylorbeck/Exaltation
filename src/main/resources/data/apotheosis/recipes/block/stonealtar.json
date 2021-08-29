@@ -1,16 +1,16 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    "AAA",
-    "ABA",
-    "AAA"
+    "A A",
+    " B ",
+    " A "
   ],
   "key": {
     "A": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:smooth_stone"
     },
     "B": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:campfire"
     }
   },
   "result": {

@@ -1,16 +1,22 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    "AAA",
     "ABA",
-    "AAA"
+    " C ",
+    " D "
   ],
   "key": {
     "A": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:obsidian"
     },
     "B": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:soul_campfire"
+    },
+    "C": {
+      "item": "apotheosis:goldaltaritem"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
     }
   },
   "result": {

@@ -1,16 +1,22 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    "AAA",
     "ABA",
-    "AAA"
+    " C ",
+    " D "
   ],
   "key": {
     "A": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:crying_obsidian"
     },
     "B": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:nether_star"
+    },
+    "C": {
+      "item": "apotheosis:diamondaltaritem"
+    },
+    "D": {
+      "item": "minecraft:netherite_block"
     }
   },
   "result": {

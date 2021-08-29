@@ -1,16 +1,15 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    "AAA",
-    "ABA",
-    "AAA"
+    "A A",
+    " B "
   ],
   "key": {
     "A": {
-      "item": "minecraft:red_dye"
+      "item": "minecraft:iron_block"
     },
     "B": {
-      "item": "minecraft:red_dye"
+      "item": "apotheosis:stonealtaritem"
     }
   },
   "result": {
