@@ -11,7 +11,9 @@
 
     "apotheosis:blacksmith/arcanesmith/arcanesmith_chest_buff",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_sword_buff"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_sword_buff",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_double_enchant"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",

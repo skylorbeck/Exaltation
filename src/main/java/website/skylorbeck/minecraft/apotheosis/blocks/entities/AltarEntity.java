@@ -16,6 +16,9 @@ import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AltarEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     int tier = 0;
     public AltarEntity(BlockPos pos, BlockState state) {
@@ -43,4 +46,5 @@ public class AltarEntity extends BlockEntity implements ExtendedScreenHandlerFac
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(pos);
     }
+
 }

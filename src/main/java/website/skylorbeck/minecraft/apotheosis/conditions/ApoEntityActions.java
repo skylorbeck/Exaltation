@@ -49,6 +49,8 @@ public class ApoEntityActions {
                     }
                 }));
     }
+
+
     private static void register(ActionFactory<Entity> actionFactory) {
         Registry.register(ApoliRegistries.ENTITY_ACTION, actionFactory.getSerializerId(), actionFactory);
     }

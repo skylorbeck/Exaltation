@@ -11,7 +11,9 @@
 
     "apotheosis:blacksmith/arcanesmith/arcanesmith_boot_buff",
 
-    "apotheosis:blacksmith/arcanesmith/arcanesmith_cheap_enchanting"
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_cheap_enchanting",
+
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_double_enchant"
   ],
   "icon": "minecraft:potion",
   "unchoosable": "true",

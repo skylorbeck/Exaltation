@@ -33,16 +33,18 @@ public class AltarAbstract extends BlockWithEntity {
     public static final DirectionProperty FACING;
     private int tier = 0;
 
-    public AltarAbstract(Settings settings,int tier) {
+    public AltarAbstract(Settings settings, int tier) {
         super(settings);
         this.tier = tier;
         this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH));
 
     }
-@Override
-public BlockRenderType getRenderType(BlockState state) {
-    return BlockRenderType.MODEL;
-}
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
     @Override
     public BlockState getPlacementState(@NotNull ItemPlacementContext ctx) {
         return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
@@ -81,7 +83,7 @@ public BlockRenderType getRenderType(BlockState state) {
             @Nullable
             @Override
             public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-                return new AltarScreenHandler(syncId,inv, ScreenHandlerContext.create(world, pos),pos);
+                return new AltarScreenHandler(syncId, inv, ScreenHandlerContext.create(world, pos), pos);
             }
         };
     }
@@ -95,7 +97,10 @@ public BlockRenderType getRenderType(BlockState state) {
 //            player.incrementStat(Stats.);//todo
             return ActionResult.CONSUME;
         }
+
     }
+
+
 
     public int getTier() {
         return tier;
@@ -105,6 +110,7 @@ public BlockRenderType getRenderType(BlockState state) {
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
         stateManager.add(Properties.HORIZONTAL_FACING);
     }
+
     static {
         FACING = HorizontalFacingBlock.FACING;
     }
