@@ -17,6 +17,7 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.blocks.AltarAbstract;
+import website.skylorbeck.minecraft.apotheosis.blocks.AltarBlockItem;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 import website.skylorbeck.minecraft.apotheosis.enchantment.*;
@@ -35,11 +36,11 @@ public class Declarar {
     public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK).nonOpaque().luminance(5),3);
     public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().luminance(5),4);
 
-    public static final BlockItem stonealtarItem = new BlockItem(stonealtar,new FabricItemSettings().group(ItemGroup.MISC));
-    public static final BlockItem ironaltarItem = new BlockItem(ironaltar,new FabricItemSettings().group(ItemGroup.MISC));
-    public static final BlockItem goldaltarItem = new BlockItem(goldaltar,new FabricItemSettings().group(ItemGroup.MISC));
-    public static final BlockItem diamondaltarItem = new BlockItem(diamondaltar,new FabricItemSettings().group(ItemGroup.MISC));
-    public static final BlockItem netheritealtarItem = new BlockItem(netheritealtar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem stonealtarItem = new AltarBlockItem(stonealtar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem ironaltarItem = new AltarBlockItem(ironaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem goldaltarItem = new AltarBlockItem(goldaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem diamondaltarItem = new AltarBlockItem(diamondaltar,new FabricItemSettings().group(ItemGroup.MISC));
+    public static final BlockItem netheritealtarItem = new AltarBlockItem(netheritealtar,new FabricItemSettings().group(ItemGroup.MISC));
 
     public static final BlockEntityType<AltarEntity> ALTARENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,

@@ -10,9 +10,12 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.glfw.GLFW;
+import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.Registrar;
+import website.skylorbeck.minecraft.apotheosis.blocks.AltarBlockItem;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntityRenderer;
+import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarItemEntityRenderer;
 import website.skylorbeck.minecraft.apotheosis.hud.ApoHud;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
@@ -27,6 +30,11 @@ public class ApotheosisClient implements ClientModInitializer{
         Registrar.ClientRegister();
         BlockEntityRendererRegistry.INSTANCE.register(Declarar.ALTARENTITY,
                 (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new AltarEntityRenderer());
+        GeoItemRenderer.registerItemRenderer(Declarar.stonealtarItem,new AltarItemEntityRenderer());
+        GeoItemRenderer.registerItemRenderer(Declarar.ironaltarItem,new AltarItemEntityRenderer());
+        GeoItemRenderer.registerItemRenderer(Declarar.goldaltarItem,new AltarItemEntityRenderer());
+        GeoItemRenderer.registerItemRenderer(Declarar.diamondaltarItem,new AltarItemEntityRenderer());
+        GeoItemRenderer.registerItemRenderer(Declarar.netheritealtarItem,new AltarItemEntityRenderer());
         apoHud = new ApoHud();
 
 
