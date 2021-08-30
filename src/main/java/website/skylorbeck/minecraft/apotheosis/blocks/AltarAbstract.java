@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -27,6 +28,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,8 +51,16 @@ public class AltarAbstract extends BlockWithEntity {
     }
 
     @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        VoxelShape base = Block.createCuboidShape(1D, 0.0D, 1D, 15D, 4D, 15D);
+        VoxelShape base2 = Block.createCuboidShape(6D, 4D, 6D,10D, 14D, 10D);
+        VoxelShape base3 =  Block.createCuboidShape(2D, 14D, 2D, 14D, 17D, 14D);
+        return VoxelShapes.union(base,base2,base3);
+    }
+
+    @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
+        return BlockRenderType.INVISIBLE;
     }
 
     @Override
@@ -119,14 +131,20 @@ public class AltarAbstract extends BlockWithEntity {
 
         if (random.nextInt(10) == 0) {
             for(int i = 0; i < random.nextInt(1) + 1; ++i) {
-                world.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, 0.0D, random.nextFloat() / 50);
+                DefaultParticleType flame = ParticleTypes.FLAME;
+                DefaultParticleType smoke = ParticleTypes.SMOKE;
                 if (tier >= 3) {
-                    world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, random.nextFloat() / 10, random.nextFloat() / 50);
-                } else {
-                    world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, random.nextFloat() / 10, random.nextFloat() / 50);
+                    flame=ParticleTypes.SOUL_FIRE_FLAME;
                 }
+                world.addParticle(flame, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, random.nextFloat() / 20, random.nextFloat() / 50);
+                world.addParticle(smoke, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, 0.0D, random.nextFloat() / 50);
             }
         }
+        if (random.nextInt(100)<=this.tier){
+            world.addParticle(ParticleTypes.SOUL, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, 0, 0.1D, 0);
+
+        }
+
         super.randomDisplayTick(state, world, pos, random);
     }
 
