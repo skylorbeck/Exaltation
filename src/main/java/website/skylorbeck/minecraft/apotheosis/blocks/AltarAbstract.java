@@ -7,10 +7,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -29,6 +33,8 @@ import org.jetbrains.annotations.Nullable;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 
+import java.util.Random;
+
 public class AltarAbstract extends BlockWithEntity {
     public static final DirectionProperty FACING;
     private int tier = 0;
@@ -42,7 +48,7 @@ public class AltarAbstract extends BlockWithEntity {
 
     @Override
     public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -100,7 +106,29 @@ public class AltarAbstract extends BlockWithEntity {
 
     }
 
+    @Override
+    public boolean hasRandomTicks(BlockState state) {
+        return true;
+    }
 
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (random.nextInt(10) == 0) {
+            world.playSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundCategory.BLOCKS, 0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
+        }
+
+        if (random.nextInt(10) == 0) {
+            for(int i = 0; i < random.nextInt(1) + 1; ++i) {
+                world.addParticle(ParticleTypes.SMOKE, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, 0.0D, random.nextFloat() / 50);
+                if (tier >= 3) {
+                    world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, random.nextFloat() / 10, random.nextFloat() / 50);
+                } else {
+                    world.addParticle(ParticleTypes.FLAME, (double) pos.getX() + 0.5D, (double) pos.getY() + 1.1D, (double) pos.getZ() + 0.5D, random.nextFloat() / 50, random.nextFloat() / 10, random.nextFloat() / 50);
+                }
+            }
+        }
+        super.randomDisplayTick(state, world, pos, random);
+    }
 
     public int getTier() {
         return tier;

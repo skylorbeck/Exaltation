@@ -28,6 +28,10 @@ repositories {
     maven {
         url "https://maven.blamejared.com/"
     }
+    maven {
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+
 
     //used by origins
     maven {
@@ -73,6 +77,8 @@ dependencies {
     }
     modImplementation "com.github.apace100:origins-fabric:1.0.3"
     modImplementation "website.skylorbeck.minecraft:SkylorLib:1.0.2"
+    modImplementation 'software.bernie.geckolib:geckolib-fabric-1.17:3.0.12:dev'
+
 }
 
 processResources {

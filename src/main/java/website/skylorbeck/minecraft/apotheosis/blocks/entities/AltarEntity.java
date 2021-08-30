@@ -14,14 +14,23 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AltarEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
+public class AltarEntity extends BlockEntity implements ExtendedScreenHandlerFactory, IAnimatable {
     int tier = 0;
+    private final AnimationFactory factory = new AnimationFactory(this);
+
     public AltarEntity(BlockPos pos, BlockState state) {
         super(Declarar.ALTARENTITY, pos, state);
     }
@@ -48,4 +57,20 @@ public class AltarEntity extends BlockEntity implements ExtendedScreenHandlerFac
         buf.writeBlockPos(pos);
     }
 
+
+    @SuppressWarnings("unchecked")
+    private <E extends BlockEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+        event.getController().transitionLengthTicks = 0;
+        return PlayState.CONTINUE;
+    }
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(
+                new AnimationController<AltarEntity>(this, "controller", 0, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
+    }
 }

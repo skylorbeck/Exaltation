@@ -44,12 +44,12 @@ public class EnchantmentScreenHandlerMixin {
 
     @Inject(at = @At(value = "RETURN"),method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V")
     private void injectedButtonClick2(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, CallbackInfo ci){
-        if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithFreeLapisPower.class)) {
+        if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithFreeLapisPower.class)) {//todo fix bug with duplicating lapis
             ((EnchantmentScreenHandlerAccessor)this).getInvetory().setStack(1,new ItemStack(Items.LAPIS_LAZULI,3));
         }
     }
     @Inject(at = @At(value = "HEAD"),method = "close")
-    private void injectedButtonClick2(PlayerEntity player, CallbackInfo ci){
+    private void injectedClose(PlayerEntity player, CallbackInfo ci){
         if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithFreeLapisPower.class)) {
             ((EnchantmentScreenHandlerAccessor)this).getInvetory().getStack(1).decrement(3);
         }

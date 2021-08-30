@@ -3,12 +3,16 @@ package website.skylorbeck.minecraft.apotheosis.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.glfw.GLFW;
+import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.Registrar;
+import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntityRenderer;
 import website.skylorbeck.minecraft.apotheosis.hud.ApoHud;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
@@ -21,7 +25,11 @@ public class ApotheosisClient implements ClientModInitializer{
     @Override
     public void onInitializeClient() {
         Registrar.ClientRegister();
+        BlockEntityRendererRegistry.INSTANCE.register(Declarar.ALTARENTITY,
+                (BlockEntityRendererFactory.Context rendererDispatcherIn) -> new AltarEntityRenderer());
         apoHud = new ApoHud();
+
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (testbind.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
@@ -39,5 +47,7 @@ public class ApotheosisClient implements ClientModInitializer{
                 APOXP.sync(playerEntity);
             }
         });
+
+
     }
 }

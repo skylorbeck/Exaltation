@@ -29,11 +29,11 @@ public class Declarar {
         return new Identifier(MODID,string);
     }
 //todo check breakbytool
-    public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE),0);
-    public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK),1);
-    public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK),2);
-    public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK),3);
-    public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK),4);
+    public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque().luminance(5),0);
+    public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque().luminance(5),1);
+    public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK).nonOpaque().luminance(5),2);
+    public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK).nonOpaque().luminance(5),3);
+    public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().luminance(5),4);
 
     public static final BlockItem stonealtarItem = new BlockItem(stonealtar,new FabricItemSettings().group(ItemGroup.MISC));
     public static final BlockItem ironaltarItem = new BlockItem(ironaltar,new FabricItemSettings().group(ItemGroup.MISC));

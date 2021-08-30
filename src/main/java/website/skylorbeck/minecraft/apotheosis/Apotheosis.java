@@ -1,6 +1,9 @@
 package website.skylorbeck.minecraft.apotheosis;
 
 import net.fabricmc.api.ModInitializer;
+import software.bernie.example.GeckoLibMod;
+import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityActions;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityCondition;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoItemCondition;
@@ -9,6 +12,8 @@ import website.skylorbeck.minecraft.apotheosis.powers.PowerFactories;
 public class Apotheosis implements ModInitializer {
     @Override
     public void onInitialize() {
+        GeckoLibMod.DISABLE_IN_DEV = true;
+        GeckoLib.initialize();
         Registrar.Register();
         ApoEntityCondition.register();
         ApoItemCondition.register();
@@ -19,6 +24,3 @@ public class Apotheosis implements ModInitializer {
 
 //todo powers
 // --------------
-// ARCANE SMITH
-// purity of design - enchant no longer needs lapis
-// unearthed arcana - 24000 t - free tome of knowledge
