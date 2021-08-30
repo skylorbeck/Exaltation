@@ -23,12 +23,15 @@
   "apotheosis.levelup1": "You have reached maximum power",
   "apotheosis.levelup2": "Use an Altar to Ascend",
 
+  "origin.apotheosis.blacksmith/blacksmith.name": "Blacksmith",
+  "origin.apotheosis.blacksmith/blacksmith.description": "Blacksmith Description TODO",
   "origin.apotheosis.blacksmith/warsmith/warsmith.name": "Warsmith",
   "origin.apotheosis.blacksmith/warsmith/warsmith.description": "Years of practicing your craft have taught you that the only way to ensure the quality of your gear is to use it yourself",
   "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name": "Manasmith",
   "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description": "ARCANE SMITH DESCRIPTION TODO",
-  "origin.apotheosis.blacksmith/blacksmith.name": "Blacksmith",
-  "origin.apotheosis.blacksmith/blacksmith.description": "Blacksmith Description TODO",
+
+  "origin.apotheosis.ranger/ranger.name": "Ranger",
+  "origin.apotheosis.ranger/ranger.description": "Ranger Description TODO",
 
   "power.apotheosis.blacksmith/lucky.name": "Lucky",
   "power.apotheosis.blacksmith/lucky.description": "Gain 0.02 Luck per class level",
@@ -61,6 +64,14 @@
   "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.name": "Warsmiths Art (LVL 50)",
   "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "Full Repair 1/Day",
 
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.name": "Unearthed Arcana (LVL 50)",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.description": "Conjure enchanted book 1/Day",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_free_lapis.name": "Purity of Design",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_free_lapis.description": "Enchantments don't need lapis",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_double_enchant.name": "Magic Metals",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_double_enchant.description": "10% to double enchant lvl",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_sword_buff.name": "Imbued Blades",
+  "power.apotheosis.blacksmith/arcanesmith/arcanesmith_sword_buff.description": "Crafted Swords have DoTs",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_boot_buff.name": "Whimsical Design",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_boot_buff.description": "Crafted Boots +10% speed",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_chest_buff.name": "Arcane Forge",

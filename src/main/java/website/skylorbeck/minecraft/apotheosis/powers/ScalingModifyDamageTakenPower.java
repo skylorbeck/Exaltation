@@ -33,7 +33,6 @@ public class ScalingModifyDamageTakenPower extends ValueModifyingPower {
     }
 
     public boolean doesApply(DamageSource source, float damageAmount) {
-
         return condition.test(new Pair(source, damageAmount));
     }
 

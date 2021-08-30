@@ -6,6 +6,7 @@
   "mixins": [
     "AnvilScreenHandlerAccessor",
     "AnvilScreenHandlerMixin",
+    "AttributeUtilMixin",
     "CraftingScreenHandlerMixin",
     "EnchantmentLevelEntryAccessor",
     "EnchantmentScreenHandlerAccessor",

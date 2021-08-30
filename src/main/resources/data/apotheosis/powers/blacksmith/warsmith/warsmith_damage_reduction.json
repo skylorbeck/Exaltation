@@ -1,6 +1,7 @@
 {
   "type": "apotheosis:scaling_modify_damage_taken",
   "modifier": {
+    "name": "apoMinDamage",
     "operation": "addition",
     "value": -0.5
   },

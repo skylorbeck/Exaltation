@@ -3,37 +3,37 @@
   "display": {
     "firstperson_righthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
       ]
     },
     "firstperson_lefthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
       ]
     },
     "thirdperson_righthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
       ]
     },
     "thirdperson_lefthand": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
       ]
     },
     "ground": {
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        0.25,
+        0.25,
+        0.25
       ]
     },
     "gui": {

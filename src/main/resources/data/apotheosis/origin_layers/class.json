@@ -33,7 +33,9 @@
     "apotheosis:blacksmith/warsmith/warsmithbab",
     "apotheosis:blacksmith/warsmith/warsmithbb",
     "apotheosis:blacksmith/warsmith/warsmithbba",
-    "apotheosis:blacksmith/warsmith/warsmithbbb"
+    "apotheosis:blacksmith/warsmith/warsmithbbb",
+
+    "apotheosis:ranger/ranger"
   ],
   "allow_random": true,
   "exclude_random": [
