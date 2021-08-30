@@ -13,7 +13,6 @@ import org.lwjgl.glfw.GLFW;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.Registrar;
-import website.skylorbeck.minecraft.apotheosis.blocks.AltarBlockItem;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntityRenderer;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarItemEntityRenderer;
 import website.skylorbeck.minecraft.apotheosis.hud.ApoHud;

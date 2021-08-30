@@ -3,7 +3,6 @@ package website.skylorbeck.minecraft.apotheosis;
 import net.fabricmc.api.ModInitializer;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityActions;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityCondition;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoItemCondition;

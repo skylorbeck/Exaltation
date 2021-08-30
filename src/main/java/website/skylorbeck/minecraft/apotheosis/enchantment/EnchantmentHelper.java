@@ -1,7 +1,6 @@
 package website.skylorbeck.minecraft.apotheosis.enchantment;
 
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import website.skylorbeck.minecraft.apotheosis.Declarar;

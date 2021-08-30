@@ -1,7 +1,6 @@
 package website.skylorbeck.minecraft.apotheosis.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.BlockItem;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -9,7 +8,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 
 public class AltarBlockItem extends BlockItem implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
