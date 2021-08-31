@@ -1,7 +1,11 @@
 {
   "powers": [
     "apotheosis:resetlevel",
-    "apotheosis:branchat50"
+    "apotheosis:branchat50",
+
+    "apotheosis:ranger/ranger_accuracy",
+    "apotheosis:ranger/ranger_damage",
+    "apotheosis:ranger/ranger_movespeed"
   ],
   "icon": "minecraft:bow",
   "impact": 1

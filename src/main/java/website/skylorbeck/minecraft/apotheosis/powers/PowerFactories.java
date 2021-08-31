@@ -128,6 +128,32 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("arcanesmith_free_lapis"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) ArcanesmithFreeLapisPower::new));
+
+        register(new PowerFactory<>(Declarar.getIdentifier("ranger_accuracy"),
+                new SerializableData()
+                        .add("accuracy",SerializableDataTypes.FLOAT,0F)
+                        .add("bow",SerializableDataTypes.BOOLEAN,false)
+                        .add("crossbow",SerializableDataTypes.BOOLEAN,false)
+                        .add("scale",SerializableDataTypes.INT,0)
+                ,
+                data -> (type,player) -> new RangerRangedItemAccuracyPower(type,player,
+                        data.getFloat("accuracy"),
+                        data.getBoolean("bow"),
+                        data.getBoolean("crossbow"),
+                        data.getInt("scale")
+                )));
+        register(new PowerFactory<>(Declarar.getIdentifier("ranger_damage_increase"),
+                new SerializableData()
+                        .add("damage",SerializableDataTypes.FLOAT,0F)
+                        .add("damage_scaled",SerializableDataTypes.FLOAT,0F)
+                        .add("scale",SerializableDataTypes.INT,0)
+                ,
+                data -> (type,player) -> new RangerDamagePower(type,player,
+                        data.getFloat("damage"),
+                        data.getFloat("damage_scaled"),
+                        data.getInt("scale")
+                )));
+
         register(new PowerFactory<>(Declarar.getIdentifier("draco_shield_power"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DracoKnightShieldPower::new));

@@ -35,6 +35,9 @@ public class ApoEntityActions {
                         for (int i = 0; i <inventory.size() ; i++) {
                             ItemStack stack = inventory.getStack(i);
                             if (stack.getDamage()>0){
+                                stack.setDamage(stack.getDamage() - stack.getMaxDamage()/10);
+                            }
+                            if (stack.getDamage()<0){
                                 stack.setDamage(0);
                             }
                         }

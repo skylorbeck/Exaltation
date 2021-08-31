@@ -62,7 +62,7 @@
   "power.apotheosis.blacksmith/warsmith/warsmith_armor.description": "+2 Armor",
   "power.apotheosis.blacksmith/warsmith/warsmith_knockback_resist.description": "+25% knockback resist",
   "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.name": "Warsmiths Art (LVL 50)",
-  "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "Full Repair 1/Day",
+  "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "10% Repair 1/Day",
 
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.name": "Unearthed Arcana (LVL 50)",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.description": "Conjure enchanted book 1/Day",
