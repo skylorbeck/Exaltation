@@ -5,7 +5,8 @@
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
-    "apotheosis:ranger/ranger_movespeed"
+    "apotheosis:ranger/ranger_movespeed",
+    "apotheosis:ranger/ranger_summon"
   ],
   "icon": "minecraft:bow",
   "impact": 1

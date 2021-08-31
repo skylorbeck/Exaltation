@@ -74,6 +74,7 @@ public class ApoEntityActions {
                     ((WolfEntity) pet).setOwner((PlayerEntity) entity);
                     if (!entity.world.isClient) {
                         entity.world.spawnEntity(pet);
+                        ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"),true);
                         entity.world.playSound(null,pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS,1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
                     }
                 }));
