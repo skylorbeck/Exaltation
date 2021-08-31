@@ -1,4 +1,8 @@
 {
+  "apotheosis.category": "Apotheosis",
+  "key.apotheosis.primary_active": "Primary Skill",
+  "key.apotheosis.secondary_active": "Secondary Skill",
+
   "block.apotheosis.stonealtarblock": "Stone Altar",
   "block.apotheosis.ironaltarblock": "Iron Altar",
   "block.apotheosis.goldaltarblock": "Gold Altar",

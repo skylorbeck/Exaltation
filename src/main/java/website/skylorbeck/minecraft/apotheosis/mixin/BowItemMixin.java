@@ -38,4 +38,13 @@ public class BowItemMixin {
         }
         return accuracy;
     }
+    @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 3.0f,ordinal = 0))
+    private float injectedOnStoppedUsing3(float speed){
+        LivingEntity user = MinecraftClient.getInstance().player;
+        if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
+            RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
+            speed= 3.0f+(Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())*0.03f);
+        }
+        return speed;
+    }
 }

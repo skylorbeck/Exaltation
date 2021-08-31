@@ -8,7 +8,7 @@
       "compare_to": 50
     }
   },
-  "key": "key.origins.secondary_active",
+  "key": "key.apotheosis.primary_active",
   "cooldown": 24000,
   "hud_render": {
     "sprite_location": "origins:textures/gui/community/huang/resource_bar_01.png",

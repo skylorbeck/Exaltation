@@ -5,17 +5,27 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
+import website.skylorbeck.minecraft.apotheosis.LivingEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin {
+public class LivingEntityMixin implements LivingEntityInterface {
+    int timeRemaining = -1;
+
+
+
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
         LivingEntity entity = ((LivingEntity) (Object) this);
@@ -124,6 +134,18 @@ public class LivingEntityMixin {
                 }
             }
         }
+
+        if (timeRemaining>-1){
+            timeRemaining--;
+            if (timeRemaining<=0){
+                LivingEntity e = ((LivingEntity)(Object)this);
+                if (e instanceof WolfEntity){
+                    ((PlayerEntity)((WolfEntity)e).getOwner()).sendMessage(Text.of("Pet Expired"),true);
+                    e.world.playSound(null,e.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS,1.0F, e.world.random.nextFloat() * 0.1F + 0.9F);
+                }
+                    ((LivingEntity)(Object)this).discard();
+            }
+        }
     }
 
     @Inject(at = @At(value = "RETURN"),method = "isBlocking", cancellable = true)
@@ -131,5 +153,15 @@ public class LivingEntityMixin {
         if (PowerHolderComponent.hasPower(((LivingEntity)(Object)this), DracoKnightShieldPower.class)){
             cir.setReturnValue(true);
         }
+    }
+
+    @Override
+    public int getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    @Override
+    public void setTimeRemaining(int timeRemaining) {
+        this.timeRemaining = timeRemaining;
     }
 }

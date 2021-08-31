@@ -22,8 +22,8 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class ApotheosisClient implements ClientModInitializer{
     public static ApoHud apoHud;
-    public static KeyBinding testbind = KeyBindingHelper.registerKeyBinding(new KeyBinding("test",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_Z,"test"));
-    public static KeyBinding testbind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("test2",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_C,"test"));
+    public static KeyBinding bind1 = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.apotheosis.primary_active",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V,"apotheosis.category"));
+    public static KeyBinding bind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.apotheosis.secondary_active",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_B,"apotheosis.category"));
     @Override
     public void onInitializeClient() {
         Registrar.ClientRegister();
@@ -38,7 +38,7 @@ public class ApotheosisClient implements ClientModInitializer{
 
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (testbind.wasPressed()) {
+            while (bind1.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
                 APOXP.get(playerEntity).setLevel(1);
                 client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
@@ -47,7 +47,7 @@ public class ApotheosisClient implements ClientModInitializer{
             }
         });
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (testbind2.wasPressed()) {
+            while (bind2.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
                 APOXP.get(playerEntity).setLevel(50);
                 client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
