@@ -75,29 +75,30 @@ public class ApoEntityActions {
 //                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
                     WolfEntity pet = EntityType.WOLF.create(entity.world);
                     pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
-                    BlockPos blockPos = new BlockPos(entity.raycast(1,1f,true).getPos());
-                    pet.setPos(blockPos.getX(),blockPos.getY()+1,blockPos.getZ());
+                    BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
+                    pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
                     ((LivingEntityInterface) pet).setTimeRemaining(200);
                     pet.setTamed(true);
                     pet.setOwner((PlayerEntity) entity);
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0D+(Math.floorDiv(APOXP.get(entity).getLevel(),10)*0.5D));
+                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0D + (Math.floorDiv(APOXP.get(entity).getLevel(), 10) * 0.5D));
                     if (!entity.world.isClient) {
                         entity.world.spawnEntity(pet);
-                        ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"),true);
-                        entity.world.playSound(null,pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS,1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
+                        ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
+                        entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
                     }
                 }));
 
         register(new ActionFactory<>(Declarar.getIdentifier("turn_power_off"), new SerializableData()
-                .add("power", SerializableDataTypes.IDENTIFIER,null),
+                .add("power", SerializableDataTypes.IDENTIFIER, null),
                 (data, entity) -> {
                     if (entity instanceof PlayerEntity) {
-                        Identifier identifier =data.getId("power");
+                        Identifier identifier = data.getId("power");
                         if (PowerTypeRegistry.contains(identifier)) {
                             Power power = PowerTypeRegistry.get(identifier).get(entity);
                             if (PowerHolderComponent.hasPower(entity, power.getClass())) {
                                 if (power.isActive()) {
                                     ((TogglePower) power).onUse();
+                                    PowerHolderComponent.sync(entity);
                                 }
                             }
                         }
