@@ -69,6 +69,8 @@ public class ApoEntityActions {
                     }
                 }));
         register(new ActionFactory<>(Declarar.getIdentifier("summon_pet"), new SerializableData()
+                .add("scale",SerializableDataTypes.INT,10)
+                .add("scaled_damage",SerializableDataTypes.DOUBLE,0.5D)
 //                .add("living_entity", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
                 ,
                 (data, entity) -> {
@@ -80,7 +82,7 @@ public class ApoEntityActions {
                     ((LivingEntityInterface) pet).setTimeRemaining(200);
                     pet.setTamed(true);
                     pet.setOwner((PlayerEntity) entity);
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0D + (Math.floorDiv(APOXP.get(entity).getLevel(), 10) * 0.5D));
+                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0D + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                     if (!entity.world.isClient) {
                         entity.world.spawnEntity(pet);
                         ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);

@@ -1,0 +1,6 @@
+{
+  "type": "apotheosis:ranger_damage_increase",
+  "damage": 0,
+  "damage_scaled": 0.5,
+  "scale": 5
+}
