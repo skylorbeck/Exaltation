@@ -35,7 +35,8 @@
     "apotheosis:blacksmith/warsmith/warsmithbba",
     "apotheosis:blacksmith/warsmith/warsmithbbb",
 
-    "apotheosis:ranger/ranger"
+    "apotheosis:ranger/ranger",
+    "apotheosis:ranger/druid/druid"
   ],
   "allow_random": true,
   "exclude_random": [

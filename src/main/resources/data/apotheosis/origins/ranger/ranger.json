@@ -9,5 +9,17 @@
     "apotheosis:ranger/ranger_summon"
   ],
   "icon": "minecraft:bow",
-  "impact": 1
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "apotheosis:ranger/ranger_upgrade_a",
+      "origin": "apotheosis:ranger/druid/druid",
+      "announcement": "Druid Activated"
+    },
+    {
+      "condition": "apotheosis:ranger/ranger_upgrade_b",
+      "origin": "apotheosis:ranger/marksmen/marksmen",
+      "announcement": "Marksmen Activated"
+    }
+  ]
 }
