@@ -5,13 +5,19 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
+import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 public class ApotheosisComponents implements EntityComponentInitializer{
     public static final ComponentKey<XPComponent> APOXP =
-            ComponentRegistry.getOrCreate(new Identifier("apotheosis:xp"), XPComponent.class);
+            ComponentRegistry.getOrCreate(Declarar.getIdentifier("xp"), XPComponent.class);
+    public static final ComponentKey<PetComponent> PETKEY =
+            ComponentRegistry.getOrCreate(Declarar.getIdentifier("petkey"),PetComponent.class);
+
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(APOXP, XPComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerFor(WolfEntity.class,PETKEY,(PetComponent::new));
     }
 }

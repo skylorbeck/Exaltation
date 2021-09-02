@@ -18,13 +18,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.LivingEntityInterface;
+import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 
+import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
+
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin implements LivingEntityInterface {
-    int timeRemaining = -1;
-
-
+public class LivingEntityMixin {
 
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
@@ -134,16 +134,21 @@ public class LivingEntityMixin implements LivingEntityInterface {
                 }
             }
         }
-
-        if (timeRemaining>-1){
-            timeRemaining--;
-            if (timeRemaining<=0){
-                LivingEntity e = ((LivingEntity)(Object)this);
-                if (e instanceof WolfEntity){
-                    ((PlayerEntity)((WolfEntity)e).getOwner()).sendMessage(Text.of("Pet Expired"),true);
-                    e.world.playSound(null,e.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS,1.0F, e.world.random.nextFloat() * 0.1F + 0.9F);
+        if (((Object)this) instanceof WolfEntity) {
+            PetComponent petComponent = PETKEY.get(((LivingEntity) (Object) this));
+            if (petComponent.getTimeLeft() >= -1) {
+                petComponent.setTimeLeft(petComponent.getTimeLeft() - 1);
+                if (petComponent.getTimeLeft() <= 0) {
+                    LivingEntity e = ((LivingEntity) (Object) this);
+                    if (e instanceof WolfEntity) {
+                        ((PlayerEntity) ((WolfEntity) e).getOwner()).sendMessage(Text.of("Pet Expired"), true);
+                        e.world.playSound(null, e.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, e.world.random.nextFloat() * 0.1F + 0.9F);
+                    }
+                    ((LivingEntity) (Object) this).discard();
                 }
-                    ((LivingEntity)(Object)this).discard();
+                if (petComponent.getTimeLeft() % 20 == 0) {
+                    PETKEY.sync(((LivingEntity) (Object) this));
+                }
             }
         }
     }
@@ -153,16 +158,5 @@ public class LivingEntityMixin implements LivingEntityInterface {
         if (PowerHolderComponent.hasPower(((LivingEntity)(Object)this), DracoKnightShieldPower.class)){
             cir.setReturnValue(true);
         }
-    }
-
-
-    @Override
-    public int getTimeRemaining() {
-        return timeRemaining;
-    }
-
-    @Override
-    public void setTimeRemaining(int timeRemaining) {
-        this.timeRemaining = timeRemaining;
     }
 }

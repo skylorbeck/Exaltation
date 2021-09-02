@@ -33,6 +33,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
+import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
 
 public class ApoEntityActions {
     public static void register() {
@@ -87,9 +88,12 @@ public class ApoEntityActions {
                     pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
                     boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
                     boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
-                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
+//                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
                     pet.setTamed(true);
                     pet.setOwner((PlayerEntity) entity);
+                    PETKEY.get(pet).setOwnerUUID(entity.getUuid());
+                    PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
+                    PETKEY.sync(pet);
                     if (pack) {
                         PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")),Declarar.getIdentifier("wolfmark"));
                         pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));

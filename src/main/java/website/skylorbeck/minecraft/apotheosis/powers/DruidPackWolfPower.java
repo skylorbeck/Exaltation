@@ -10,4 +10,3 @@ public class DruidPackWolfPower extends Power {
     }
 
 }
-//todo wolf mark makes player do more damage

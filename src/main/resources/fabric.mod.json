@@ -37,7 +37,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "apotheosis:xp"
+      "apotheosis:xp",
+      "apotheosis:petkey"
     ]
   }
 }
