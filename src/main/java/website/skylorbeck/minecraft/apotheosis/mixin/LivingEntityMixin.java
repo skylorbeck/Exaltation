@@ -155,6 +155,7 @@ public class LivingEntityMixin implements LivingEntityInterface {
         }
     }
 
+
     @Override
     public int getTimeRemaining() {
         return timeRemaining;

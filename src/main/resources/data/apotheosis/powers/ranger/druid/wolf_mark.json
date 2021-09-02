@@ -2,11 +2,18 @@
   "type": "origins:target_action_on_hit",
   "entity_action": {
     "type": "origins:apply_effect",
-    "effect": {
+    "effects": [
+    {
       "effect": "minecraft:glowing",
       "amplifier": 1,
       "duration": 200
-    }
+    },
+      {
+        "effect": "apotheosis:wolfmark",
+        "amplifier": 1,
+        "duration": 200
+      }
+      ]
   },
   "cooldown": 200,
   "hud_render": {
