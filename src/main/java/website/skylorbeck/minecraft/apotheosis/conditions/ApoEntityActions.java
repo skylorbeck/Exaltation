@@ -15,6 +15,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +32,9 @@ import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.LivingEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
@@ -77,10 +81,20 @@ public class ApoEntityActions {
                 .add("scaled_damage", SerializableDataTypes.DOUBLE, 0.5D)
                 .add("base_damage", SerializableDataTypes.DOUBLE, 4.0D)
                 .add("base_health", SerializableDataTypes.DOUBLE, 20.0D)
-                .add("time",SerializableDataTypes.INT,600)
+                .add("time", SerializableDataTypes.INT, 600)
 //                .add("living_entity", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
                 ,
                 (data, entity) -> {
+                    if (APOXP.get(entity).getPetUUID() != null) {
+                        TargetPredicate predicate = TargetPredicate.DEFAULT;
+                        predicate.setPredicate((pet -> PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
+                        WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
+                        if (oldPet != null) {
+                            oldPet.discard();
+                        }
+                        APOXP.get(entity).setPetUUID(null);
+                        APOXP.sync(entity);
+                    }
 //                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
                     WolfEntity pet = EntityType.WOLF.create(entity.world);
                     pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
@@ -94,11 +108,13 @@ public class ApoEntityActions {
                     PETKEY.get(pet).setOwnerUUID(entity.getUuid());
                     PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
                     PETKEY.sync(pet);
+                    APOXP.get(entity).setPetUUID(pet.getUuid());
+                    APOXP.sync(entity);
                     if (pack) {
-                        PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")),Declarar.getIdentifier("wolfmark"));
+                        PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
                         pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
                     }
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D)+ (pack ? 5D : 0D));
+                    pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D));
                     pet.setHealth((float) data.getDouble("base_health"));
                     pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                     if (!entity.world.isClient) {
