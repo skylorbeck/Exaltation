@@ -1,0 +1,28 @@
+{
+  "hidden": true,
+  "type": "origins:stacking_status_effect",
+  "min_stacks": 0,
+  "max_stacks": 20,
+  "duration_per_stack": 10,
+  "effects": [
+    {
+      "effect": "minecraft:slow_falling",
+      "is_ambient": true,
+      "show_particles": false,
+      "show_icon": true
+    },
+    {
+      "effect": "minecraft:haste",
+      "is_ambient": true,
+      "show_particles": false,
+      "show_icon": true
+    }
+  ],
+  "condition": {
+    "type": "origins:biome",
+    "condition": {
+      "type": "origins:category",
+      "category": "jungle"
+    }
+  }
+}

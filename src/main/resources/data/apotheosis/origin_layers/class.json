@@ -34,9 +34,22 @@
     "apotheosis:blacksmith/warsmith/warsmithbb",
     "apotheosis:blacksmith/warsmith/warsmithbba",
     "apotheosis:blacksmith/warsmith/warsmithbbb",
-
     "apotheosis:ranger/ranger",
-    "apotheosis:ranger/druid/druid"
+    "apotheosis:ranger/druid/druid",
+    "apotheosis:ranger/druid/druida",
+    "apotheosis:ranger/druid/druidb",
+    "apotheosis:ranger/druid/druidaa",
+    "apotheosis:ranger/druid/druidaaa",
+    "apotheosis:ranger/druid/druidaab",
+    "apotheosis:ranger/druid/druidab",
+    "apotheosis:ranger/druid/druidaba",
+    "apotheosis:ranger/druid/druidabb",
+    "apotheosis:ranger/druid/druidba",
+    "apotheosis:ranger/druid/druidbaa",
+    "apotheosis:ranger/druid/druidbab",
+    "apotheosis:ranger/druid/druidbb",
+    "apotheosis:ranger/druid/druidbbb",
+    "apotheosis:ranger/druid/druidbba"
   ],
   "allow_random": true,
   "exclude_random": [

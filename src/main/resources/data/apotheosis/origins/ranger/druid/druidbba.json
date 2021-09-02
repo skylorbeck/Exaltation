@@ -2,7 +2,7 @@
   "name": "origin.apotheosis.druid.name",
   "description": "origin.apotheosis.druid.description",
   "powers": [
-    "apotheosis:branchat10",
+    "apotheosis:branchat45",
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
@@ -14,18 +14,26 @@
     "apotheosis:ranger/druid/druid_biome_plains_bonus_a",
     "apotheosis:ranger/druid/druid_mark_toggle",
     "apotheosis:ranger/druid/druid_mark",
-    "apotheosis:ranger/druid/druid_mark_consumer"
+    "apotheosis:ranger/druid/druid_mark_consumer",
+
+    "apotheosis:ranger/druid/druid_dire_wolf",
+
+    "apotheosis:ranger/druid/druid_pack_wolf",
+
+    "apotheosis:ranger/druid/druid_biome_forest_bonus_b",
+    "apotheosis:ranger/druid/druid_biome_jungle_bonus_b",
+    "apotheosis:ranger/druid/druid_biome_plains_bonus_b"
   ],
   "icon": "minecraft:poppy",
   "impact": 2,
   "upgrades": [
     {
-      "condition": "apotheosis:ranger/druid/druid_upgrade_a",
-      "origin": "apotheosis:ranger/druid/druida"
+      "condition": "apotheosis:ranger/druid/druidba_upgrade_a",
+      "origin": "apotheosis:ranger/druid/druidbaa"
     },
     {
-      "condition": "apotheosis:ranger/druid/druid_upgrade_b",
-      "origin": "apotheosis:ranger/druid/druidb"
+      "condition": "apotheosis:ranger/druid/druidba_upgrade_b",
+      "origin": "apotheosis:ranger/druid/druidbab"
     }
   ]
 }

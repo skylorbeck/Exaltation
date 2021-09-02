@@ -157,6 +157,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("druid_dire_wolf"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DruidDireWolfPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("druid_pack_wolf"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DruidPackWolfPower::new));
     }
 
     private static void register(PowerFactory serializer) {

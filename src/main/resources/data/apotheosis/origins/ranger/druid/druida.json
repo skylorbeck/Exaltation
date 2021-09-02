@@ -9,7 +9,9 @@
     "apotheosis:ranger/ranger_movespeed",
 
     "apotheosis:ranger/druid/druid_summon",
-    "apotheosis:ranger/druid/druid_biome_bonus",
+    "apotheosis:ranger/druid/druid_biome_forest_bonus_a",
+    "apotheosis:ranger/druid/druid_biome_jungle_bonus_a",
+    "apotheosis:ranger/druid/druid_biome_plains_bonus_a",
     "apotheosis:ranger/druid/druid_mark_toggle",
     "apotheosis:ranger/druid/druid_mark_consumer",
 
