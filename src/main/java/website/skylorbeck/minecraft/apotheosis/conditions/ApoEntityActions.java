@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.LivingEntityInterface;
+import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
@@ -69,8 +70,11 @@ public class ApoEntityActions {
                     }
                 }));
         register(new ActionFactory<>(Declarar.getIdentifier("summon_pet"), new SerializableData()
-                .add("scale",SerializableDataTypes.INT,10)
-                .add("scaled_damage",SerializableDataTypes.DOUBLE,0.5D)
+                .add("scale", SerializableDataTypes.INT, 10)
+                .add("scaled_damage", SerializableDataTypes.DOUBLE, 0.5D)
+                .add("base_damage", SerializableDataTypes.DOUBLE, 4.0D)
+                .add("base_health", SerializableDataTypes.DOUBLE, 20.0D)
+                .add("time",SerializableDataTypes.INT,600)
 //                .add("living_entity", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
                 ,
                 (data, entity) -> {
@@ -79,10 +83,13 @@ public class ApoEntityActions {
                     pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
                     BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
                     pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
-                    ((LivingEntityInterface) pet).setTimeRemaining(200);
+                    boolean dire =  (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
+                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") +(dire?100:0));
                     pet.setTamed(true);
                     pet.setOwner((PlayerEntity) entity);
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0D + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
+                    pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health")+ (dire?5D:0D));
+                    pet.setHealth((float) data.getDouble("base_health"));
+                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire?2D:0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                     if (!entity.world.isClient) {
                         entity.world.spawnEntity(pet);
                         ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);

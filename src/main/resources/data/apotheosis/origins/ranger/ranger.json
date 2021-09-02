@@ -1,4 +1,6 @@
 {
+  "name": "origin.apotheosis.ranger.name",
+  "description": "origin.apotheosis.ranger.description",
   "powers": [
     "apotheosis:resetlevel",
     "apotheosis:branchat50",

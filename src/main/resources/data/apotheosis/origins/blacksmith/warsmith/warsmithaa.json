@@ -1,6 +1,6 @@
 {
-  "name": "origin.apotheosis.blacksmith/warsmith/warsmith.name",
-  "description": "origin.apotheosis.blacksmith/warsmith/warsmith.description",
+  "name": "origin.apotheosis.warsmith.name",
+  "description": "origin.apotheosis.warsmith.description",
   "powers": [
     "apotheosis:branchat45",
     "apotheosis:blacksmith/blacksmith_consuming",

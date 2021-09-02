@@ -1,4 +1,6 @@
 {
+  "name": "origin.apotheosis.blacksmith.name",
+  "description": "origin.apotheosis.blacksmith.description",
   "powers": [
     "apotheosis:resetlevel",
     "apotheosis:branchat50",

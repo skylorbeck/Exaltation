@@ -1,6 +1,6 @@
 {
-  "name": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name",
-  "description": "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description",
+  "name": "origin.apotheosis.arcanesmith.name",
+  "description": "origin.apotheosis.arcanesmith.description",
   "powers": [
     "apotheosis:branchat10",
     "apotheosis:blacksmith/blacksmith_consuming",
