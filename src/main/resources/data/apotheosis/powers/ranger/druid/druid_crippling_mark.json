@@ -1,0 +1,31 @@
+{
+  "type": "origins:target_action_on_hit",
+  "entity_action": {
+    "type": "origins:apply_effect",
+    "effects": [
+      {
+        "effect": "minecraft:glowing",
+        "amplifier": 1,
+        "duration": 600
+      },{
+        "effect": "minecraft:slowness",
+        "amplifier": 2,
+        "duration": 600
+      },{
+        "effect": "minecraft:weakness",
+        "amplifier": 1,
+        "duration": 600
+      }
+    ]
+  },
+  "cooldown": 1800,
+  "hud_render": {
+    "should_render": true,
+    "sprite_location": "origins:textures/gui/community/huang/resource_bar_01.png",
+    "bar_index": 2
+  },
+  "condition": {
+    "type": "origins:power_active",
+    "power": "apotheosis:ranger/druid/druid_mark_toggle"
+  }
+}

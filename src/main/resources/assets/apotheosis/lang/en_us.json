@@ -27,12 +27,12 @@
   "apotheosis.levelup1": "You have reached maximum power",
   "apotheosis.levelup2": "Use an Altar to Ascend",
 
-  "origin.apotheosis.blacksmith/blacksmith.name": "Blacksmith",
-  "origin.apotheosis.blacksmith/blacksmith.description": "Blacksmith Description TODO",
-  "origin.apotheosis.blacksmith/warsmith/warsmith.name": "Warsmith",
-  "origin.apotheosis.blacksmith/warsmith/warsmith.description": "Years of practicing your craft have taught you that the only way to ensure the quality of your gear is to use it yourself",
-  "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.name": "Manasmith",
-  "origin.apotheosis.blacksmith/arcanesmith/arcanesmith.description": "ARCANE SMITH DESCRIPTION TODO",
+  "origin.apotheosis.blacksmith.name": "Blacksmith",
+  "origin.apotheosis.blacksmith.description": "Blacksmith Description TODO",
+  "origin.apotheosis.warsmith.name": "Warsmith",
+  "origin.apotheosis.warsmith.description": "Years of practicing your craft have taught you that the only way to ensure the quality of your gear is to use it yourself",
+  "origin.apotheosis.arcanesmith.name": "Manasmith",
+  "origin.apotheosis.arcanesmith.description": "ARCANE SMITH DESCRIPTION TODO",
 
   "origin.apotheosis.ranger/ranger.name": "Ranger",
   "origin.apotheosis.ranger/ranger.description": "Ranger Description TODO",
