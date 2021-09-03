@@ -3,6 +3,7 @@
   "description": "origin.apotheosis.druid.description",
   "powers": [
     "apotheosis:branchat45",
+    "apotheosis:ranger/druid/druid_consuming",
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
@@ -20,7 +21,7 @@
     "apotheosis:ranger/druid/druid_night_vision",
     "apotheosis:ranger/druid/druid_blinding_mark"
   ],
-  "icon": "minecraft:poppy",
+  "icon": "minecraft:bow",
   "impact": 2,
   "upgrades": [
     {
@@ -28,7 +29,7 @@
       "origin": "apotheosis:ranger/druid/druidaaa"
     },
     {
-      "condition": "apotheosis:ranger/druid/druida_upgrade_b",
+      "condition": "apotheosis:ranger/druid/druidaa_upgrade_b",
       "origin": "apotheosis:ranger/druid/druidaab"
     }
   ]

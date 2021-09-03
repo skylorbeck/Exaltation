@@ -3,6 +3,7 @@
   "description": "origin.apotheosis.druid.description",
   "powers": [
     "apotheosis:branchat10",
+    "apotheosis:ranger/druid/druid_consuming",
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
@@ -16,7 +17,7 @@
     "apotheosis:ranger/druid/druid_mark",
     "apotheosis:ranger/druid/druid_mark_consumer"
   ],
-  "icon": "minecraft:poppy",
+  "icon": "minecraft:bow",
   "impact": 2,
   "upgrades": [
     {

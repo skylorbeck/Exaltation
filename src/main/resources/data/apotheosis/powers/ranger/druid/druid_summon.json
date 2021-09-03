@@ -1,4 +1,5 @@
 {
+  "name": "power.apotheosis.ranger/ranger_summon.name",
   "type": "origins:active_self",
   "entity_action": {
     "type": "apotheosis:summon_pet",

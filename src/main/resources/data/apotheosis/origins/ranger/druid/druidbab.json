@@ -2,7 +2,7 @@
   "name": "origin.apotheosis.druid.name",
   "description": "origin.apotheosis.druid.description",
   "powers": [
-    "apotheosis:branchat45",
+    "apotheosis:ranger/druid/druid_consuming",
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
@@ -24,6 +24,6 @@
     "apotheosis:ranger/druid/druid_wolf_bond",
     "apotheosis:ranger/druid/druid_ultimate"
   ],
-  "icon": "minecraft:poppy",
+  "icon": "minecraft:bow",
   "impact": 2
 }

@@ -2,7 +2,7 @@
   "name": "origin.apotheosis.arcanesmith.name",
   "description": "origin.apotheosis.arcanesmith.description",
   "powers": [
-    "apotheosis:blacksmith/blacksmith_consuming",
+    "apotheosis:blacksmith/arcanesmith/arcanesmith_consuming",
     "apotheosis:blacksmith/smithing_armor_power",
     "apotheosis:blacksmith/smithing_weapon_power",
 

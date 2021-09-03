@@ -1,0 +1,13 @@
+{
+  "name": "origin.apotheosis.marksman.name",
+  "description": "origin.apotheosis.marksman.description",
+  "powers": [
+    "apotheosis:ranger/marksman/marksman_consuming",
+
+    "apotheosis:ranger/ranger_accuracy",
+    "apotheosis:ranger/ranger_damage",
+    "apotheosis:ranger/ranger_movespeed"
+  ],
+  "icon": "minecraft:crossbow",
+  "impact": 2
+}

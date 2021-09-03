@@ -1,8 +1,8 @@
 {
-  "type": "apotheosis:leveled_attribute",
+  "type": "origins:attribute",
   "modifier": {
     "attribute": "minecraft:generic.movement_speed",
-    "value": 0.00025,
+    "value": 0.005,
     "operation": "addition"
   }
 }
