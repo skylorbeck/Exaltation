@@ -6,7 +6,7 @@
   "effects": [
     {
       "effect": "minecraft:hero_of_the_village",
-      "amplifier": 4,
+      "amplifier": 3,
       "is_ambient": true,
       "show_particles": false,
       "show_icon": true
