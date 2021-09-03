@@ -93,9 +93,6 @@
   "power.apotheosis.ranger/ranger_summon.name": "Wolf Companion (Primary)",
   "power.apotheosis.ranger/ranger_summon.description": "Summon a pet Wolf for 30s",
 
-  "origin.apotheosis.marksman.name": "Marksman",
-  "origin.apotheosis.marksman.description": "Marksman Description TODO",
-
   "origin.apotheosis.druid.name": "Druid",
   "origin.apotheosis.druid.description": "Druid Description TODO",
   "power.apotheosis.ranger/druid/druid_summon.description": "Summon a Wolf for 30s, +1 Damage/5 Levels",
@@ -118,5 +115,10 @@
   "power.apotheosis.ranger/druid/druid_wolf_bond.name": "Symbiotic Bond",
   "power.apotheosis.ranger/druid/druid_wolf_bond.description": "Wolf +10 HP, +Resistance near Wolf",
   "power.apotheosis.ranger/druid/druid_ultimate.name": "Wild Hunt (LVL 50)",
-  "power.apotheosis.ranger/druid/druid_ultimate.description": "Wolf lasts 6 Minutes, cooldowns -1s on hit"
+  "power.apotheosis.ranger/druid/druid_ultimate.description": "Wolf lasts 6 Minutes, cooldowns -1s on hit",
+
+  "origin.apotheosis.marksman.name": "Marksman",
+  "origin.apotheosis.marksman.description": "Marksman Description TODO",
+  "power.apotheosis.ranger/marksman/marksman_discount.name": "Mercenaries Reputation",
+  "power.apotheosis.ranger/marksman/marksman_discount.description": "50% discount at Villages"
 }

@@ -22,6 +22,7 @@
     "apotheosis:ranger/druid/druid_pack_wolf"
   ],
   "icon": "minecraft:bow",
+  "unchoosable": "true",
   "impact": 2,
   "upgrades": [
     {

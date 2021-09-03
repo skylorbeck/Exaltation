@@ -4,12 +4,15 @@
   "powers": [
     "apotheosis:branchat10",
     "apotheosis:ranger/marksman/marksman_consuming",
+    "apotheosis:ranger/marksman/marksman_discount",
 
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
-    "apotheosis:ranger/ranger_movespeed"
+    "apotheosis:ranger/ranger_movespeed",
+    "apotheosis:ranger/ranger_summon"
   ],
   "icon": "minecraft:crossbow",
+  "unchoosable": "true",
   "impact": 2,
   "upgrades": [
     {

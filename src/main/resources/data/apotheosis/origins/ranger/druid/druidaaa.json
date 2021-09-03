@@ -26,5 +26,6 @@
     "apotheosis:ranger/druid/druid_ultimate"
   ],
   "icon": "minecraft:bow",
+  "unchoosable": "true",
   "impact": 2
 }

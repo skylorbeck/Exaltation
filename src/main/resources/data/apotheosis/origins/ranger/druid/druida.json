@@ -19,6 +19,7 @@
     "apotheosis:ranger/druid/druid_crippling_mark"
   ],
   "icon": "minecraft:bow",
+  "unchoosable": "true",
   "impact": 2,
   "upgrades": [
     {

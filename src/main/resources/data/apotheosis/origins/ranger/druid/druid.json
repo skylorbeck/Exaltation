@@ -18,6 +18,7 @@
     "apotheosis:ranger/druid/druid_mark_consumer"
   ],
   "icon": "minecraft:bow",
+  "unchoosable": "true",
   "impact": 2,
   "upgrades": [
     {

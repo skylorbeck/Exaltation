@@ -23,6 +23,7 @@
     "apotheosis:ranger/druid/druid_blinding_mark"
   ],
   "icon": "minecraft:bow",
+  "unchoosable": "true",
   "impact": 2,
   "upgrades": [
     {
