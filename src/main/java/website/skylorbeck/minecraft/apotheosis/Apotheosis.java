@@ -1,6 +1,8 @@
 package website.skylorbeck.minecraft.apotheosis;
 
+import io.github.apace100.origins.command.OriginCommand;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import software.bernie.example.GeckoLibMod;
 import software.bernie.geckolib3.GeckoLib;
 import website.skylorbeck.minecraft.apotheosis.conditions.ApoEntityActions;
@@ -18,6 +20,9 @@ public class Apotheosis implements ModInitializer {
         ApoItemCondition.register();
         ApoEntityActions.register();
         PowerFactories.register();
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+            CommandCenter.register(dispatcher);
+        });
     }
 }
 

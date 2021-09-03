@@ -85,42 +85,51 @@ public class ApoEntityActions {
 //                .add("living_entity", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
                 ,
                 (data, entity) -> {
+                    boolean toggle = false;
                     if (APOXP.get(entity).getPetUUID() != null) {
                         TargetPredicate predicate = TargetPredicate.DEFAULT;
                         predicate.setPredicate((pet -> PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
                         WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
                         if (oldPet != null) {
+                            if (PETKEY.get(oldPet).getTimeLeft()==-1){
+                                toggle = true;
+                            }
                             oldPet.discard();
                         }
                         APOXP.get(entity).setPetUUID(null);
                         APOXP.sync(entity);
                     }
+                    if (!toggle) {
 //                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
-                    WolfEntity pet = EntityType.WOLF.create(entity.world);
-                    pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
-                    BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
-                    pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
-                    boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
-                    boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
+                        WolfEntity pet = EntityType.WOLF.create(entity.world);
+                        pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
+                        BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
+                        pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
+                        boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
+                        boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
 //                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
-                    pet.setTamed(true);
-                    pet.setOwner((PlayerEntity) entity);
-                    PETKEY.get(pet).setOwnerUUID(entity.getUuid());
-                    PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
-                    PETKEY.sync(pet);
-                    APOXP.get(entity).setPetUUID(pet.getUuid());
-                    APOXP.sync(entity);
-                    if (pack) {
-                        PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
-                        pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
-                    }
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D));
-                    pet.setHealth((float) data.getDouble("base_health"));
-                    pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
-                    if (!entity.world.isClient) {
-                        entity.world.spawnEntity(pet);
-                        ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
-                        entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
+                        pet.setTamed(true);
+                        pet.setOwner((PlayerEntity) entity);
+                        PETKEY.get(pet).setOwnerUUID(entity.getUuid());
+                        PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
+                        if (APOXP.get(entity).getLevel() >= 50) {
+                            PETKEY.get(pet).setTimeLeft(3600);
+                        }
+                        PETKEY.sync(pet);
+                        APOXP.get(entity).setPetUUID(pet.getUuid());
+                        APOXP.sync(entity);
+                        if (pack) {
+                            PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
+                        }
+                        pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D));
+                        pet.setHealth((float) data.getDouble("base_health"));
+                        pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
+                        if (!entity.world.isClient) {
+                            entity.world.spawnEntity(pet);
+                            ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
+                            entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
+                        }
                     }
                 }));
 

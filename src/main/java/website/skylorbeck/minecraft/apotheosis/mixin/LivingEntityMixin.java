@@ -136,13 +136,15 @@ public class LivingEntityMixin {
         }
         if (((Object)this) instanceof WolfEntity) {
             PetComponent petComponent = PETKEY.get(((LivingEntity) (Object) this));
-            if (petComponent.getTimeLeft() >= -1) {
+            if (petComponent.getTimeLeft() >= 0) {
                 petComponent.setTimeLeft(petComponent.getTimeLeft() - 1);
                 if (petComponent.getTimeLeft() <= 0) {
                     LivingEntity e = ((LivingEntity) (Object) this);
                     if (e instanceof WolfEntity) {
+                        try {
                         ((PlayerEntity) ((WolfEntity) e).getOwner()).sendMessage(Text.of("Pet Expired"), true);
                         e.world.playSound(null, e.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, e.world.random.nextFloat() * 0.1F + 0.9F);
+                        } catch (Exception ignored){}
                     }
                     ((LivingEntity) (Object) this).discard();
                 }

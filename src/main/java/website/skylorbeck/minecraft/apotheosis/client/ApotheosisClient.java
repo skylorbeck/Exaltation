@@ -37,7 +37,7 @@ public class ApotheosisClient implements ClientModInitializer{
         apoHud = new ApoHud();
 
 
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+        /*ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (bind1.wasPressed()) {
                 PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
                 APOXP.get(playerEntity).setLevel(1);
@@ -53,7 +53,7 @@ public class ApotheosisClient implements ClientModInitializer{
                 client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
                 APOXP.sync(playerEntity);
             }
-        });
+        });*/
 
 
     }
