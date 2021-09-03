@@ -63,7 +63,7 @@
   "power.apotheosis.blacksmith/warsmith/warsmith_ultimate.description": "10% Repair 1/Day",
 
   "origin.apotheosis.arcanesmith.name": "Manasmith",
-  "origin.apotheosis.arcanesmith.description": "ARCANE SMITH DESCRIPTION TODO",
+  "origin.apotheosis.arcanesmith.description": "Years of attempted attempts met with failure. It seemed the combination of magic and steel was not to be understood. Until one day you began to look inward. Finding your own mana You began to imbue a bit of yourself into your crafts. Producing armor and weapons never though possible",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.name": "Unearthed Arcana (LVL 50)",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_ultimate.description": "Conjure enchanted book 1/Day",
   "power.apotheosis.blacksmith/arcanesmith/arcanesmith_free_lapis.name": "Purity of Design",
@@ -94,7 +94,7 @@
   "power.apotheosis.ranger/ranger_summon.description": "Summon a pet Wolf for 30s",
 
   "origin.apotheosis.druid.name": "Druid",
-  "origin.apotheosis.druid.description": "Druid Description TODO",
+  "origin.apotheosis.druid.description": "You gave your bow to mother nature, and, in her infinite kindness she gave it back. Stronger than ever before you understand the world in it’s language, not yours. You have formed an unbreakable bond with your animal Companion and with them you will protect the newly found beauty that is this world",
   "power.apotheosis.ranger/druid/druid_summon.description": "Summon a Wolf for 30s, +1 Damage/5 Levels",
   "power.apotheosis.ranger/druid/druid_biome_forest_bonus_a.name": "One With Nature",
   "power.apotheosis.ranger/druid/druid_biome_forest_bonus_a.description": "Gain Jump Boost/Speed while in a Forest/Plain",
@@ -120,5 +120,5 @@
   "origin.apotheosis.marksman.name": "Marksman",
   "origin.apotheosis.marksman.description": "Marksman Description TODO",
   "power.apotheosis.ranger/marksman/marksman_discount.name": "Mercenaries Reputation",
-  "power.apotheosis.ranger/marksman/marksman_discount.description": "50% discount at Villages"
+  "power.apotheosis.ranger/marksman/marksman_discount.description": "Permanent Village Hero IV"
 }

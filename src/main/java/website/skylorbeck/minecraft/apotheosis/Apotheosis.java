@@ -25,5 +25,4 @@ public class Apotheosis implements ModInitializer {
     }
 }
 
-//todo powers
-// --------------
+//todo config
