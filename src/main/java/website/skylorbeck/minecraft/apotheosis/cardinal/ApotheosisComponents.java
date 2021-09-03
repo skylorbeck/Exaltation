@@ -6,7 +6,6 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.util.Identifier;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 public class ApotheosisComponents implements EntityComponentInitializer{

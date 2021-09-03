@@ -8,7 +8,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
-import website.skylorbeck.minecraft.apotheosis.LivingEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 

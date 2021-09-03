@@ -1,6 +1,5 @@
 package website.skylorbeck.minecraft.apotheosis;
 
-import io.github.apace100.origins.command.OriginCommand;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import software.bernie.example.GeckoLibMod;
