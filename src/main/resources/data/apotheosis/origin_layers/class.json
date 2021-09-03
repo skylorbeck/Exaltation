@@ -49,7 +49,22 @@
     "apotheosis:ranger/druid/druidbab",
     "apotheosis:ranger/druid/druidbb",
     "apotheosis:ranger/druid/druidbbb",
-    "apotheosis:ranger/druid/druidbba"
+    "apotheosis:ranger/druid/druidbba",
+    "apotheosis:ranger/marksman/marksman",
+    "apotheosis:ranger/marksman/marksmana",
+    "apotheosis:ranger/marksman/marksmanb",
+    "apotheosis:ranger/marksman/marksmanaa",
+    "apotheosis:ranger/marksman/marksmanaaa",
+    "apotheosis:ranger/marksman/marksmanaab",
+    "apotheosis:ranger/marksman/marksmanab",
+    "apotheosis:ranger/marksman/marksmanaba",
+    "apotheosis:ranger/marksman/marksmanabb",
+    "apotheosis:ranger/marksman/marksmanba",
+    "apotheosis:ranger/marksman/marksmanbaa",
+    "apotheosis:ranger/marksman/marksmanbab",
+    "apotheosis:ranger/marksman/marksmanbb",
+    "apotheosis:ranger/marksman/marksmanbbb",
+    "apotheosis:ranger/marksman/marksmanbba"
   ],
   "allow_random": true,
   "exclude_random": [
