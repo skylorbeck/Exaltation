@@ -20,7 +20,8 @@
 
     "apotheosis:ranger/druid/druid_pack_wolf",
 
-    "apotheosis:ranger/druid/druid_wolf_bond"
+    "apotheosis:ranger/druid/druid_wolf_bond",
+    "apotheosis:ranger/druid/druid_ultimate"
   ],
   "icon": "minecraft:poppy",
   "impact": 2

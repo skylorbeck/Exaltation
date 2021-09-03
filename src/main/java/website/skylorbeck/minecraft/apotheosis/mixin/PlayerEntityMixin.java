@@ -47,6 +47,7 @@ public class PlayerEntityMixin {
             }
         }
     }
+
     @ModifyVariable(name = "f",at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;getVelocity()Lnet/minecraft/util/math/Vec3d;"),method = "attack")
     private float injectedAttack(float f,Entity target){
         if (target instanceof LivingEntity){
@@ -56,6 +57,7 @@ public class PlayerEntityMixin {
         }
         return f;
     }
+
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
         LivingEntity entity = ((PlayerEntity) (Object) this);
@@ -166,7 +168,7 @@ public class PlayerEntityMixin {
         }
         if (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class) && APOXP.get(entity).getPetUUID() != null) {
             TargetPredicate predicate = TargetPredicate.DEFAULT;
-            predicate.setPredicate((pet -> PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
+            predicate.setPredicate((pet -> pet instanceof WolfEntity && PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
             WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(5D));
             if (oldPet != null) {
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,20));

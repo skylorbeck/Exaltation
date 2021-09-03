@@ -22,7 +22,8 @@
 
     "apotheosis:ranger/druid/druid_biome_forest_bonus_b",
     "apotheosis:ranger/druid/druid_biome_jungle_bonus_b",
-    "apotheosis:ranger/druid/druid_biome_plains_bonus_b"
+    "apotheosis:ranger/druid/druid_biome_plains_bonus_b",
+    "apotheosis:ranger/druid/druid_ultimate"
   ],
   "icon": "minecraft:poppy",
   "impact": 2

@@ -1,6 +1,7 @@
 package website.skylorbeck.minecraft.apotheosis.conditions;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.power.CooldownPower;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerTypeRegistry;
 import io.github.apace100.apoli.power.TogglePower;
@@ -26,6 +27,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import org.spongepowered.asm.mixin.Mutable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
@@ -147,6 +149,17 @@ public class ApoEntityActions {
                             }
                         }
                     }
+                }));
+
+        register(new ActionFactory<>(Declarar.getIdentifier("cooldown"), new SerializableData()
+                .add("ticks", SerializableDataTypes.INT, 20),
+                (data, entity) -> {
+                        PowerHolderComponent.KEY.get(entity).getPowers().forEach((power -> {
+                            if (power instanceof CooldownPower){
+                                ((CooldownPower) power).modify(-data.getInt("ticks"));
+                            }
+                        }));
+                        PowerHolderComponent.sync(entity);
                 }));
     }
 
