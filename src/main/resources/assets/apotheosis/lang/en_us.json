@@ -31,7 +31,7 @@
   "power.apotheosis.hearty.description": "+3 Hearts",
 
   "origin.apotheosis.blacksmith.name": "Blacksmith",
-  "origin.apotheosis.blacksmith.description": "Blacksmith Description TODO",
+  "origin.apotheosis.blacksmith.description": "You have an innate understanding of metals, knowing the best way to work them into powerful weapons and tools",
   "power.apotheosis.blacksmith/lucky.name": "Lucky",
   "power.apotheosis.blacksmith/lucky.description": "+0.02 Luck per level",
   "power.apotheosis.blacksmith/warsmith/hearty_scaling.description": "+1 Heart every 5 levels",
@@ -83,7 +83,7 @@
   "power.apotheosis.blacksmith/arcanesmith/lucky.description": "+6 Luck",
 
   "origin.apotheosis.ranger.name": "Ranger",
-  "origin.apotheosis.ranger.description": "Ranger Description TODO",
+  "origin.apotheosis.ranger.description": "At a young age you demonstrated an unparalleled affinity for the bow, as such you choose to improve said affinity into an art",
   "power.apotheosis.ranger/ranger_accuracy.name": "Steady Handed",
   "power.apotheosis.ranger/ranger_accuracy.description": "Gain 2% accuracy per level",
   "power.apotheosis.ranger/ranger_damage.name": "Reinforced String",
@@ -118,7 +118,7 @@
   "power.apotheosis.ranger/druid/druid_ultimate.description": "Wolf lasts 6 Minutes, cooldowns -1s on hit",
 
   "origin.apotheosis.marksman.name": "Marksman",
-  "origin.apotheosis.marksman.description": "Marksman Description TODO",
+  "origin.apotheosis.marksman.description": "Years with your bow have taught you that there is no greater pride than that of a clean quick kill. As such you looked to improve your bow and perhaps pick up a new weapon, to ensure such pride will never fade",
   "power.apotheosis.ranger/marksman/marksman_discount.name": "Mercenaries Reputation",
   "power.apotheosis.ranger/marksman/marksman_discount.description": "Permanent Village Hero IV"
 }

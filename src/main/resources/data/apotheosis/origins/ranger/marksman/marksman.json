@@ -7,9 +7,10 @@
     "apotheosis:ranger/marksman/marksman_discount",
 
     "apotheosis:ranger/ranger_accuracy",
-    "apotheosis:ranger/ranger_damage",
     "apotheosis:ranger/ranger_movespeed",
-    "apotheosis:ranger/ranger_summon"
+    "apotheosis:ranger/ranger_summon",
+
+    "apotheosis:ranger/marksman/marksman_damage"
   ],
   "icon": "minecraft:crossbow",
   "unchoosable": "true",
