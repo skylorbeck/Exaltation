@@ -29,6 +29,7 @@ import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
+import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
@@ -101,11 +102,12 @@ public class ApoEntityActions {
                         pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
                         boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
                         boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
+                        boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
 //                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
                         pet.setTamed(true);
                         pet.setOwner((PlayerEntity) entity);
                         PETKEY.get(pet).setOwnerUUID(entity.getUuid());
-                        PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
+                        PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
                         if (APOXP.get(entity).getLevel() >= 50) {
                             PETKEY.get(pet).setTimeLeft(3600);
                         }
@@ -116,7 +118,10 @@ public class ApoEntityActions {
                             PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
                         }
-                        pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D));
+                        if (bond){
+                            //todo PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
+                        }
+                        pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
                         pet.setHealth((float) data.getDouble("base_health"));
                         pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                         if (!entity.world.isClient) {

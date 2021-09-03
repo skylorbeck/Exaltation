@@ -23,15 +23,5 @@
     "apotheosis:ranger/druid/druid_biome_plains_bonus_b"
   ],
   "icon": "minecraft:poppy",
-  "impact": 2,
-  "upgrades": [
-    {
-      "condition": "apotheosis:ranger/druid/druidaa_upgrade_a",
-      "origin": "apotheosis:ranger/druid/druidaaa"
-    },
-    {
-      "condition": "apotheosis:ranger/druid/druida_upgrade_b",
-      "origin": "apotheosis:ranger/druid/druidaab"
-    }
-  ]
+  "impact": 2
 }

@@ -13,22 +13,15 @@
     "apotheosis:ranger/druid/druid_biome_jungle_bonus_a",
     "apotheosis:ranger/druid/druid_biome_plains_bonus_a",
     "apotheosis:ranger/druid/druid_mark_toggle",
+    "apotheosis:ranger/druid/druid_mark",
     "apotheosis:ranger/druid/druid_mark_consumer",
 
-    "apotheosis:ranger/druid/druid_crippling_mark",
+    "apotheosis:ranger/druid/druid_dire_wolf",
 
-    "apotheosis:ranger/druid/druid_pack_wolf"
+    "apotheosis:ranger/druid/druid_pack_wolf",
+
+    "apotheosis:ranger/druid/druid_wolf_bond"
   ],
   "icon": "minecraft:poppy",
-  "impact": 2,
-  "upgrades": [
-    {
-      "condition": "apotheosis:ranger/druid/druidab_upgrade_a",
-      "origin": "apotheosis:ranger/druid/druidaba"
-    },
-    {
-      "condition": "apotheosis:ranger/druid/druidab_upgrade_b",
-      "origin": "apotheosis:ranger/druid/druidabb"
-    }
-  ]
+  "impact": 2
 }

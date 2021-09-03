@@ -2,8 +2,6 @@
   "name": "origin.apotheosis.druid.name",
   "description": "origin.apotheosis.druid.description",
   "powers": [
-    "apotheosis:branchat45",
-
     "apotheosis:ranger/ranger_accuracy",
     "apotheosis:ranger/ranger_damage",
     "apotheosis:ranger/ranger_movespeed",
@@ -17,18 +15,11 @@
 
     "apotheosis:ranger/druid/druid_crippling_mark",
 
-    "apotheosis:ranger/druid/druid_pack_wolf"
+    "apotheosis:ranger/druid/druid_night_vision",
+    "apotheosis:ranger/druid/druid_blinding_mark",
+
+    "apotheosis:ranger/druid/druid_wolf_bond"
   ],
   "icon": "minecraft:poppy",
-  "impact": 2,
-  "upgrades": [
-    {
-      "condition": "apotheosis:ranger/druid/druidab_upgrade_a",
-      "origin": "apotheosis:ranger/druid/druidaba"
-    },
-    {
-      "condition": "apotheosis:ranger/druid/druidab_upgrade_b",
-      "origin": "apotheosis:ranger/druid/druidabb"
-    }
-  ]
+  "impact": 2
 }
