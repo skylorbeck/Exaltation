@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.item.BlockItem;
@@ -23,6 +24,7 @@ import website.skylorbeck.minecraft.apotheosis.blocks.AltarBlockItem;
 import website.skylorbeck.minecraft.apotheosis.blocks.entities.AltarEntity;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarScreenHandler;
 import website.skylorbeck.minecraft.apotheosis.enchantment.*;
+import website.skylorbeck.minecraft.apotheosis.statuseffects.HemorrhagingEffect;
 import website.skylorbeck.minecraft.apotheosis.statuseffects.WolfMarkEffect;
 
 import java.util.UUID;
@@ -104,8 +106,10 @@ public class Declarar {
     public static UUID poisonaspectUUID = UUID.randomUUID();
     public static UUID frostaspectUUID = UUID.randomUUID();
 
+    public static final DamageSource HEMORRHAGE = (new website.skylorbeck.minecraft.apotheosis.statuseffects.DamageSource("hemorrhage")).setBypassesArmor();
 
-    public static StatusEffect WOLFMARK = new WolfMarkEffect(StatusEffectType.HARMFUL, DyeColor.RED.getSignColor());
+    public static StatusEffect WOLFMARK = new WolfMarkEffect(StatusEffectType.HARMFUL, DyeColor.YELLOW.getSignColor());
+    public static StatusEffect HEMORRHAGING = new HemorrhagingEffect(StatusEffectType.HARMFUL, DyeColor.RED.getSignColor());
 
     public static EntityAttributeModifier healthBoostEAM(LivingEntity entity){
         return new EntityAttributeModifier(healthBoostUUID,"apohpboost", EnchantmentHelper.getEquipmentLevel(Declarar.HEALTHBOOST,entity)*2, EntityAttributeModifier.Operation.ADDITION);

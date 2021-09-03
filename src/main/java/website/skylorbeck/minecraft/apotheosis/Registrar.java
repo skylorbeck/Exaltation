@@ -21,6 +21,7 @@ public class Registrar {
         regBlock("netheritealtar",Declarar.netheritealtar,MODID);
         regItem("netheritealtar",Declarar.netheritealtarItem,MODID);
         Registry.register(Registry.STATUS_EFFECT, Declarar.getIdentifier("wolfmark"),Declarar.WOLFMARK);
+        Registry.register(Registry.STATUS_EFFECT, Declarar.getIdentifier("hemorrhaging"),Declarar.HEMORRHAGING);
     }
     public static void ClientRegister(){
         ScreenRegistry.register(Declarar.ALTARSCREENHANDLER, AltarHandledScreen::new);
