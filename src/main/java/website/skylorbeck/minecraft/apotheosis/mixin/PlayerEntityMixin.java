@@ -14,8 +14,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
+import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.enchantment.EnchantmentHelper;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 
@@ -23,7 +26,9 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
 
 @Mixin(PlayerEntity.class)
-public class PlayerEntityMixin {
+public class PlayerEntityMixin implements PlayerEntityInterface {
+    private boolean spyGlassOverride = false;
+
     @Inject(at = @At(value = "INVOKE",target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"),method = "attack",cancellable = true)
     public void injectedHasEnchantments(Entity target, CallbackInfo ci){
         int l = EnchantmentHelper.getWitherAspect(((PlayerEntity) (Object) this));
@@ -174,5 +179,21 @@ public class PlayerEntityMixin {
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,20));
             }
         }
+    }
+
+    @Inject(at = @At(value = "RETURN"),method = "isUsingSpyglass", cancellable = true)
+    private void spyGlassOverride(CallbackInfoReturnable<Boolean> cir){
+        if (spyGlassOverride)
+        cir.setReturnValue(true);
+    }
+
+    @Override
+    public void setSpyGlassOveride(boolean bool) {
+        this.spyGlassOverride = bool;
+    }
+
+    @Override
+    public boolean getSpyGlassOverride() {
+        return this.spyGlassOverride;
     }
 }

@@ -19,6 +19,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
@@ -27,8 +28,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import org.spongepowered.asm.mixin.Mutable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
+import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
@@ -88,7 +89,7 @@ public class ApoEntityActions {
                         predicate.setPredicate((pet -> PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
                         WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
                         if (oldPet != null) {
-                            if (PETKEY.get(oldPet).getTimeLeft()==-1){
+                            if (PETKEY.get(oldPet).getTimeLeft() == -1) {
                                 toggle = true;
                             }
                             oldPet.discard();
@@ -120,7 +121,7 @@ public class ApoEntityActions {
                             PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
                         }
-                        if (bond){
+                        if (bond) {
                             PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
                         }
                         pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
@@ -154,12 +155,21 @@ public class ApoEntityActions {
         register(new ActionFactory<>(Declarar.getIdentifier("cooldown"), new SerializableData()
                 .add("ticks", SerializableDataTypes.INT, 20),
                 (data, entity) -> {
-                        PowerHolderComponent.KEY.get(entity).getPowers().forEach((power -> {
-                            if (power instanceof CooldownPower){
-                                ((CooldownPower) power).modify(-data.getInt("ticks"));
-                            }
-                        }));
-                        PowerHolderComponent.sync(entity);
+                    PowerHolderComponent.KEY.get(entity).getPowers().forEach((power -> {
+                        if (power instanceof CooldownPower) {
+                            ((CooldownPower) power).modify(-data.getInt("ticks"));
+                        }
+                    }));
+                    PowerHolderComponent.sync(entity);
+                }));
+
+        register(new ActionFactory<>(Declarar.getIdentifier("zoom_toggle"), new SerializableData()
+                .add("item",SerializableDataTypes.STRING,null),
+                (data, entity) -> {
+                    if (((PlayerEntity) entity).getMainHandStack().isOf(Registry.ITEM.get(new Identifier(data.getString("item")))))
+                        ((PlayerEntityInterface) entity).setSpyGlassOveride(!((PlayerEntityInterface) entity).getSpyGlassOverride());
+                    else
+                        ((PlayerEntityInterface) entity).setSpyGlassOveride(false);//todo fix this staying zoomed in
                 }));
     }
 
