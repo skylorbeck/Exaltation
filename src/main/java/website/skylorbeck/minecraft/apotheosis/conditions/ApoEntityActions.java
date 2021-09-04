@@ -121,7 +121,7 @@ public class ApoEntityActions {
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
                         }
                         if (bond){
-                            //todo PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
+                            PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
                         }
                         pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
                         pet.setHealth((float) data.getDouble("base_health"));
