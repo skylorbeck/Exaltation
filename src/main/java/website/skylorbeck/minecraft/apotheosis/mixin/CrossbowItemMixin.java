@@ -9,8 +9,11 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerDamagePower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerRangedItemAccuracyPower;
 
@@ -18,32 +21,32 @@ import static net.minecraft.item.CrossbowItem.hasProjectile;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
 @Mixin(CrossbowItem.class)
-public class CrossbowItemMixin {
+public abstract class CrossbowItemMixin {
 
-    @ModifyVariable(name = "divergence", at = @At(value = "INVOKE"), method = "shootAll")
-    private static float injectedShootAll(float divergence, World world, LivingEntity entity) {
-        if (PowerHolderComponent.hasPower(entity, RangerRangedItemAccuracyPower.class)) {
-            RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(entity, RangerRangedItemAccuracyPower.class).get(0);
-            divergence = 1.0f - (Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale()) * 0.02f);
-        }
-        return divergence;
+    @Shadow
+    private static void shoot(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated) {
     }
 
-    @ModifyVariable(name = "speed", at = @At(value = "INVOKE"), method = "shootAll")
-    private static float injectedShootAll2(float speed, World world, LivingEntity entity, Hand hand, ItemStack stack) {
-        if (PowerHolderComponent.hasPower(entity, RangerRangedItemAccuracyPower.class)) {
-            RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(entity, RangerRangedItemAccuracyPower.class).get(0);
-            speed = (hasProjectile(stack, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F) + (Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale()) * ((hasProjectile(stack, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F)/100f));
+    @Redirect( at = @At(value = "INVOKE",target = "Lnet/minecraft/item/CrossbowItem;shoot(Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;FZFFF)V"), method = "shootAll")
+    private static void injectedShootAll(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated) {
+        if (PowerHolderComponent.hasPower(shooter, RangerRangedItemAccuracyPower.class)) {
+            RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(shooter, RangerRangedItemAccuracyPower.class).get(0);
+            divergence = 1.0f - (Math.floorDiv(APOXP.get(shooter).getLevel(), power.getScale()) * 0.02f);
         }
-        return speed;
+        if (PowerHolderComponent.hasPower(shooter, RangerRangedItemAccuracyPower.class)) {
+            RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(shooter, RangerRangedItemAccuracyPower.class).get(0);
+            speed = (hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F) + (Math.floorDiv(APOXP.get(shooter).getLevel(), power.getScale()) * ((hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F)/100f));
+        }
+        shoot(world, shooter, hand, crossbow, projectile, soundPitch, creative, speed, divergence, simulated);
     }
 
-    @ModifyVariable(method = "createArrow", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setCritical(Z)V"), name = "persistentProjectileEntity")
-    private static PersistentProjectileEntity injectedShoot(PersistentProjectileEntity persistentProjectileEntity, World world, LivingEntity entity) {
+    @Inject(method = "createArrow", at = @At(value = "RETURN", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setCritical(Z)V"), cancellable = true)
+    private static void injectedShoot(World world, LivingEntity entity, ItemStack crossbow, ItemStack arrow, CallbackInfoReturnable<PersistentProjectileEntity> cir) {
         if (PowerHolderComponent.hasPower(entity, RangerDamagePower.class)) {
             RangerDamagePower power = PowerHolderComponent.getPowers(entity, RangerDamagePower.class).get(0);
+            PersistentProjectileEntity persistentProjectileEntity = cir.getReturnValue();
             persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + power.getDamage() + (power.getDamageScaled() * Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale())));
+            cir.setReturnValue(persistentProjectileEntity);
         }
-        return persistentProjectileEntity;
     }
 }

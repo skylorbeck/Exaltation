@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.WolfEntity;
@@ -13,7 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
@@ -30,29 +31,29 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
 
     @Inject(at = @At(value = "INVOKE",target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"),method = "attack",cancellable = true)
     public void injectedHasEnchantments(Entity target, CallbackInfo ci){
-        int l = EnchantmentHelper.getWitherAspect(((PlayerEntity) (Object) this));
+        int aspect = EnchantmentHelper.getWitherAspect(((PlayerEntity) (Object) this));
         if (target instanceof LivingEntity) {
-            if (l > 0 && !((LivingEntity)target).hasStatusEffect(StatusEffects.WITHER)) {
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER,l*60));
+            if (aspect > 0 && !((LivingEntity)target).hasStatusEffect(StatusEffects.WITHER)) {
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER,aspect*60));
             }
         }
-        l = EnchantmentHelper.getPoisonAspect(((PlayerEntity) (Object) this));
+        aspect = EnchantmentHelper.getPoisonAspect(((PlayerEntity) (Object) this));
         if (target instanceof LivingEntity) {
-            if (l > 0 && !((LivingEntity)target).hasStatusEffect(StatusEffects.POISON)) {
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON,l*60));
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER,l*60));
+            if (aspect > 0 && !((LivingEntity)target).hasStatusEffect(StatusEffects.POISON)) {
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON,aspect*60));
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER,aspect*60));
             }
         }
-        l = EnchantmentHelper.getFrostAspect(((PlayerEntity) (Object) this));
+        aspect = EnchantmentHelper.getFrostAspect(((PlayerEntity) (Object) this));
         if (target instanceof LivingEntity) {
-            if (l > 0 && ((LivingEntity)target).canFreeze()) {
-                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,l*60));
-                ((LivingEntity) target).setFrozenTicks(l*100);
+            if (aspect > 0 && ((LivingEntity)target).canFreeze()) {
+                ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,aspect*60));
+                ((LivingEntity) target).setFrozenTicks(aspect*100);
             }
         }
     }
 
-    @ModifyVariable(name = "f",at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;getVelocity()Lnet/minecraft/util/math/Vec3d;"),method = "attack")
+    /*@ModifyVariable(name = "f",at = @At(value = "STORE",target = "Lnet/minecraft/entity/Entity;getVelocity()Lnet/minecraft/util/math/Vec3d;"),method = "attack")//todo fix this
     private float injectedAttack(float f,Entity target){
         if (target instanceof LivingEntity){
             if (((LivingEntity)target).hasStatusEffect(Declarar.WOLFMARK)){
@@ -60,6 +61,12 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
             }
         }
         return f;
+    }*/
+    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),method = "attack")//todo fix this
+    private boolean injectedAttack(Entity entity, DamageSource source, float amount){
+        if (((LivingEntity)entity).hasStatusEffect(Declarar.WOLFMARK))
+            return entity.damage(source, (float) (amount*1.5));
+        else return entity.damage(source,amount);
     }
 
     @Inject(at = @At("TAIL"),method = "tick")

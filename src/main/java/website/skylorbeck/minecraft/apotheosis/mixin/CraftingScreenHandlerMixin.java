@@ -7,6 +7,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.*;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.powers.*;
 
@@ -25,8 +26,8 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 public class CraftingScreenHandlerMixin {
     @Shadow @Final private ScreenHandlerContext context;
 
-    @ModifyVariable(method = "updateResult",name = "itemStack", at = @At(value = "INVOKE",target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
-    private static ItemStack injectedUpdateResult(ItemStack stack) {
+    @Redirect(method = "updateResult", at = @At(value = "INVOKE",target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
+    private static void injectedUpdateResult(CraftingResultInventory craftingResultInventory, int slot, ItemStack stack) {
         if (smithArmor()) {
             Item item = stack.getItem();
             int scale= 0;
@@ -104,7 +105,7 @@ public class CraftingScreenHandlerMixin {
                 }
             }
         }
-        return stack;
+        craftingResultInventory.setStack(slot,stack);
     }
 
     private static boolean smithArmor(){
