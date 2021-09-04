@@ -120,5 +120,8 @@
   "origin.apotheosis.marksman.name": "Marksman",
   "origin.apotheosis.marksman.description": "Years with your bow have taught you that there is no greater pride than that of a clean quick kill. As such you looked to improve your bow and perhaps pick up a new weapon, to ensure such pride will never fade",
   "power.apotheosis.ranger/marksman/marksman_discount.name": "Mercenaries Reputation",
-  "power.apotheosis.ranger/marksman/marksman_discount.description": "Permanent Village Hero IV"
+  "power.apotheosis.ranger/marksman/marksman_discount.description": "Permanent Village Hero IV",
+  "power.apotheosis.ranger/marksman/marksman_damage.description": "+2 Projectile damage, +0.2 every level",
+  "power.apotheosis.ranger/marksman/marksman_crouching_movespeed.name": "Agile",
+  "power.apotheosis.ranger/marksman/marksman_crouching_movespeed.description": "+2% couching movespeed every 5 levels"
 }

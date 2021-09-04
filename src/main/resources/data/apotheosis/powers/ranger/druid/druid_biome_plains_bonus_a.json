@@ -7,6 +7,7 @@
   "effects": [
     {
       "effect": "minecraft:jump_boost",
+      "amplifier": 1,
       "is_ambient": true,
       "show_particles": false,
       "show_icon": true

@@ -36,14 +36,20 @@ public class LeveledAttributePower extends Power {
         if(entity.age % tickRate == 0 && entity instanceof PlayerEntity) {
             float previousMaxHealth = entity.getMaxHealth();
             float previousHealthPercent = entity.getHealth() / previousMaxHealth;
-            int lvl = APOXP.get(entity).getLevel();
-            if (playerLevelLast != lvl){
-                playerLevelLast = lvl;
+            if (this.isActive()) {
+
+                int lvl = APOXP.get(entity).getLevel();
+//                if (playerLevelLast != lvl) {
+//                    playerLevelLast = lvl;
+                    removeMods();
+                    addMods();
+//                }
+
+            } else {
                 removeMods();
-                addMods();
             }
             float afterMaxHealth = entity.getMaxHealth();
-            if(afterMaxHealth != previousMaxHealth) {
+            if (afterMaxHealth != previousMaxHealth) {
                 entity.setHealth(afterMaxHealth * previousHealthPercent);
             }
         }
@@ -51,7 +57,13 @@ public class LeveledAttributePower extends Power {
 
     @Override
     public void onRemoved() {
+        float previousMaxHealth = entity.getMaxHealth();
+        float previousHealthPercent = entity.getHealth() / previousMaxHealth;
         removeMods();
+        float afterMaxHealth = entity.getMaxHealth();
+        if(afterMaxHealth != previousMaxHealth) {
+            entity.setHealth(afterMaxHealth * previousHealthPercent);
+        }
     }
 
     public LeveledAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
@@ -78,8 +90,6 @@ public class LeveledAttributePower extends Power {
     }
 
     public void removeMods() {
-        float previousMaxHealth = entity.getMaxHealth();
-        float previousHealthPercent = entity.getHealth() / previousMaxHealth;
         modifiers.forEach(mod -> {
             if (entity.getAttributes().hasAttribute(mod.getAttribute())) {
                 EntityAttributeInstance instance = entity.getAttributeInstance(mod.getAttribute());
@@ -90,9 +100,5 @@ public class LeveledAttributePower extends Power {
                 }
             }
         });
-        float afterMaxHealth = entity.getMaxHealth();
-        if(afterMaxHealth != previousMaxHealth) {
-            entity.setHealth(afterMaxHealth * previousHealthPercent);
-        }
     }
 }
