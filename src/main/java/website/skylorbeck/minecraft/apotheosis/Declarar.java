@@ -12,7 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
@@ -108,8 +108,8 @@ public class Declarar {
 
     public static final DamageSource HEMORRHAGE = (new website.skylorbeck.minecraft.apotheosis.statuseffects.DamageSource("hemorrhage")).setBypassesArmor();
 
-    public static StatusEffect WOLFMARK = new WolfMarkEffect(StatusEffectType.HARMFUL, DyeColor.YELLOW.getSignColor());
-    public static StatusEffect HEMORRHAGING = new HemorrhagingEffect(StatusEffectType.HARMFUL, DyeColor.RED.getSignColor());
+    public static StatusEffect WOLFMARK = new WolfMarkEffect(StatusEffectCategory.HARMFUL, DyeColor.YELLOW.getSignColor());
+    public static StatusEffect HEMORRHAGING = new HemorrhagingEffect(StatusEffectCategory.HARMFUL, DyeColor.RED.getSignColor());
 
     public static EntityAttributeModifier healthBoostEAM(LivingEntity entity){
         return new EntityAttributeModifier(healthBoostUUID,"apohpboost", EnchantmentHelper.getEquipmentLevel(Declarar.HEALTHBOOST,entity)*2, EntityAttributeModifier.Operation.ADDITION);

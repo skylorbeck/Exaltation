@@ -3,12 +3,11 @@ package website.skylorbeck.minecraft.apotheosis.statuseffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 public class HemorrhagingEffect extends StatusEffect {
-    public HemorrhagingEffect(StatusEffectType type, int color) {
+    public HemorrhagingEffect(StatusEffectCategory type, int color) {
         super(type, color);
     }
 

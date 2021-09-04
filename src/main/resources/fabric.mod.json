@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "apotheosis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "Apotheosis",
   "description": "Apotheosis, Ascensions and Classes",
   "authors": [
@@ -33,7 +33,9 @@
   "depends": {
     "fabricloader": ">=0.11.6",
     "fabric": "*",
-    "minecraft": "1.17.1"
+    "minecraft": "1.17.1",
+    "geckolib3": ">=3.0.12",
+    "skylorlib": ">=1.0.2"
   },
   "custom": {
     "cardinal-components": [

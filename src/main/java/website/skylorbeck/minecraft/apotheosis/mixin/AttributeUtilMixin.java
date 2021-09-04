@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mixin(AttributeUtil.class)
 public class AttributeUtilMixin {
-    @Inject(at = @At(value = "RETURN"),method = "applyModifiers", cancellable = true)
+    @Inject(remap = false,at = @At(value = "RETURN"),method = "applyModifiers", cancellable = true)
     private static void minDamageInject(List<EntityAttributeModifier> modifiers, double baseValue, CallbackInfoReturnable<Double> cir){
         if(modifiers != null) {
             for (EntityAttributeModifier modifier : modifiers) {

@@ -1,10 +1,10 @@
 package website.skylorbeck.minecraft.apotheosis.statuseffects;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class WolfMarkEffect extends StatusEffect {
-    public WolfMarkEffect(StatusEffectType type, int color) {
+    public WolfMarkEffect(StatusEffectCategory type, int color) {
         super(type, color);
     }
 
