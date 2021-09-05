@@ -19,19 +19,26 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.TippedArrowItem;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import website.skylorbeck.minecraft.apotheosis.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
+
+import java.util.List;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
@@ -84,17 +91,19 @@ public class ApoEntityActions {
                 (data, entity) -> {
                     boolean toggle = false;
                     if (APOXP.get(entity).getPetUUID() != null) {
-                        TargetPredicate predicate = TargetPredicate.DEFAULT;
-                        predicate.setPredicate((pet -> PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
-                        WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
-                        if (oldPet != null) {
-                            if (PETKEY.get(oldPet).getTimeLeft() == -1) {
-                                toggle = true;
+                        try {
+                            TargetPredicate predicate = TargetPredicate.DEFAULT;
+                            predicate.setPredicate((pet -> PETKEY.maybeGet(pet).isPresent() && PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
+                            WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
+                            if (oldPet != null) {
+                                if (PETKEY.get(oldPet).getTimeLeft() == -1) {
+                                    toggle = true;
+                                }
+                                oldPet.discard();
                             }
-                            oldPet.discard();
-                        }
-                        APOXP.get(entity).setPetUUID(null);
-                        APOXP.sync(entity);
+                            APOXP.get(entity).setPetUUID(null);
+                            APOXP.sync(entity);
+                        } catch (Exception ignored){}
                     }
                     if (!toggle) {
 //                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
@@ -163,12 +172,42 @@ public class ApoEntityActions {
                 }));
 
         register(new ActionFactory<>(Declarar.getIdentifier("zoom_toggle"), new SerializableData()
-                .add("item",SerializableDataTypes.STRING,null),
+                .add("item", SerializableDataTypes.STRING, null),
                 (data, entity) -> {
                     if (((PlayerEntity) entity).getMainHandStack().isOf(Registry.ITEM.get(new Identifier(data.getString("item")))))
                         ((PlayerEntityInterface) entity).setSpyGlassOveride(!((PlayerEntityInterface) entity).getSpyGlassOverride());
                     else
                         ((PlayerEntityInterface) entity).setSpyGlassOveride(false);//todo fix this staying zoomed in
+                }));
+
+        register(new ActionFactory<>(Declarar.getIdentifier("arrow_spawn"), new SerializableData()
+                .add("potion", SerializableDataTypes.STRING, null)
+                .add("potions", ApoDataTypes.STRINGS, null)
+                .add("min",SerializableDataTypes.INT,1)
+                .add("max",SerializableDataTypes.INT,5)
+                ,
+                (data, entity) -> {
+                    ItemStack crossbow = ((PlayerEntity) entity).getMainHandStack();
+                    if (!entity.world.isClient)
+                    if (crossbow.isOf(Items.CROSSBOW)) {
+                        if (data.isPresent("potion")) {
+                            ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
+                            PotionUtil.setPotion(arrow, Potion.byId(data.getString("potion")));
+                            int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
+                            arrow.setCount(amount);
+                            ((PlayerEntity) entity).giveItemStack(arrow);
+//                            ((CrossbowItem)crossbow.getItem()).loadProjectiles(entity,arrow);
+                        } else
+                        if (data.isPresent("potions")) {
+                            List<String> strings = (List<String>) data.get("potions");
+                            ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
+                            PotionUtil.setPotion(arrow, Potion.byId(strings.get(entity.world.random.nextInt(strings.size()))));
+                            int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
+                            arrow.setCount(amount);
+                            ((PlayerEntity) entity).giveItemStack(arrow);
+//                            ((CrossbowItem)crossbow.getItem()).loadProjectiles(entity,arrow);
+                        }
+                    }
                 }));
     }
 
