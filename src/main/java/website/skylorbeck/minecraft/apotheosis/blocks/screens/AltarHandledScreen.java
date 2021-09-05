@@ -75,7 +75,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                 int u = mouseX - x;
                 int v = mouseY - y;
                 TranslatableText text = new TranslatableText("apotheosis.altar.levelup");
-                if (MCXP>=AXPC) {
+                if (MCXP>=AXPC||this.client.player.isCreative()) {
 //                t = 4226832;
                     if (u >= 0 && v >= 38 && u < 107 && v < 57) {
                         this.drawTexture(matrices, x, y+38, 108, 223, 107, 19);//highlighted
