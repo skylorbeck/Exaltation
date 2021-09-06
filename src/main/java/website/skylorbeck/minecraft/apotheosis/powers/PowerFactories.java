@@ -1,6 +1,8 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
 import io.github.apace100.apoli.data.ApoliDataTypes;
+import io.github.apace100.apoli.power.Active;
+import io.github.apace100.apoli.power.ActiveCooldownPower;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -8,12 +10,16 @@ import io.github.apace100.apoli.power.factory.action.ActionFactory;
 import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.apoli.util.AttributedEntityAttributeModifier;
+import io.github.apace100.apoli.util.HudRender;
 import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
+import website.skylorbeck.minecraft.apotheosis.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 
 import java.util.List;
@@ -163,6 +169,22 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("druid_bond_wolf"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DruidWolfBondPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("marksman_arrow_cycle"),
+                new SerializableData()
+                        .add("potions", ApoDataTypes.STRINGS, null)
+                        .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
+                ,
+                data -> ((type, player) ->{
+                    List<String> strings = (List<String>) data.get("potions");
+                    Potion[] potions = new Potion[strings.size()];
+                    for (int i = 0; i < strings.size(); i++) {
+                        potions[i] = Potion.byId(strings.get(i));
+                    }
+                    MarksmanArrowCyclingPower power = new MarksmanArrowCyclingPower(type, player,potions);
+                    power.setKey((Active.Key)data.get("key"));
+                    return power;
+                }
+                )));
     }
 
     private static void register(PowerFactory serializer) {

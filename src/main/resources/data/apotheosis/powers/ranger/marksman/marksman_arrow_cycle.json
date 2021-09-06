@@ -1,0 +1,11 @@
+{
+  "type": "apotheosis:marksman_arrow_cycle",
+  "potions":
+  [
+    "minecraft:poison",
+    "minecraft:night_vision"
+  ],
+  "key": {
+    "key": "key.apotheosis.secondary_active"
+  }
+}

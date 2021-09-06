@@ -2,6 +2,7 @@
   "apotheosis.category": "Apotheosis",
   "key.apotheosis.primary_active": "Primary Skill",
   "key.apotheosis.secondary_active": "Secondary Skill",
+  "apotheosis.disabled": "Disabled",
 
   "block.apotheosis.stonealtarblock": "Stone Altar",
   "block.apotheosis.ironaltarblock": "Iron Altar",

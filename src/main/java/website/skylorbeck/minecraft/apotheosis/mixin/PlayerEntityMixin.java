@@ -11,6 +11,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +24,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.enchantment.EnchantmentHelper;
+import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
+import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
@@ -53,16 +59,7 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
         }
     }
 
-    /*@ModifyVariable(name = "f",at = @At(value = "STORE",target = "Lnet/minecraft/entity/Entity;getVelocity()Lnet/minecraft/util/math/Vec3d;"),method = "attack")//todo fix this
-    private float injectedAttack(float f,Entity target){
-        if (target instanceof LivingEntity){
-            if (((LivingEntity)target).hasStatusEffect(Declarar.WOLFMARK)){
-                f+=f/2;
-            }
-        }
-        return f;
-    }*/
-    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),method = "attack")//todo fix this
+    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),method = "attack")
     private boolean injectedAttack(Entity entity, DamageSource source, float amount){
         if (((LivingEntity)entity).hasStatusEffect(Declarar.WOLFMARK))
             return entity.damage(source, (float) (amount*1.5));

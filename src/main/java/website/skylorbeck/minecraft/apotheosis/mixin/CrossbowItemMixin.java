@@ -2,10 +2,12 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerDamagePower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerRangedItemAccuracyPower;
 
@@ -48,5 +51,23 @@ public abstract class CrossbowItemMixin {
             persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + power.getDamage() + (power.getDamageScaled() * Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale())));
             cir.setReturnValue(persistentProjectileEntity);
         }
+    }
+
+    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/LivingEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "loadProjectiles")
+    private static ItemStack redirectGetArrowType(LivingEntity entity, ItemStack stack){
+        ItemStack arrowStack = entity.getArrowType(stack);
+        ItemStack newArrow = arrowStack;
+        if (PowerHolderComponent.hasPower(entity, MarksmanArrowCyclingPower.class)) {
+            MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(entity).getPowers(MarksmanArrowCyclingPower.class).get(0);
+            if (marksmanArrowCyclingPower.isActive() && arrowStack != ItemStack.EMPTY) {
+                newArrow = arrowStack.split(1);
+                if (newArrow.isOf(Items.ARROW)){
+                    newArrow = Items.TIPPED_ARROW.getDefaultStack();
+                    newArrow.setCount(1);
+                }
+                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
+            }
+        }
+        return newArrow;
     }
 }

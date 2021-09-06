@@ -4,11 +4,16 @@ import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.BowItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
+import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerDamagePower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerRangedItemAccuracyPower;
 
@@ -17,7 +22,7 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 @Mixin(BowItem.class)
 public class BowItemMixin {
     @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"),method = "onStoppedUsing")
-    private boolean injectedOnStoppedUsing(World world, Entity entity){
+    private boolean addDamage(World world, Entity entity){
         LivingEntity user = MinecraftClient.getInstance().player;
         PersistentProjectileEntity persistentProjectileEntity = (PersistentProjectileEntity) entity;
         if( PowerHolderComponent.hasPower(user, RangerDamagePower.class)){
@@ -26,8 +31,26 @@ public class BowItemMixin {
         }
         return world.spawnEntity(entity);
     }
+    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/player/PlayerEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "onStoppedUsing")
+    private ItemStack redirectGetArrowType(PlayerEntity playerEntity, ItemStack stack){
+        ItemStack arrowStack = playerEntity.getArrowType(stack);
+        ItemStack newArrow = arrowStack;
+        if (PowerHolderComponent.hasPower(playerEntity, MarksmanArrowCyclingPower.class)) {
+            MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(playerEntity).getPowers(MarksmanArrowCyclingPower.class).get(0);
+            if (marksmanArrowCyclingPower.isActive() && arrowStack != ItemStack.EMPTY) {
+                newArrow = arrowStack.split(1);
+                if (newArrow.isOf(Items.ARROW)){
+                    newArrow = Items.TIPPED_ARROW.getDefaultStack();
+                    newArrow.setCount(1);
+                }
+                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
+            }
+        }
+        return newArrow;
+    }
+
     @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 1.0f,ordinal = 0))
-    private float injectedOnStoppedUsing2(float accuracy){
+    private float modifyAccuracy(float accuracy){
         LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
@@ -36,7 +59,7 @@ public class BowItemMixin {
         return accuracy;
     }
     @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 3.0f,ordinal = 0))
-    private float injectedOnStoppedUsing3(float speed){
+    private float modifySpeed(float speed){
         LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
