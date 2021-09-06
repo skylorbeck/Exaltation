@@ -3,7 +3,8 @@
   "potions":
   [
     "minecraft:poison",
-    "minecraft:night_vision"
+    "minecraft:night_vision",
+    "minecraft:slowness"
   ],
   "key": {
     "key": "key.apotheosis.secondary_active"
