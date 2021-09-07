@@ -49,7 +49,14 @@ public abstract class CrossbowItemMixin {
             RangerDamagePower power = PowerHolderComponent.getPowers(entity, RangerDamagePower.class).get(0);
             PersistentProjectileEntity persistentProjectileEntity = cir.getReturnValue();
             persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + power.getDamage() + (power.getDamageScaled() * Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale())));
+            if (PowerHolderComponent.hasPower(entity, MarksmanArrowCyclingPower.class)) {
+                MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(entity).getPowers(MarksmanArrowCyclingPower.class).get(0);
+                if (marksmanArrowCyclingPower.isActive() && !marksmanArrowCyclingPower.doDamage()){
+                    persistentProjectileEntity.setDamage(1);
+                }
+            }
             cir.setReturnValue(persistentProjectileEntity);
+
         }
     }
 

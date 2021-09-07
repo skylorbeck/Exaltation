@@ -1,0 +1,23 @@
+{
+  "type": "apotheosis:marksman_quiver_manager",
+  "quivers": [
+    {
+      "potions": [
+        "minecraft:poison",
+        "minecraft:night_vision",
+        "minecraft:slowness"
+      ]
+    },
+    {
+      "doDamage": false,
+      "potions": [
+        "minecraft:swiftness",
+        "minecraft:healing",
+        "minecraft:regeneration"
+      ]
+    }
+  ],
+  "key": {
+    "key": "key.apotheosis.secondary_active"
+  }
+}

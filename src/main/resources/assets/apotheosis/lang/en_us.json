@@ -3,6 +3,7 @@
   "key.apotheosis.primary_active": "Primary Skill",
   "key.apotheosis.secondary_active": "Secondary Skill",
   "apotheosis.disabled": "Disabled",
+  "apotheosis.quiver_swap": "Swapped Quiver",
 
   "block.apotheosis.stonealtarblock": "Stone Altar",
   "block.apotheosis.ironaltarblock": "Iron Altar",
@@ -124,5 +125,13 @@
   "power.apotheosis.ranger/marksman/marksman_discount.description": "Permanent Village Hero IV",
   "power.apotheosis.ranger/marksman/marksman_damage.description": "+2 Projectile damage, +0.2 every level",
   "power.apotheosis.ranger/marksman/marksman_crouching_movespeed.name": "Agile",
-  "power.apotheosis.ranger/marksman/marksman_crouching_movespeed.description": "+2% couching movespeed every 5 levels"
+  "power.apotheosis.ranger/marksman/marksman_crouching_movespeed.description": "+2% couching movespeed every 5 levels",
+  "power.apotheosis.ranger/marksman/marksman_zoom.name": "Combat Optics (Secondary)",
+  "power.apotheosis.ranger/marksman/marksman_zoom.description": "Zoom while holding a crossbow",
+  "power.apotheosis.ranger/marksman/marksman_quiver_combat.name": "Combat Quiver (Secondary)",
+  "power.apotheosis.ranger/marksman/marksman_quiver_combat.description": "Cycle between Poison, Weakness or Slowness Arrows",
+  "power.apotheosis.ranger/marksman/marksman_quiver_utility.name": "Utility Quiver (Secondary)",
+  "power.apotheosis.ranger/marksman/marksman_quiver_utility.description": "Cycle between Regen, Instant HP or Swiftness Arrows",
+  "power.apotheosis.ranger/marksman/marksman_quiver_combo.name": "Combat/Utility Quiver (Secondary)",
+  "power.apotheosis.ranger/marksman/marksman_quiver_combo.description": "Regen, Instant HP, Swift, Poison, Weak or Slow Arrows"
 }

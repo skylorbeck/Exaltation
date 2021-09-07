@@ -29,6 +29,12 @@ public class BowItemMixin {
             RangerDamagePower power =PowerHolderComponent.getPowers(user, RangerDamagePower.class).get(0);
             persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage()+power.getDamage()+(power.getDamageScaled()*Math.floorDiv(  APOXP.get(user).getLevel(),power.getScale())));
         }
+        if (PowerHolderComponent.hasPower(user, MarksmanArrowCyclingPower.class)) {
+            MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(user).getPowers(MarksmanArrowCyclingPower.class).get(0);
+            if (marksmanArrowCyclingPower.isActive() && !marksmanArrowCyclingPower.doDamage()){
+                persistentProjectileEntity.setDamage(1);
+            }
+        }
         return world.spawnEntity(entity);
     }
     @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/player/PlayerEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "onStoppedUsing")

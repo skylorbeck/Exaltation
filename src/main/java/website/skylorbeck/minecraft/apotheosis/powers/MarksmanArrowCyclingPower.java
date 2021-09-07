@@ -15,27 +15,50 @@ import net.minecraft.text.TranslatableText;
 import java.util.function.Consumer;
 
 public class MarksmanArrowCyclingPower extends Power implements Active {
-    Potion[] potions;
+    private final Potion[][] potions;
+    private final boolean[] doDamage;
     private int activePotion = 0;
-    public MarksmanArrowCyclingPower(PowerType<?> type, LivingEntity entity, Potion[] potions) {
+    private int activeQuiver = 0;
+
+    public MarksmanArrowCyclingPower(PowerType<?> type, LivingEntity entity, Potion[][] potions) {
+        this(type,entity,potions,new boolean[]{false});
+    }
+
+    public MarksmanArrowCyclingPower(PowerType<?> type, LivingEntity entity, Potion[][] potions, boolean[] doDamage) {
         super(type, entity);
         this.potions = potions;
+        this.activePotion = potions[0].length;
+        this.doDamage = doDamage;
     }
 
     @Override
     public boolean isActive() {
-        return activePotion != potions.length;
+        return activePotion != potions[activeQuiver].length;
     }
 
     public void onUse() {
-        activePotion++;
-        if (activePotion > potions.length) {
-            activePotion = 0;
-        }
-        if (!isActive()) {
-            ((PlayerEntity) entity).sendMessage(new TranslatableText("apotheosis.disabled"), true);
+        if (entity.isSneaking()) {
+            activeQuiver++;
+            if (activeQuiver >= potions.length) {
+                activeQuiver = 0;
+            }
+            activePotion = potions[activeQuiver].length;
+            if (potions.length>1) {
+                ((PlayerEntity) entity).sendMessage(new TranslatableText("apotheosis.quiver_swap"), true);
+            } else {
+                ((PlayerEntity) entity).sendMessage(new TranslatableText("apotheosis.disabled"), true);
+            }
+
         } else {
-            ((PlayerEntity) entity).sendMessage(potions[activePotion].getEffects().get(0).getEffectType().getName(), true);
+            activePotion++;
+            if (activePotion > potions[activeQuiver].length) {
+                activePotion = 0;
+            }
+            if (!isActive()) {
+                ((PlayerEntity) entity).sendMessage(new TranslatableText("apotheosis.disabled"), true);
+            } else {
+                ((PlayerEntity) entity).sendMessage(potions[activeQuiver][activePotion].getEffects().get(0).getEffectType().getName(), true);
+            }
         }
     }
 
@@ -52,6 +75,9 @@ public class MarksmanArrowCyclingPower extends Power implements Active {
     }
 
     public Potion getPotion(){
-        return this.potions[activePotion];
+        return this.potions[activeQuiver][activePotion];
+    }
+    public boolean doDamage(){
+        return this.doDamage[activeQuiver];
     }
 }

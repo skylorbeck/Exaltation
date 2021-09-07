@@ -13,7 +13,7 @@
     "apotheosis:ranger/marksman/marksman_damage",
     "apotheosis:ranger/marksman/marksman_crouching_movespeed",
 
-    "apotheosis:ranger/marksman/marksman_arrow_cycle"
+    "apotheosis:ranger/marksman/marksman_quiver_combat"
   ],
   "icon": "minecraft:crossbow",
   "unchoosable": "true",
