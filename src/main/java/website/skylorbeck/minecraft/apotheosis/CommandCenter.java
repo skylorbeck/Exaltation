@@ -22,7 +22,7 @@ public class CommandCenter {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("apotheosis").requires(cs -> cs.hasPermissionLevel(2))
-                        .then(literal("set")
+                        .then(literal("setlevel")
                                 .then(argument("target", EntityArgumentType.player())
                                         .then(argument("level", IntegerArgumentType.integer())
                                                 .executes((command) -> {
@@ -36,7 +36,7 @@ public class CommandCenter {
         );
         dispatcher.register(
                 literal("apotheosis").requires(cs -> cs.hasPermissionLevel(2))
-                        .then(literal("set")
+                        .then(literal("setclass")
                                 .then(argument("target", EntityArgumentType.player())
                                         .then(argument("class", OriginArgumentType.origin())
                                                 .executes((command) -> {
