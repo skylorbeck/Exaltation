@@ -58,7 +58,7 @@ public abstract class CrossbowItemMixin {
                 }
             }
             if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
-                persistentProjectileEntity.setPierceLevel((byte) 1);
+                persistentProjectileEntity.setPierceLevel((byte) (persistentProjectileEntity.getPierceLevel()+1));
             }
             cir.setReturnValue(persistentProjectileEntity);
 

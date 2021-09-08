@@ -133,5 +133,7 @@
   "power.apotheosis.ranger/marksman/marksman_quiver_utility.name": "Utility Quiver (Secondary)",
   "power.apotheosis.ranger/marksman/marksman_quiver_utility.description": "Cycle between Regen, Instant HP or Swiftness Arrows",
   "power.apotheosis.ranger/marksman/marksman_quiver_combo.name": "Combat/Utility Quiver (Secondary)",
-  "power.apotheosis.ranger/marksman/marksman_quiver_combo.description": "Regen, Instant HP, Swift, Poison, Weak or Slow Arrows"
+  "power.apotheosis.ranger/marksman/marksman_quiver_combo.description": "Regen, Instant HP, Swift, Poison, Weak or Slow Arrows",
+  "power.apotheosis.ranger/marksman/marksman_reloading.name": "Combat Ejector",
+  "power.apotheosis.ranger/marksman/marksman_reloading.description": "Load Crossbows 50% faster, arrows pierce"
 }
