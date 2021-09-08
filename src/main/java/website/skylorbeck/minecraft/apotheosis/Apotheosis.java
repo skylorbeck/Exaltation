@@ -26,3 +26,4 @@ public class Apotheosis implements ModInitializer {
 }
 
 //todo config
+//todo marksman 45 powers and ultimate
