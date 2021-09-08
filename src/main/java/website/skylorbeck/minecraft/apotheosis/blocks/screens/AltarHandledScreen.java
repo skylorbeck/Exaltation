@@ -219,7 +219,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             case normal -> {
                 double u = mouseX - (double) (x + 60);
                 double v = mouseY - (double) (y + 52);
-                if (MCXP>=AXPC && u >= 0.0D && v >= 0.0D && u < 107D && v < 19D && this.handler.onButtonClick(this.client.player, 3)) {
+                if ((client.player.isCreative()||MCXP>=AXPC) && u >= 0.0D && v >= 0.0D && u < 107D && v < 19D && this.handler.onButtonClick(this.client.player, 3)) {
                     this.client.interactionManager.clickButton(this.handler.syncId, 3);
                     return true;
                 }
