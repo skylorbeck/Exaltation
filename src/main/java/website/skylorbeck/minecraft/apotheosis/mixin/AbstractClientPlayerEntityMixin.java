@@ -12,7 +12,7 @@ import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 public class AbstractClientPlayerEntityMixin {
     @Inject(at = @At(value = "RETURN"),method = "getSpeed", cancellable = true)
     private void spyGlassOverride(CallbackInfoReturnable<Float> cir){
-        if (((Object)this) instanceof PlayerEntity && ((PlayerEntityInterface) this).getSpyGlassOverride()){
+        if (((AbstractClientPlayerEntity)(Object)this).isPlayer() && ((PlayerEntityInterface) this).getSpyGlassOverride()){
             cir.setReturnValue(0.1F);
         }
     }

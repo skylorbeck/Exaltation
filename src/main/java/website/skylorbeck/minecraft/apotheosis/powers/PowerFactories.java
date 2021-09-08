@@ -191,7 +191,7 @@ public class PowerFactories {
                         .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
                 ,
                 data -> ((type, player) ->{
-                    List<QuiverData> quiverData = (List<QuiverData>) data.get("quivers");
+                    List<QuiverData> quiverData = (List<QuiverData>) data.get("quivers");//todo rewrite this again to use status effects instead of potions
                     Potion[][] potions = new Potion[quiverData.size()][];
                     boolean[] doDamage = new boolean[quiverData.size()];
                     for (int i = 0; i < quiverData.size(); i++) {
@@ -210,6 +210,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("marksman_reloading"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanReloadingPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("marksman_big_game"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanBigGamePower::new));
     }
 
     private static void register(PowerFactory serializer) {

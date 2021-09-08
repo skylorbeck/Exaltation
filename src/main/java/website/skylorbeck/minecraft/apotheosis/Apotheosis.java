@@ -27,3 +27,6 @@ public class Apotheosis implements ModInitializer {
 
 //todo config
 //todo marksman 45 powers and ultimate
+// Big Game Hunter:
+// If a target's health is >50% you deal additional damage (My brain goes to double however that could break easily for now we can set it to like 5).
+// Additionally shot targets are blinded temporarily 2 seconds.

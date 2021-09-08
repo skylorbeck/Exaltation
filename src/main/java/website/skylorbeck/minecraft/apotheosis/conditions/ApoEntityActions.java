@@ -46,7 +46,7 @@ public class ApoEntityActions {
     public static void register() {
         register(new ActionFactory<>(Declarar.getIdentifier("mending"), new SerializableData(),
                 (data, entity) -> {
-                    if (entity instanceof PlayerEntity) {
+                    if (entity.isPlayer()) {
                         PlayerInventory inventory = ((PlayerEntity) entity).getInventory();
                         for (int i = 0; i < inventory.size(); i++) {
                             ItemStack stack = inventory.getStack(i);
@@ -58,7 +58,7 @@ public class ApoEntityActions {
                 }));
         register(new ActionFactory<>(Declarar.getIdentifier("ultimate_mending"), new SerializableData(),
                 (data, entity) -> {
-                    if (entity instanceof PlayerEntity) {
+                    if (entity.isPlayer()) {
                         PlayerInventory inventory = ((PlayerEntity) entity).getInventory();
                         for (int i = 0; i < inventory.size(); i++) {
                             ItemStack stack = inventory.getStack(i);
@@ -73,7 +73,7 @@ public class ApoEntityActions {
                 }));
         register(new ActionFactory<>(Declarar.getIdentifier("tome_of_knowledge"), new SerializableData(),
                 (data, entity) -> {
-                    if (entity instanceof PlayerEntity) {
+                    if (entity.isPlayer()) {
                         ItemStack book = EnchantmentHelper.enchant(MinecraftClient.getInstance().world.random, new ItemStack(Items.BOOK), MinecraftClient.getInstance().world.random.nextInt(5), true);
                         book.setCustomName(Text.of("Tome Of Knowledge"));
                         ((PlayerEntity) entity).giveItemStack(book);
@@ -145,7 +145,7 @@ public class ApoEntityActions {
         register(new ActionFactory<>(Declarar.getIdentifier("turn_power_off"), new SerializableData()
                 .add("power", SerializableDataTypes.IDENTIFIER, null),
                 (data, entity) -> {
-                    if (entity instanceof PlayerEntity) {
+                    if (entity.isPlayer()) {
                         Identifier identifier = data.getId("power");
                         if (PowerTypeRegistry.contains(identifier)) {
                             Power power = PowerTypeRegistry.get(identifier).get(entity);

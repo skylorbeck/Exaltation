@@ -20,7 +20,7 @@ public class ApoEntityCondition {
                         .add("comparison", ApoliDataTypes.COMPARISON)
                         .add("compare_to", SerializableDataTypes.INT),
                 (data, entity) -> {
-                    if(entity instanceof PlayerEntity) {
+                    if(entity.isPlayer()) {
                         return ((Comparison)data.get("comparison")).compare(APOXP.get(((PlayerEntity)entity)).getLevel(), data.getInt("compare_to"));
                     }
                     return false;

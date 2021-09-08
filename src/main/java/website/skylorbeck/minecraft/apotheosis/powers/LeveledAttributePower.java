@@ -33,7 +33,7 @@ public class LeveledAttributePower extends Power {
 
     @Override
     public void tick() {
-        if(entity.age % tickRate == 0 && entity instanceof PlayerEntity) {
+        if(entity.age % tickRate == 0 && entity.isPlayer()) {
             float previousMaxHealth = entity.getMaxHealth();
             float previousHealthPercent = entity.getHealth() / previousMaxHealth;
             if (this.isActive()) {
@@ -78,7 +78,7 @@ public class LeveledAttributePower extends Power {
                 if(instance != null) {
                     if(!instance.hasModifier(mod.getModifier())) {
                         EntityAttributeModifier modifier = mod.getModifier();
-                        if (entity instanceof PlayerEntity) {
+                        if (entity.isPlayer()) {
                             ((EntityAttributeModifierMixin) modifier).setValue(originalValue * Math.floorDiv(APOXP.get(entity).getLevel(),scale));
                         }
                         instance.addTemporaryModifier(modifier);
