@@ -19,9 +19,7 @@ public class ApoDataTypes {
                     .add("doDamage", SerializableDataTypes.BOOLEAN,true)
                     .add("potions", ApoDataTypes.STRINGS),
 
-            dataInst -> {
-                return new QuiverData(dataInst.getBoolean("doDamage"),(List<String>) dataInst.get("potions") );
-            }
+            dataInst -> new QuiverData(dataInst.getBoolean("doDamage"),(List<String>) dataInst.get("potions") )
             ,
             (data, inst) -> {
                 SerializableData.Instance dataInst = data.new Instance();

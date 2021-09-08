@@ -207,6 +207,9 @@ public class PowerFactories {
                     return power;
                 }
                 )));
+        register(new PowerFactory<>(Declarar.getIdentifier("marksman_reloading"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanReloadingPower::new));
     }
 
     private static void register(PowerFactory serializer) {

@@ -36,6 +36,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
@@ -194,7 +195,6 @@ public class ApoEntityActions {
                             int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
                             arrow.setCount(amount);
                             ((PlayerEntity) entity).giveItemStack(arrow);
-//                            ((CrossbowItem)crossbow.getItem()).loadProjectiles(entity,arrow);
                         } else
                         if (data.isPresent("potions")) {
                             List<String> strings = (List<String>) data.get("potions");
@@ -203,7 +203,6 @@ public class ApoEntityActions {
                             int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
                             arrow.setCount(amount);
                             ((PlayerEntity) entity).giveItemStack(arrow);
-//                            ((CrossbowItem)crossbow.getItem()).loadProjectiles(entity,arrow);
                         }
                     }
                 }));

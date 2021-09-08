@@ -15,15 +15,7 @@ public class QuiverData {
         return doDamage;
     }
 
-    public void setDoDamage(boolean doDamage) {
-        this.doDamage = doDamage;
-    }
-
     public  List<String> getPotions() {
         return potions;
-    }
-
-    public void setPotions( List<String> potions) {
-        this.potions = potions;
     }
 }

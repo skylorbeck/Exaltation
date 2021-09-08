@@ -1,6 +1,7 @@
 package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
+import website.skylorbeck.minecraft.apotheosis.powers.MarksmanReloadingPower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerDamagePower;
 import website.skylorbeck.minecraft.apotheosis.powers.RangerRangedItemAccuracyPower;
 
@@ -55,6 +57,9 @@ public abstract class CrossbowItemMixin {
                     persistentProjectileEntity.setDamage(1);
                 }
             }
+            if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
+                persistentProjectileEntity.setPierceLevel((byte) 1);
+            }
             cir.setReturnValue(persistentProjectileEntity);
 
         }
@@ -76,5 +81,15 @@ public abstract class CrossbowItemMixin {
             }
         }
         return newArrow;
+    }
+
+    @Inject(method = "getPullTime", at = @At(value = "RETURN"), cancellable = true)
+    private static void modifyPullTime(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
+            cir.setReturnValue(cir.getReturnValue()/2);
+        }
+        if (cir.getReturnValue()<=0){
+            cir.setReturnValue(1);
+        }
     }
 }
