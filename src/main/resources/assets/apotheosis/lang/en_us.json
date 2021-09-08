@@ -1,9 +1,20 @@
 {
   "apotheosis.category": "Apotheosis",
-  "key.apotheosis.primary_active": "Primary Skill",
-  "key.apotheosis.secondary_active": "Secondary Skill",
   "apotheosis.disabled": "Disabled",
   "apotheosis.quiver_swap": "Swapped Quiver",
+  "apotheosis.levelcap":"You have nothing to gain from using this",
+  "apotheosis.weakaltar":"This Altar is not strong enough",
+  "apotheosis.toostrong":"You are too strong for this Altar",
+  "apotheosis.levelup1": "You have reached maximum power",
+  "apotheosis.levelup2": "Use an Altar to Ascend",
+
+  "death.attack.hemorrhage": "%1$s hemorrhaged to death",
+
+  "key.apotheosis.primary_active": "Primary Skill",
+  "key.apotheosis.secondary_active": "Secondary Skill",
+
+  "effect.apotheosis.wolfmark": "Wolfmark",
+  "effect.apotheosis.hemorrhaging": "Hemorrhaging",
 
   "block.apotheosis.stonealtarblock": "Stone Altar",
   "block.apotheosis.ironaltarblock": "Iron Altar",
@@ -14,6 +25,9 @@
   "enchantment.apotheosis.healthbooster": "Healthy",
   "enchantment.apotheosis.armorsharpness": "Finesse",
   "enchantment.apotheosis.knockbackresist": "Sturdy",
+  "enchantment.apotheosis.witheraspect": "Wither Aspect",
+  "enchantment.apotheosis.poisonaspect": "Poison Aspect",
+  "enchantment.apotheosis.frostaspect": "Frost Aspect",
 
   "layer.apotheosis.class.name": "Class",
 
@@ -22,12 +36,6 @@
   "apotheosis.altar.xpcost": "Level Up Cost",
   "apotheosis.altar.levelup": "Level Up!",
   "apotheosis.altar.notenoughxp": "Not enough XP",
-
-  "apotheosis.levelcap":"You have nothing to gain from using this",
-  "apotheosis.weakaltar":"This Altar is not strong enough",
-  "apotheosis.toostrong":"You are too strong for this Altar",
-  "apotheosis.levelup1": "You have reached maximum power",
-  "apotheosis.levelup2": "Use an Altar to Ascend",
 
   "power.apotheosis.hearty.name": "Hearty",
   "power.apotheosis.hearty.description": "+3 Hearts",
