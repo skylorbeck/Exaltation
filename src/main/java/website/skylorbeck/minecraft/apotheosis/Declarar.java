@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
@@ -34,12 +35,12 @@ public class Declarar {
     public static Identifier getIdentifier(String string){
         return new Identifier(MODID,string);
     }
-//todo check breakbytool
-    public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque().luminance(5),0);
-    public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque().luminance(5),1);
-    public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK).nonOpaque().luminance(5),2);
-    public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK).nonOpaque().luminance(5),3);
-    public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().luminance(5),4);
+
+    public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),0);
+    public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),1);
+    public static final Block goldaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.GOLD_BLOCK).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),2);
+    public static final Block diamondaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),3);
+    public static final Block netheritealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.NETHERITE_BLOCK).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),4);
 
     public static final BlockItem stonealtarItem = new AltarBlockItem(stonealtar,new FabricItemSettings().group(ItemGroup.MISC));
     public static final BlockItem ironaltarItem = new AltarBlockItem(ironaltar,new FabricItemSettings().group(ItemGroup.MISC));
