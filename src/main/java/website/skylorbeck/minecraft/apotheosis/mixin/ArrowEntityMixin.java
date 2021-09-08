@@ -27,7 +27,7 @@ public class ArrowEntityMixin {
             if (shooter.isPlayer()) {
                 if (PowerHolderComponent.hasPower(shooter, MarksmanBigGamePower.class)) {
                     ((ArrowEntity) (Object) this).setDamage(((ArrowEntity) (Object) this).getDamage() + 5D);
-                    ((ArrowEntity) (Object) this).addEffect(new StatusEffectInstance(StatusEffects.BLINDNESS,80));
+                    target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 60));
                 }
             }
         }
