@@ -79,7 +79,7 @@ public abstract class CrossbowItemMixin {
                 }
                 PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
             }
-        }
+        }//todo move this to arrow.onhit instead of enchanting the arrow
         return newArrow;
     }
 
