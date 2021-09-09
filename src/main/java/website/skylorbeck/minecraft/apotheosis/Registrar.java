@@ -1,8 +1,12 @@
 package website.skylorbeck.minecraft.apotheosis;
 
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.blocks.screens.AltarHandledScreen;
+
+import java.lang.reflect.Method;
 
 import static website.skylorbeck.minecraft.apotheosis.Declarar.MODID;
 import static website.skylorbeck.minecraft.skylorlib.Registrar.regBlock;

@@ -2,18 +2,42 @@
   "type": "apotheosis:marksman_quiver_manager",
   "quivers": [
     {
-      "potions": [
-        "minecraft:poison",
-        "minecraft:night_vision",
-        "minecraft:slowness"
+      "effects": [
+        {
+          "effect": "minecraft:poison",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:weakness",
+          "duration": 300,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:slowness",
+          "duration": 300,
+          "amplifier": 0
+        }
       ]
     },
     {
       "doDamage": false,
-      "potions": [
-        "minecraft:swiftness",
-        "minecraft:healing",
-        "minecraft:regeneration"
+      "effects": [
+        {
+          "effect": "minecraft:speed",
+          "duration": 400,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:instant_health",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:regeneration",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:haste",
+          "duration": 400,
+          "amplifier": 0
+        }
       ]
     }
   ],

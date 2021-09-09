@@ -3,7 +3,6 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
@@ -65,7 +64,7 @@ public abstract class CrossbowItemMixin {
         }
     }
 
-    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/LivingEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "loadProjectiles")
+    /*@Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/LivingEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "loadProjectiles")
     private static ItemStack redirectGetArrowType(LivingEntity entity, ItemStack stack){
         ItemStack arrowStack = entity.getArrowType(stack);
         ItemStack newArrow = arrowStack;
@@ -77,11 +76,11 @@ public abstract class CrossbowItemMixin {
                     newArrow = Items.TIPPED_ARROW.getDefaultStack();
                     newArrow.setCount(1);
                 }
-                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
+                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getStatusEffect());
             }
         }//todo move this to arrow.onhit instead of enchanting the arrow
         return newArrow;
-    }
+    }*/
 
     @Inject(method = "getPullTime", at = @At(value = "RETURN"), cancellable = true)
     private static void modifyPullTime(ItemStack stack, CallbackInfoReturnable<Integer> cir) {

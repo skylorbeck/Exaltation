@@ -20,15 +20,19 @@ import java.util.List;
 @Mixin(ArrowEntity.class)
 public class ArrowEntityMixin {
 
-    @Inject(at = @At(value = "INVOKE"),method = "onHit", cancellable = true)
+    @Inject(at = @At(value = "INVOKE"), method = "onHit", cancellable = true)
     private void minDamageInject(LivingEntity target, CallbackInfo ci) {
-        if (target.getHealth() >= target.getMaxHealth() / 2) {
-            Entity shooter = ((ArrowEntity) (Object) this).getEffectCause();
-            if (shooter.isPlayer()) {
+        Entity shooter = ((ArrowEntity) (Object) this).getEffectCause();
+        if (shooter.isPlayer()) {
+            if (target.getHealth() >= target.getMaxHealth() / 2) {
                 if (PowerHolderComponent.hasPower(shooter, MarksmanBigGamePower.class)) {
                     ((ArrowEntity) (Object) this).setDamage(((ArrowEntity) (Object) this).getDamage() + 5D);
                     target.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 60));
                 }
+            }
+            if (PowerHolderComponent.hasPower(shooter, MarksmanArrowCyclingPower.class)) {
+                MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(shooter).getPowers(MarksmanArrowCyclingPower.class).get(0);
+                target.addStatusEffect(marksmanArrowCyclingPower.getStatusEffect());
             }
         }
     }

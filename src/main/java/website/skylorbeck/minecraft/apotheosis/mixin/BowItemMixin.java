@@ -37,7 +37,7 @@ public class BowItemMixin {
         }
         return world.spawnEntity(entity);
     }
-    @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/player/PlayerEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "onStoppedUsing")
+    /*@Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/player/PlayerEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "onStoppedUsing")
     private ItemStack redirectGetArrowType(PlayerEntity playerEntity, ItemStack stack){
         ItemStack arrowStack = playerEntity.getArrowType(stack);
         ItemStack newArrow = arrowStack;
@@ -49,11 +49,11 @@ public class BowItemMixin {
                     newArrow = Items.TIPPED_ARROW.getDefaultStack();
                     newArrow.setCount(1);
                 }
-                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
+                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getStatusEffect());
             }
         }//todo move this to arrow.onhit instead of enchanting the arrow
         return newArrow;
-    }
+    }*/
 
     @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 1.0f,ordinal = 0))
     private float modifyAccuracy(float accuracy){

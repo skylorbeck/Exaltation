@@ -6,9 +6,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.DyeColor;
 import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
@@ -38,7 +40,8 @@ public class ApoHud {
             MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(entity).getPowers(MarksmanArrowCyclingPower.class).get(0);
             if (marksmanArrowCyclingPower.isActive()) {
                 ItemStack newArrow = Items.TIPPED_ARROW.getDefaultStack();
-                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getPotion());
+                PotionUtil.setPotion(newArrow, new Potion(marksmanArrowCyclingPower.getStatusEffect()));
+                newArrow.getOrCreateNbt().putInt("CustomPotionColor", marksmanArrowCyclingPower.getStatusEffect().getEffectType().getColor());
                 itemRenderer.renderGuiItemIcon(newArrow,scaledWidth-scaledWidth/4-16,scaledHeight-30);
             }
         }

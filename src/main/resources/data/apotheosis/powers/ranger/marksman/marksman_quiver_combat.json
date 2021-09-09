@@ -2,10 +2,20 @@
   "type": "apotheosis:marksman_quiver_manager",
   "quivers": [
     {
-      "potions": [
-        "minecraft:poison",
-        "minecraft:night_vision",
-        "minecraft:slowness"
+      "effects": [
+        {
+          "effect": "minecraft:poison",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:weakness",
+          "duration": 300,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:slowness",
+          "duration": 300,
+          "amplifier": 0
+        }
       ]
     }
   ],
