@@ -70,7 +70,7 @@ public class MarksmanArrowCyclingPower extends Power implements Active {
     }
 
     public StatusEffectInstance getStatusEffect(){
-        return this.statusEffectInstances[activeQuiver][activePotion];
+        return new StatusEffectInstance(this.statusEffectInstances[activeQuiver][activePotion]);
     }
     public boolean doDamage(){
         return this.doDamage[activeQuiver];

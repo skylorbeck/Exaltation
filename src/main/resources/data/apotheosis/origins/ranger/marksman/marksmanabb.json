@@ -14,7 +14,9 @@
 
     "apotheosis:ranger/marksman/marksman_zoom",
 
-    "apotheosis:ranger/marksman/marksman_quiver_utility"
+    "apotheosis:ranger/marksman/marksman_quiver_combo_upgraded_b",
+
+    "apotheosis:ranger/marksman/marksman_ultimate"
   ],
   "icon": "minecraft:crossbow",
   "unchoosable": "true",

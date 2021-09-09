@@ -214,6 +214,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("marksman_big_game"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanBigGamePower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("marksman_ultimate"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanUltimatePower::new));
     }
 
     private static void register(PowerFactory serializer) {

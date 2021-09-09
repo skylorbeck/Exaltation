@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
 import website.skylorbeck.minecraft.apotheosis.powers.MarksmanBigGamePower;
+import website.skylorbeck.minecraft.apotheosis.powers.MarksmanUltimatePower;
 
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class ArrowEntityMixin {
             if (PowerHolderComponent.hasPower(shooter, MarksmanArrowCyclingPower.class)) {
                 MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(shooter).getPowers(MarksmanArrowCyclingPower.class).get(0);
                 target.addStatusEffect(marksmanArrowCyclingPower.getStatusEffect());
+            }
+            if (PowerHolderComponent.hasPower(shooter, MarksmanUltimatePower.class)) {
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING,200));
             }
         }
     }

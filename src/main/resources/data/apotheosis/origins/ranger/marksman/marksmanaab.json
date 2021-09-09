@@ -14,7 +14,11 @@
 
     "apotheosis:ranger/marksman/marksman_zoom",
 
-    "apotheosis:ranger/marksman/marksman_reloading"
+    "apotheosis:ranger/marksman/marksman_reloading",
+
+    "apotheosis:ranger/marksman/marksman_quiver_combo",
+
+    "apotheosis:ranger/marksman/marksman_ultimate"
   ],
   "icon": "minecraft:crossbow",
   "unchoosable": "true",

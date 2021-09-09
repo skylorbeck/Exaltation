@@ -33,6 +33,8 @@ import website.skylorbeck.minecraft.apotheosis.powers.ConsumingItemPower;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
@@ -307,13 +309,13 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             try {
                 originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
             } catch (Exception exception){
-//                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getCause()));
+                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getCause()));
                 originUpgrades[0]=null;
             }
             try {
                 originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
             } catch (Exception exception){
-//                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getMessage()));
+                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getMessage()));
                 originUpgrades[1]=null;
             }
         } else {

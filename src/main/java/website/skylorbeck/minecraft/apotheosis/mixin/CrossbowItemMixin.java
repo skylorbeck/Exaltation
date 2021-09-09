@@ -3,6 +3,8 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
@@ -16,10 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import website.skylorbeck.minecraft.apotheosis.powers.MarksmanArrowCyclingPower;
-import website.skylorbeck.minecraft.apotheosis.powers.MarksmanReloadingPower;
-import website.skylorbeck.minecraft.apotheosis.powers.RangerDamagePower;
-import website.skylorbeck.minecraft.apotheosis.powers.RangerRangedItemAccuracyPower;
+import website.skylorbeck.minecraft.apotheosis.powers.*;
 
 import static net.minecraft.item.CrossbowItem.hasProjectile;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
@@ -59,28 +58,14 @@ public abstract class CrossbowItemMixin {
             if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
                 persistentProjectileEntity.setPierceLevel((byte) (persistentProjectileEntity.getPierceLevel()+1));
             }
+            if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanUltimatePower.class)) {
+                persistentProjectileEntity.setPierceLevel((byte) (persistentProjectileEntity.getPierceLevel()+5));
+            }
             cir.setReturnValue(persistentProjectileEntity);
 
         }
     }
 
-    /*@Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/LivingEntity;getArrowType(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"),method = "loadProjectiles")
-    private static ItemStack redirectGetArrowType(LivingEntity entity, ItemStack stack){
-        ItemStack arrowStack = entity.getArrowType(stack);
-        ItemStack newArrow = arrowStack;
-        if (PowerHolderComponent.hasPower(entity, MarksmanArrowCyclingPower.class)) {
-            MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(entity).getPowers(MarksmanArrowCyclingPower.class).get(0);
-            if (marksmanArrowCyclingPower.isActive() && arrowStack != ItemStack.EMPTY) {
-                newArrow = arrowStack.split(1);
-                if (newArrow.isOf(Items.ARROW)){
-                    newArrow = Items.TIPPED_ARROW.getDefaultStack();
-                    newArrow.setCount(1);
-                }
-                PotionUtil.setPotion(newArrow, marksmanArrowCyclingPower.getStatusEffect());
-            }
-        }//todo move this to arrow.onhit instead of enchanting the arrow
-        return newArrow;
-    }*/
 
     @Inject(method = "getPullTime", at = @At(value = "RETURN"), cancellable = true)
     private static void modifyPullTime(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
