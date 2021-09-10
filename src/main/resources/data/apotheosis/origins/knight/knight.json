@@ -1,0 +1,23 @@
+{
+  "name": "origin.apotheosis.knight.name",
+  "description": "origin.apotheosis.knight.description",
+  "powers": [
+    "apotheosis:resetlevel",
+    "apotheosis:branchat50"
+
+  ],
+  "icon": "minecraft:shield",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "apotheosis:knight/knight_upgrade_a",
+      "origin": "apotheosis:knight/draco/draco",
+      "announcement": "Draco Knight Activated"
+    },
+    {
+      "condition": "apotheosis:knight/knight_upgrade_b",
+      "origin": "apotheosis:knight/wight/wight",
+      "announcement": "Wight Knight Activated"
+    }
+  ]
+}

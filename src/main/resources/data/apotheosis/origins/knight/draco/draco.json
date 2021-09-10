@@ -1,0 +1,20 @@
+{
+  "name": "origin.apotheosis.draco.name",
+  "description": "origin.apotheosis.draco.description",
+  "powers": [
+    "apotheosis:branchat10"
+  ],
+  "icon": "minecraft:dragon_head",
+  "unchoosable": "true",
+  "impact": 2,
+  "upgrades": [
+    {
+      "condition": "apotheosis:ranger/draco/draco_upgrade_a",
+      "origin": "apotheosis:ranger/draco/dracoa"
+    },
+    {
+      "condition": "apotheosis:ranger/draco/draco_upgrade_b",
+      "origin": "apotheosis:ranger/draco/dracob"
+    }
+  ]
+}

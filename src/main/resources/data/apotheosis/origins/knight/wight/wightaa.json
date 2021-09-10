@@ -1,0 +1,20 @@
+{
+  "name": "origin.apotheosis.wight.name",
+  "description": "origin.apotheosis.wight.description",
+  "powers": [
+    "apotheosis:branchat45"
+  ],
+  "icon": "minecraft:wither_skeleton_skull",
+  "unchoosable": "true",
+  "impact": 2,
+  "upgrades": [
+    {
+      "condition": "apotheosis:ranger/wight/wightaa_upgrade_a",
+      "origin": "apotheosis:ranger/wight/wightaaa"
+    },
+    {
+      "condition": "apotheosis:ranger/wight/wightaa_upgrade_b",
+      "origin": "apotheosis:ranger/wight/wightaab"
+    }
+  ]
+}

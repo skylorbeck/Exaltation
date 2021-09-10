@@ -1,0 +1,10 @@
+{
+  "name": "origin.apotheosis.draco.name",
+  "description": "origin.apotheosis.draco.description",
+  "powers": [
+
+  ],
+  "icon": "minecraft:dragon_head",
+  "unchoosable": "true",
+  "impact": 2
+}
