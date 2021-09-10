@@ -44,7 +44,7 @@
   "origin.apotheosis.blacksmith.description": "You have an innate understanding of metals, knowing the best way to work them into powerful weapons and tools",
   "power.apotheosis.blacksmith/lucky.name": "Lucky",
   "power.apotheosis.blacksmith/lucky.description": "+0.02 Luck per level",
-  "power.apotheosis.blacksmith/warsmith/hearty_scaling.description": "+1 Heart every 5 levels",
+  "power.apotheosis.blacksmith/warsmith/hearty_scaling.description": "+1/2 Heart every 5 levels",
   "power.apotheosis.blacksmith/smithing_armor_power.name": "Armorsmith",
   "power.apotheosis.blacksmith/smithing_armor_power.description": "All crafted armor has increased durability",
   "power.apotheosis.blacksmith/smithing_weapon_power.name": "Weaponsmith",

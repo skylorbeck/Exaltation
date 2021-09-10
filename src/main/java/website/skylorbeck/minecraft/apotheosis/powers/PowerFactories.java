@@ -58,7 +58,6 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("leveled_attribute"),
                 new SerializableData()
                         .add("modifier", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIER, null)
-                        .add("modifiers", ApoliDataTypes.ATTRIBUTED_ATTRIBUTE_MODIFIERS, null)
                         .add("tick_rate", SerializableDataTypes.INT, 20)
                         .add("scale", SerializableDataTypes.INT, 1),
                 data ->
@@ -66,10 +65,6 @@ public class PowerFactories {
                             LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"),((AttributedEntityAttributeModifier)data.get("modifier")).getModifier().getValue());
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
-                            }
-                            if(data.isPresent("modifiers")) {
-                                List<AttributedEntityAttributeModifier> modifierList = (List<AttributedEntityAttributeModifier>)data.get("modifiers");
-                                modifierList.forEach(ap::addModifier);
                             }
                             return ap;
                         }).allowCondition());

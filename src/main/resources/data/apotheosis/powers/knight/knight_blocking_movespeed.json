@@ -1,0 +1,17 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.movement_speed",
+    "value": 0.005,
+    "operation": "addition"
+  },
+  "condition": {
+    "type": "origins:using_item",
+    "item_condition": {
+      "type": "origins:ingredient",
+      "ingredient": {
+        "item": "minecraft:shield"
+      }
+    }
+  }
+}

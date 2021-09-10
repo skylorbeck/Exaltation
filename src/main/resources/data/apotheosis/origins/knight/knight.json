@@ -3,7 +3,15 @@
   "description": "origin.apotheosis.knight.description",
   "powers": [
     "apotheosis:resetlevel",
-    "apotheosis:branchat50"
+    "apotheosis:branchat50",
+
+    "apotheosis:hearty",
+    "apotheosis:blacksmith/warsmith/hearty_scaling",
+    "apotheosis:knight/knight_base_attack",
+    "apotheosis:knight/knight_knockback",
+    "apotheosis:knight/knight_knockback_resist",
+    "apotheosis:knight/knight_blocking_movespeed",
+    "apotheosis:knight/knight_blocking_movespeed_leveled"
 
   ],
   "icon": "minecraft:shield",

@@ -1,0 +1,9 @@
+{
+  "type": "apotheosis:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.attack_knockback",
+    "value": 0.04,
+    "operation": "addition"
+  },
+  "scale": 1
+}
