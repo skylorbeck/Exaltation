@@ -48,7 +48,9 @@ public class LivingEntityMixin {
     @Inject(at = @At(value = "RETURN"),method = "isBlocking", cancellable = true)
     public void injectedIsBlocking(CallbackInfoReturnable<Boolean> cir) {
         if (PowerHolderComponent.hasPower(((LivingEntity)(Object)this), DracoKnightShieldPower.class)){
-            cir.setReturnValue(true);
+            if (!PowerHolderComponent.KEY.get(((LivingEntity)(Object)this)).getPowers(DracoKnightShieldPower.class).get(0).canUse()){
+                cir.setReturnValue(true);
+            }
         }
     }
 

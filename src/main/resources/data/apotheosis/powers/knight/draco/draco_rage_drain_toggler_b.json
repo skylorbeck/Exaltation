@@ -1,0 +1,16 @@
+{
+  "type": "origins:action_over_time",
+  "entity_action": {
+    "type": "origins:change_resource",
+    "resource": "apotheosis:knight/draco/draco_rage_drain_toggle",
+    "change": -1
+  },
+  "interval": 20,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "apotheosis:knight/draco/draco_rage",
+    "comparison": "==",
+    "compare_to": 0
+  },
+  "hidden": true
+}

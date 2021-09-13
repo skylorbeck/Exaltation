@@ -1,0 +1,9 @@
+{
+  "type": "origins:self_action_on_hit",
+  "entity_action": {
+    "type": "origins:change_resource",
+    "resource": "apotheosis:knight/draco/draco_rage",
+    "change": 1
+  },
+  "cooldown": 5
+}

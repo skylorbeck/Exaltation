@@ -4,7 +4,7 @@
     "type": "origins:delay",
     "ticks": 20,
     "action": {
-      "type": "apotheosis:turn_power_off",
+      "type": "apotheosis:toggle_power",
       "power": "apotheosis:ranger/druid/druid_mark_toggle"
     }
   },

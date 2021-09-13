@@ -142,7 +142,7 @@ public class ApoEntityActions {
                     }
                 }));
 
-        register(new ActionFactory<>(Declarar.getIdentifier("turn_power_off"), new SerializableData()
+        register(new ActionFactory<>(Declarar.getIdentifier("toggle_power"), new SerializableData()
                 .add("power", SerializableDataTypes.IDENTIFIER, null),
                 (data, entity) -> {
                     if (entity.isPlayer()) {
@@ -150,10 +150,8 @@ public class ApoEntityActions {
                         if (PowerTypeRegistry.contains(identifier)) {
                             Power power = PowerTypeRegistry.get(identifier).get(entity);
                             if (PowerHolderComponent.hasPower(entity, power.getClass())) {
-                                if (power.isActive()) {
-                                    ((TogglePower) power).onUse();
-                                    PowerHolderComponent.sync(entity);
-                                }
+                                ((TogglePower) power).onUse();
+                                PowerHolderComponent.sync(entity);
                             }
                         }
                     }

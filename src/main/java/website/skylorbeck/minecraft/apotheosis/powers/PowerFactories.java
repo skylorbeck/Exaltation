@@ -1,16 +1,16 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
 import io.github.apace100.apoli.data.ApoliDataTypes;
-import io.github.apace100.apoli.power.Active;
-import io.github.apace100.apoli.power.Power;
-import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.*;
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.apoli.power.factory.action.ActionFactory;
 import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.apoli.util.AttributedEntityAttributeModifier;
+import io.github.apace100.apoli.util.HudRender;
 import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
@@ -212,6 +212,21 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("marksman_ultimate"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) MarksmanUltimatePower::new));
+
+        register(new PowerFactory<>(Declarar.getIdentifier("draco_shield"),
+                new SerializableData()
+                        .add("entity_action", ApoliDataTypes.ENTITY_ACTION)
+                        .add("cooldown", SerializableDataTypes.INT)
+                        .add("hud_render", ApoliDataTypes.HUD_RENDER)
+                        .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key()),
+                data ->
+                        (type, player) -> {
+                            ActiveCooldownPower power = new DracoKnightShieldPower(type, player, data.getInt("cooldown"), (HudRender)data.get("hud_render"),
+                                    (ActionFactory<Entity>.Instance)data.get("entity_action"));
+                            power.setKey((Active.Key)data.get("key"));
+                            return power;
+                        })
+                .allowCondition());
     }
 
     private static void register(PowerFactory serializer) {

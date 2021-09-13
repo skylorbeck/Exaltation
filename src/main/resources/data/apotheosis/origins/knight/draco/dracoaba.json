@@ -2,7 +2,15 @@
   "name": "origin.apotheosis.draco.name",
   "description": "origin.apotheosis.draco.description",
   "powers": [
+    "apotheosis:hearty",
+    "apotheosis:blacksmith/warsmith/hearty_scaling",
+    "apotheosis:knight/knight_base_attack",
+    "apotheosis:knight/knight_knockback",
+    "apotheosis:knight/knight_knockback_resist",
+    "apotheosis:knight/knight_blocking_movespeed",
+    "apotheosis:knight/knight_blocking_movespeed_leveled",
 
+    "apotheosis:knight/draco/draco_rage"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",
