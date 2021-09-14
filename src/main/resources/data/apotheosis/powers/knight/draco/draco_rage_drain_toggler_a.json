@@ -7,10 +7,21 @@
   },
   "interval": 20,
   "condition": {
-    "type": "origins:resource",
-    "resource": "apotheosis:knight/draco/draco_rage",
-    "comparison": ">=",
-    "compare_to": 24
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "origins:resource",
+        "resource": "apotheosis:knight/draco/draco_rage",
+        "comparison": ">=",
+        "compare_to": 24
+      },
+      {
+        "type": "origins:resource",
+        "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+        "comparison": ">=",
+        "compare_to": 48
+      }
+    ]
   },
   "hidden": true
 }

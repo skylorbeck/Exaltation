@@ -2,9 +2,19 @@
   "name": "power.apotheosis.knight/draco/draco_rage.name",
   "type": "origins:action_over_time",
   "entity_action": {
-    "type": "origins:change_resource",
-    "resource": "apotheosis:knight/draco/draco_rage",
-    "change": -1
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:change_resource",
+        "resource": "apotheosis:knight/draco/draco_rage",
+        "change": -1
+      },
+      {
+        "type": "origins:change_resource",
+        "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+        "change": -1
+      }
+    ]
   },
   "interval": 20,
   "condition": {

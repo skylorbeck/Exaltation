@@ -9,12 +9,12 @@
   "impact": 2,
   "upgrades": [
     {
-      "condition": "apotheosis:ranger/wight/wightba_upgrade_a",
-      "origin": "apotheosis:ranger/wight/wightbaa"
+      "condition": "apotheosis:knight/wight/wightba_upgrade_a",
+      "origin": "apotheosis:knight/wight/wightbaa"
     },
     {
-      "condition": "apotheosis:ranger/wight/wightba_upgrade_b",
-      "origin": "apotheosis:ranger/wight/wightbab"
+      "condition": "apotheosis:knight/wight/wightba_upgrade_b",
+      "origin": "apotheosis:knight/wight/wightbab"
     }
   ]
 }

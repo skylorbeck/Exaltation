@@ -30,12 +30,12 @@
   "impact": 3,
   "upgrades": [
     {
-      "condition": "apotheosis:ranger/draco/dracobb_upgrade_a",
-      "origin": "apotheosis:ranger/draco/dracobba"
+      "condition": "apotheosis:knight/draco/dracobb_upgrade_a",
+      "origin": "apotheosis:knight/draco/dracobba"
     },
     {
-      "condition": "apotheosis:ranger/draco/dracobb_upgrade_b",
-      "origin": "apotheosis:ranger/draco/dracobbb"
+      "condition": "apotheosis:knight/draco/dracobb_upgrade_b",
+      "origin": "apotheosis:knight/draco/dracobbb"
     }
   ]
 }
