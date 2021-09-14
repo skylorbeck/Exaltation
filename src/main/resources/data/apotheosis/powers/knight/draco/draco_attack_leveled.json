@@ -1,4 +1,5 @@
 {
+  "name": "power.apotheosis.knight/draco/draco_armor_leveled.name",
   "type": "apotheosis:leveled_attribute",
   "modifier": {
     "attribute": "minecraft:generic.attack_damage",

@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 
@@ -178,26 +179,32 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             }
             case classfork -> {
                 for (int i = 0; i < 2; ++i) {
-                    if (this.isPointWithinBounds(60 + (54 * i), 14, 54, 57, mouseX, mouseY)) {
+                    if (this.isPointWithinBounds(60 + (54 * i), 14, 54, 57, mouseX, mouseY)) {//todo redo all tooltips to take advantage of the duplicate removal
                         if (originUpgrades[i] != null) {
                             List<Text> newPowers = Lists.newArrayList();
+                            List<Text> newPowersWithDupes = Lists.newArrayList();
                             List<Text> lostPowers = Lists.newArrayList();
+                            List<Text> lostPowersWithDupes = Lists.newArrayList();
                             newPowers.add(Text.of("New Powers:").copy().formatted(Formatting.LIGHT_PURPLE));
 
                             originUpgrades[i].getPowerTypes().forEach(powerType -> {
                                 if (!powerType.isHidden() && !origin.hasPowerType(powerType)){
-                                    newPowers.add(powerType.getName().formatted(Formatting.GOLD));
-                                    newPowers.add(Text.of("  "+powerType.getDescription().getString()));
+                                    newPowersWithDupes.add(powerType.getName().formatted(Formatting.GOLD));
+                                    newPowersWithDupes.add(Text.of("  "+powerType.getDescription().getString()));
                                 }
                             });
+                            newPowers = newPowersWithDupes.stream().distinct().collect(Collectors.toList());
+
                             int finalI = i;
                             origin.getPowerTypes().forEach((powerType -> {
                                 if (!powerType.isHidden() && !originUpgrades[finalI].hasPowerType(powerType)){
-                                    lostPowers.add(powerType.getName().formatted(Formatting.GOLD).formatted(Formatting.STRIKETHROUGH));
+                                    lostPowersWithDupes.add(powerType.getName().formatted(Formatting.GOLD).formatted(Formatting.STRIKETHROUGH));
                                     LiteralText literalText = new LiteralText("  "+powerType.getDescription().getString());
-                                    lostPowers.add(literalText.formatted(Formatting.STRIKETHROUGH));
+                                    lostPowersWithDupes.add(literalText.formatted(Formatting.STRIKETHROUGH));
                                 }
                             }));
+                            lostPowers = lostPowersWithDupes.stream().distinct().collect(Collectors.toList());
+
                             if (lostPowers.size()>0){
                                 newPowers.add(Text.of("Lost Powers:").copy().formatted(Formatting.DARK_PURPLE));
                                 newPowers.addAll(lostPowers);

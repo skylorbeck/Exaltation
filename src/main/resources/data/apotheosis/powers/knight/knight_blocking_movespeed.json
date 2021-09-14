@@ -1,4 +1,5 @@
 {
+  "name": "power.apotheosis.knight/knight_base_attack.name",
   "type": "origins:attribute",
   "modifier": {
     "attribute": "minecraft:generic.movement_speed",

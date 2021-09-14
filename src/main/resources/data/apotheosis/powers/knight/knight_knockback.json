@@ -1,4 +1,5 @@
 {
+  "name": "power.apotheosis.knight/knight_base_attack.name",
   "type": "apotheosis:leveled_attribute",
   "modifier": {
     "attribute": "minecraft:generic.attack_knockback",
