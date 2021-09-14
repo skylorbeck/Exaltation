@@ -4,19 +4,30 @@
   "powers": [
     "apotheosis:branchat45",
 
-    "apotheosis:hearty",
-    "apotheosis:blacksmith/warsmith/hearty_scaling",
-    "apotheosis:knight/knight_base_attack",
-    "apotheosis:knight/knight_knockback",
     "apotheosis:knight/knight_knockback_resist",
-    "apotheosis:knight/knight_blocking_movespeed",
-    "apotheosis:knight/knight_blocking_movespeed_leveled",
+    "apotheosis:knight/knight_knockback",
 
-    "apotheosis:knight/draco/draco_rage"
+    "apotheosis:knight/draco/draco_rage",
+    "apotheosis:knight/draco/draco_rage_charge",
+    "apotheosis:knight/draco/draco_rage_drain",
+    "apotheosis:knight/draco/draco_rage_buff_1",
+    "apotheosis:knight/draco/draco_rage_buff_2",
+    "apotheosis:knight/draco/draco_rage_buff_3",
+    "apotheosis:knight/draco/draco_rage_drain_toggle",
+    "apotheosis:knight/draco/draco_rage_drain_toggler_a",
+    "apotheosis:knight/draco/draco_rage_drain_toggler_b",
+    "apotheosis:knight/draco/draco_scales",
+    "apotheosis:knight/draco/draco_armor_leveled",
+    "apotheosis:knight/draco/draco_attack_leveled",
+    "apotheosis:knight/draco/draco_movespeed_leveled",
+    "apotheosis:knight/draco/draco_block",
+    "apotheosis:knight/draco/draco_shield_ban",
+    "apotheosis:knight/draco/draco_knockback",
+    "apotheosis:knight/draco/draco_hearty"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",
-  "impact": 2,
+  "impact": 3,
   "upgrades": [
     {
       "condition": "apotheosis:ranger/draco/dracoab_upgrade_a",
