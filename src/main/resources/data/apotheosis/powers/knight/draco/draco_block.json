@@ -1,11 +1,41 @@
 {
   "type": "apotheosis:draco_shield",
-  "entity_action": {
-    "type": "origins:change_resource",
-    "resource": "apotheosis:knight/draco/draco_rage",
-    "change": -8
+  "entity_action":       {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:change_resource",
+            "resource": "apotheosis:knight/draco/draco_rage",
+            "change": -8
+          },
+          {
+            "type": "origins:change_resource",
+            "resource": "apotheosis:knight/draco/draco_rage_plus",
+            "change": -8
+          }
+        ]
+      },
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:change_resource",
+            "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+            "change": -8
+          },
+          {
+            "type": "origins:change_resource",
+            "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
+            "change": -8
+          }
+        ]
+      }
+    ]
   },
-  "key": "key.apotheosis.secondary_active",
+  "key": "key.apotheosis.primary_active",
   "cooldown": 20,
   "hud_render": {
     "should_render": true,

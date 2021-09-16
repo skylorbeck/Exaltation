@@ -1,11 +1,10 @@
 package website.skylorbeck.minecraft.apotheosis.conditions;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import io.github.apace100.apoli.power.CooldownPower;
-import io.github.apace100.apoli.power.Power;
-import io.github.apace100.apoli.power.PowerTypeRegistry;
-import io.github.apace100.apoli.power.TogglePower;
+import io.github.apace100.apoli.data.ApoliDataTypes;
+import io.github.apace100.apoli.power.*;
 import io.github.apace100.apoli.power.factory.action.ActionFactory;
+import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
@@ -14,11 +13,15 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.FireworkRocketEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
@@ -27,7 +30,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.apotheosis.data.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
@@ -38,6 +44,8 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
@@ -102,7 +110,8 @@ public class ApoEntityActions {
                             }
                             APOXP.get(entity).setPetUUID(null);
                             APOXP.sync(entity);
-                        } catch (Exception ignored){}
+                        } catch (Exception ignored) {
+                        }
                     }
                     if (!toggle) {
 //                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
@@ -180,30 +189,61 @@ public class ApoEntityActions {
         register(new ActionFactory<>(Declarar.getIdentifier("arrow_spawn"), new SerializableData()
                 .add("potion", SerializableDataTypes.STRING, null)
                 .add("potions", ApoDataTypes.STRINGS, null)
-                .add("min",SerializableDataTypes.INT,1)
-                .add("max",SerializableDataTypes.INT,5)
+                .add("min", SerializableDataTypes.INT, 1)
+                .add("max", SerializableDataTypes.INT, 5)
                 ,
                 (data, entity) -> {
                     ItemStack crossbow = ((PlayerEntity) entity).getMainHandStack();
                     if (!entity.world.isClient)
-                    if (crossbow.isOf(Items.CROSSBOW)) {
-                        if (data.isPresent("potion")) {
-                            ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
-                            PotionUtil.setPotion(arrow, Potion.byId(data.getString("potion")));
-                            int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
-                            arrow.setCount(amount);
-                            ((PlayerEntity) entity).giveItemStack(arrow);
-                        } else
-                        if (data.isPresent("potions")) {
-                            List<String> strings = (List<String>) data.get("potions");
-                            ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
-                            PotionUtil.setPotion(arrow, Potion.byId(strings.get(entity.world.random.nextInt(strings.size()))));
-                            int amount = entity.world.random.nextInt(data.getInt("max")+1-data.getInt("min"))+(data.getInt("min"));
-                            arrow.setCount(amount);
-                            ((PlayerEntity) entity).giveItemStack(arrow);
+                        if (crossbow.isOf(Items.CROSSBOW)) {
+                            if (data.isPresent("potion")) {
+                                ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
+                                PotionUtil.setPotion(arrow, Potion.byId(data.getString("potion")));
+                                int amount = entity.world.random.nextInt(data.getInt("max") + 1 - data.getInt("min")) + (data.getInt("min"));
+                                arrow.setCount(amount);
+                                ((PlayerEntity) entity).giveItemStack(arrow);
+                            } else if (data.isPresent("potions")) {
+                                List<String> strings = (List<String>) data.get("potions");
+                                ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
+                                PotionUtil.setPotion(arrow, Potion.byId(strings.get(entity.world.random.nextInt(strings.size()))));
+                                int amount = entity.world.random.nextInt(data.getInt("max") + 1 - data.getInt("min")) + (data.getInt("min"));
+                                arrow.setCount(amount);
+                                ((PlayerEntity) entity).giveItemStack(arrow);
+                            }
                         }
-                    }
                 }));
+
+        register(new ActionFactory<>(Declarar.getIdentifier("charge"), new SerializableData()
+//                .add("condition", ApoliDataTypes.ENTITY_CONDITION)
+                ,
+                (data, entity) -> {
+//                    if(((ConditionFactory<LivingEntity>.Instance)data.get("condition")).test((LivingEntity)entity)) {
+                        int d = 64;
+                        Vec3d vec3d = entity.getCameraPosVec(MinecraftClient.getInstance().getTickDelta());
+                        Vec3d vec3d2 = entity.getRotationVec(1.0F);
+                        EntityHitResult hit = ProjectileUtil.raycast(entity, vec3d, vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d), entity.getBoundingBox().stretch(vec3d2.multiply(d)).expand(1.0D, 1.0D, 1.0D), (entityx) -> {
+                            return !entityx.isSpectator() && entityx.collides();
+                        }, d);
+                        if (hit != null) {
+                            Entity target = hit.getEntity();
+                            double x = target.getX() - entity.getX();
+                            double z = target.getZ() - entity.getZ();
+                            x *= 0.25;
+                            z *= 0.25;
+                            entity.setOnGround(false);
+                            entity.addVelocity(x, 0, z);
+                            entity.velocityModified = true;
+                            target.setOnGround(false);
+                            target.addVelocity(0, 1.0D, 0);
+                            target.velocityModified = true;
+                            ((PlayerEntity) entity).attack(target);
+//                        entity.addVelocity(0,0.25D,0);
+                        } else {
+                            PowerHolderComponent.getPowers(entity, ResourcePower.class).forEach((resourcePower -> {if (resourcePower.getMax()>8) resourcePower.setValue(resourcePower.getValue()+8);}));
+                        }
+//                    }
+                }));
+
     }
 
 

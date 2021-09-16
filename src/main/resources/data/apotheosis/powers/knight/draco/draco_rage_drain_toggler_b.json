@@ -18,8 +18,8 @@
       {
         "type": "origins:resource",
         "resource": "apotheosis:knight/draco/draco_rage_enhanced",
-        "comparison": "==",
-        "compare_to": 0
+        "comparison": "<=",
+        "compare_to": 24
       }
     ]
   },
