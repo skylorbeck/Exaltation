@@ -5,14 +5,42 @@
     "type": "origins:and",
     "actions": [
       {
-        "type": "origins:change_resource",
-        "resource": "apotheosis:knight/draco/draco_rage",
-        "change": 1
+        "type": "apotheosis:charge"
       },
       {
-        "type": "origins:change_resource",
-        "resource": "apotheosis:knight/draco/draco_rage_enhanced",
-        "change": 1
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/draco/draco_rage",
+                "change": 1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/draco/draco_rage_plus",
+                "change": 1
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+                "change": 1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
+                "change": 1
+              }
+            ]
+          }
+        ]
       }
     ]
   },

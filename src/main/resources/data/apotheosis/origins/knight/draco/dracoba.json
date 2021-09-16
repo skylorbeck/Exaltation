@@ -23,7 +23,9 @@
     "apotheosis:knight/draco/draco_block",
     "apotheosis:knight/draco/draco_shield_ban",
     "apotheosis:knight/draco/draco_knockback",
-    "apotheosis:knight/draco/draco_hearty"
+    "apotheosis:knight/draco/draco_hearty",
+
+    "apotheosis:knight/draco/draco_charge"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",

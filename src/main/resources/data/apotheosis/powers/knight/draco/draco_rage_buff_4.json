@@ -23,16 +23,38 @@
         "type": "origins:or",
         "conditions": [
           {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage_plus",
-            "comparison": ">=",
-            "compare_to": 32
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage",
+                "comparison": ">=",
+                "compare_to": 32
+              },
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_plus",
+                "comparison": ">=",
+                "compare_to": 32
+              }
+            ]
           },
           {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage_enhanced",
-            "comparison": ">=",
-            "compare_to": 32
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+                "comparison": ">=",
+                "compare_to": 32
+              },
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
+                "comparison": ">=",
+                "compare_to": 32
+              }
+            ]
           }
         ]
       },
@@ -43,5 +65,6 @@
         "compare_to": 1
       }
     ]
-  }
+  },
+  "hidden": true
 }
