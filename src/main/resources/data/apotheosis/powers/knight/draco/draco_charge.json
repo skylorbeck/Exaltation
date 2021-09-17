@@ -50,39 +50,47 @@
     "bar_index": 1
   },
   "condition": {
-    "type": "origins:or",
+    "type": "origins:and",
     "conditions": [
       {
-        "type": "origins:or",
-        "conditions": [
-          {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage",
-            "comparison": ">=",
-            "compare_to": 8
-          },
-          {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage_plus",
-            "comparison": ">=",
-            "compare_to": 8
-          }
-        ]
+        "type": "origins:on_block"
       },
       {
         "type": "origins:or",
         "conditions": [
           {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage_enhanced",
-            "comparison": ">=",
-            "compare_to": 8
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage",
+                "comparison": ">=",
+                "compare_to": 8
+              },
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_plus",
+                "comparison": ">=",
+                "compare_to": 8
+              }
+            ]
           },
           {
-            "type": "origins:resource",
-            "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
-            "comparison": ">=",
-            "compare_to": 8
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced",
+                "comparison": ">=",
+                "compare_to": 8
+              },
+              {
+                "type": "origins:resource",
+                "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
+                "comparison": ">=",
+                "compare_to": 8
+              }
+            ]
           }
         ]
       }

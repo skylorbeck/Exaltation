@@ -166,9 +166,13 @@
   "origin.apotheosis.draco.name": "Draco",
   "origin.apotheosis.draco.description": "Your time as a Knight has taught you that to be a shield means far more than to just stand in the way of danger, but to actively get in the way of it. You tossed your shield to the side learning new tactics to ensure you will always be in the face of the threat and never relent until those you care for are safe",
   "power.apotheosis.knight/draco/draco_rage.name": "Dragons Fury",
-  "power.apotheosis.knight/draco/draco_rage.description": "Gain a rage bar with three Tiers",
+  "power.apotheosis.knight/draco/draco_rage.description": "Gain a Rage bar with three Tiers",
+  "power.apotheosis.knight/draco/draco_rage_plus.name": "Dragons Fury (+)",
+  "power.apotheosis.knight/draco/draco_rage_plus.description": "Rage bar cap and decay cap +1",
   "power.apotheosis.knight/draco/draco_rage_enhanced.name": "Channeled Dragons Fury",
   "power.apotheosis.knight/draco/draco_rage_enhanced.description": "Rage bar cap doubled, decay stops at 50%",
+  "power.apotheosis.knight/draco/draco_rage_enhanced_plus.name": "Channeled Dragons Fury (+)  ",
+  "power.apotheosis.knight/draco/draco_rage_enhanced_plus.description": "Rage bar cap and decay cap +1",
   "power.apotheosis.knight/draco/draco_rage_buff_1.description": "+1 Damage per Tier",
   "power.apotheosis.knight/draco/draco_rage_buff_2.description": "+2 Armor per Tier",
   "power.apotheosis.knight/draco/draco_rage_buff_3.description": "+5% Attack Speed per Tier",
@@ -187,6 +191,8 @@
   "power.apotheosis.knight/draco/draco_block.description": "Block all front attacks for 1s",
   "power.apotheosis.knight/draco/draco_shield_ban.name": "Brave",
   "power.apotheosis.knight/draco/draco_shield_ban.description": "You cannot use Shields",
+  "power.apotheosis.knight/draco/draco_charge.name": "Rising Blades (Consumes 1 Tier)",
+  "power.apotheosis.knight/draco/draco_charge.description": "Charge at target, launching them into the air",
 
   "origin.apotheosis.wight.name": "Wight",
   "origin.apotheosis.wight.description": "Demonblood, Oathbreaker, kinslayer… These names amongst many others are what they call you. You once Believed in their practices, their teachings and ways. But years of being their shield has shown you the truth, that being that The only true safety one has in this world is found in the comfort of death. To be true to your oath you must follow this newfound truth."

@@ -5,9 +5,6 @@
     "type": "origins:and",
     "actions": [
       {
-        "type": "apotheosis:charge"
-      },
-      {
         "type": "origins:and",
         "actions": [
           {
