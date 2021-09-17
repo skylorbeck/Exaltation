@@ -183,6 +183,8 @@
   "power.apotheosis.knight/draco/draco_hearty.description": "+8 Hearts (equal to level 50 Knight)",
   "power.apotheosis.knight/draco/draco_scales.name": "Dragon Scales",
   "power.apotheosis.knight/draco/draco_scales.description": "-50% Magic damage taken",
+  "power.apotheosis.knight/draco/draco_scales_enhanced.name": "Enhanced Scales",
+  "power.apotheosis.knight/draco/draco_scales_enhanced.description": "Become Immune to Poison and Wither",
   "power.apotheosis.knight/draco/draco_armor_leveled.name": "Dragon Blood",
   "power.apotheosis.knight/draco/draco_armor_leveled.description": "+1 Armor every 5 levels",
   "power.apotheosis.knight/draco/draco_attack_leveled.description": "+0.5 Attack every 5 levels",
