@@ -204,5 +204,9 @@
   "power.apotheosis.knight/draco/draco_ultimate_trigger.description": "and Haste 10 for 30 seconds, when <= 5 hearts",
 
   "origin.apotheosis.wight.name": "Wight",
-  "origin.apotheosis.wight.description": "Demonblood, Oathbreaker, kinslayer… These names amongst many others are what they call you. You once Believed in their practices, their teachings and ways. But years of being their shield has shown you the truth, that being that The only true safety one has in this world is found in the comfort of death. To be true to your oath you must follow this newfound truth."
+  "origin.apotheosis.wight.description": "Demonblood, Oathbreaker, kinslayer… These names amongst many others are what they call you. You once Believed in their practices, their teachings and ways. But years of being their shield has shown you the truth, that being that The only true safety one has in this world is found in the comfort of death. To be true to your oath you must follow this newfound truth.",
+  "power.apotheosis.knight/wight/wight_mana.name": "Necromana",
+  "power.apotheosis.knight/wight/wight_mana_charge_else.description": "+1/8th charge per kill",
+  "power.apotheosis.knight/wight/wight_mana_charge_player.description": "+1/16th charge per Undead kill",
+  "power.apotheosis.knight/wight/wight_mana_charge_undead.description": "+1/2 charge per Player/Villager kill"
 }

@@ -2,7 +2,12 @@
   "name": "origin.apotheosis.wight.name",
   "description": "origin.apotheosis.wight.description",
   "powers": [
-    "apotheosis:branchat10"
+    "apotheosis:branchat10",
+
+    "apotheosis:knight/wight/wight_mana",
+    "apotheosis:knight/wight/wight_mana_charge_undead",
+    "apotheosis:knight/wight/wight_mana_charge_player",
+    "apotheosis:knight/wight/wight_mana_charge_else"
   ],
   "icon": "minecraft:wither_skeleton_skull",
   "unchoosable": "true",

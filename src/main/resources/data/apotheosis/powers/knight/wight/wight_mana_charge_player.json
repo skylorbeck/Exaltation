@@ -1,0 +1,26 @@
+{
+  "name": "power.apotheosis.knight/wight/wight_mana.name",
+  "type": "origins:self_action_on_kill",
+  "entity_action": {
+    "type": "origins:change_resource",
+    "resource": "apotheosis:knight/wight/wight_mana",
+    "change": 8
+  },
+  "cooldown": 1,
+  "hud_render": {
+    "should_render": false
+  },
+  "target_condition":  {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "origins:entity_type",
+        "entity_type": "minecraft:player"
+      },
+      {
+        "type": "origins:entity_type",
+        "entity_type": "minecraft:villager"
+      }
+    ]
+  }
+}
