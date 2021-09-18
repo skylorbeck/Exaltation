@@ -24,7 +24,7 @@ public class HemorrhagingEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if (this == Declarar.HEMORRHAGING) {
-            entity.damage(Declarar.HEMORRHAGE, 1.0F*entity.world.getDifficulty().getId());
+            entity.damage(Declarar.HEMORRHAGE, 1+(1.0F*entity.world.getDifficulty().getId()));
         }
     }
 }
