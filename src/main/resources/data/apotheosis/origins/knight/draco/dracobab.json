@@ -28,7 +28,10 @@
 
     "apotheosis:knight/draco/draco_charge",
 
-    "apotheosis:knight/draco/draco_scales_enhanced"
+    "apotheosis:knight/draco/draco_scales_enhanced",
+
+    "apotheosis:knight/draco/draco_ultimate",
+    "apotheosis:knight/draco/draco_ultimate_trigger"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",

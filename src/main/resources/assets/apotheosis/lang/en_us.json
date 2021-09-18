@@ -199,6 +199,9 @@
   "power.apotheosis.knight/draco/draco_hem.description": "Attacks apply 2s of Hemorrhaging",
   "power.apotheosis.knight/draco/draco_slam.name": "Crashing Tides (Consumes 2 Tiers)",
   "power.apotheosis.knight/draco/draco_slam.description": "Slam through the air, damage targets within 5 blocks",
+  "power.apotheosis.knight/draco/draco_ultimate.name": "Dragon Within (LVL 50)",
+  "power.apotheosis.knight/draco/draco_ultimate.description": "Gain Jump Boost 4, Speed 2, Strength 2, Resistance 2,",
+  "power.apotheosis.knight/draco/draco_ultimate_trigger.description": "and Haste 10 for 30 seconds, when <= 5 hearts",
 
   "origin.apotheosis.wight.name": "Wight",
   "origin.apotheosis.wight.description": "Demonblood, Oathbreaker, kinslayer… These names amongst many others are what they call you. You once Believed in their practices, their teachings and ways. But years of being their shield has shown you the truth, that being that The only true safety one has in this world is found in the comfort of death. To be true to your oath you must follow this newfound truth."

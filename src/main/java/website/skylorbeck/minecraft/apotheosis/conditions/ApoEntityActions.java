@@ -1,5 +1,6 @@
 package website.skylorbeck.minecraft.apotheosis.conditions;
 
+import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.*;
@@ -258,7 +259,33 @@ public class ApoEntityActions {
                     entity.addVelocity(0, -5, 0);
                     ((LivingEntity) entity).removeStatusEffect(StatusEffects.SLOW_FALLING);
                     ((PlayerEntityInterface) entity).setDracoSlam(true);
-
+                }));
+        register(new ActionFactory<>(Declarar.getIdentifier("trigger_power"), new SerializableData()
+                .add("power", ApoliDataTypes.POWER_TYPE)
+                ,
+                (data, entity) -> {
+                    if(entity instanceof PlayerEntity) {
+                        PowerHolderComponent component = PowerHolderComponent.KEY.get(entity);
+                        Power p = component.getPower((PowerType<?>)data.get("power"));
+                        if(p instanceof ActiveCooldownPower) {
+                            ActiveCooldownPower acp = (ActiveCooldownPower)p;
+                            if (acp.canUse()) {
+                                acp.onUse();
+                                PowerHolderComponent.sync(entity);
+                            }
+                        }
+                    }
+                }));
+        register(new ActionFactory<>(Declarar.getIdentifier("draco_ultimate"), new SerializableData()
+                ,
+                (data, entity) -> {
+                    PlayerEntity player = (PlayerEntity) entity;
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST,600,3),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED,600,1),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH,600,1),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,600,1),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,600,0),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE,600,20),player);
                 }));
     }
 

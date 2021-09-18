@@ -5,7 +5,7 @@
     "effect":
     {
       "effect": "apotheosis:hemorrhaging",
-      "duration": 40
+      "duration": 60
     }
   },
   "cooldown": 20,
