@@ -4,7 +4,7 @@
   "max": 24,
   "hud_render": {
     "should_render": true,
-    "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-    "bar_index": 5
+    "sprite_location": "apotheosis:textures/gui/resource_bar.png",
+    "bar_index": 0
   }
 }

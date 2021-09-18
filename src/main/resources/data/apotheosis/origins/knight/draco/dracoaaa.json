@@ -27,7 +27,9 @@
     "apotheosis:knight/draco/draco_knockback",
     "apotheosis:knight/draco/draco_hearty",
 
-    "apotheosis:knight/draco/draco_scales_enhanced"
+    "apotheosis:knight/draco/draco_scales_enhanced",
+
+    "apotheosis:knight/draco/draco_hem"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",

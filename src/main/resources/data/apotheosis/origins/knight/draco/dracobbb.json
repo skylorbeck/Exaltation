@@ -5,12 +5,15 @@
     "apotheosis:knight/knight_knockback_resist",
     "apotheosis:knight/knight_knockback",
 
-    "apotheosis:knight/draco/draco_rage",
+    "apotheosis:knight/draco/draco_rage_plus",
     "apotheosis:knight/draco/draco_rage_charge",
     "apotheosis:knight/draco/draco_rage_drain",
     "apotheosis:knight/draco/draco_rage_buff_1",
     "apotheosis:knight/draco/draco_rage_buff_2",
     "apotheosis:knight/draco/draco_rage_buff_3",
+    "apotheosis:knight/draco/draco_rage_buff_4",
+    "apotheosis:knight/draco/draco_rage_buff_5",
+    "apotheosis:knight/draco/draco_rage_buff_6",
     "apotheosis:knight/draco/draco_rage_drain_toggle",
     "apotheosis:knight/draco/draco_rage_drain_toggler_a",
     "apotheosis:knight/draco/draco_rage_drain_toggler_b",
@@ -23,7 +26,9 @@
     "apotheosis:knight/draco/draco_knockback",
     "apotheosis:knight/draco/draco_hearty",
 
-    "apotheosis:knight/draco/draco_charge"
+    "apotheosis:knight/draco/draco_charge",
+
+    "apotheosis:knight/draco/draco_slam"
   ],
   "icon": "minecraft:dragon_head",
   "unchoosable": "true",

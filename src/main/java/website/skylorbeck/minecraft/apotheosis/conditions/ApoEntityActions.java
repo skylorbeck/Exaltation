@@ -17,6 +17,8 @@ import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -35,6 +37,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.explosion.ExplosionBehavior;
 import website.skylorbeck.minecraft.apotheosis.data.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
@@ -44,6 +48,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -214,10 +219,8 @@ public class ApoEntityActions {
                 }));
 
         register(new ActionFactory<>(Declarar.getIdentifier("charge"), new SerializableData()
-//                .add("condition", ApoliDataTypes.ENTITY_CONDITION)
                 ,
                 (data, entity) -> {
-//                    if(((ConditionFactory<LivingEntity>.Instance)data.get("condition")).test((LivingEntity)entity)) {
                         int d = 64;
                         Vec3d vec3d = entity.getCameraPosVec(MinecraftClient.getInstance().getTickDelta());
                         Vec3d vec3d2 = entity.getRotationVec(1.0F);
@@ -230,20 +233,33 @@ public class ApoEntityActions {
                             double z = target.getZ() - entity.getZ();
                             x *= 0.25;
                             z *= 0.25;
+                            ((LivingEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,30),entity);
                             entity.setOnGround(false);
-                            entity.addVelocity(x, 0, z);
+                            entity.addVelocity(x, 1.5, z);
                             entity.velocityModified = true;
+                            ((PlayerEntityInterface) entity).setDracoFallImmune(true);
+                            ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,30),entity);
                             target.setOnGround(false);
-                            target.addVelocity(0, 1.0D, 0);
+                            target.addVelocity(0, 1.5, 0);
                             target.velocityModified = true;
                             ((PlayerEntity) entity).attack(target);
-//                        entity.addVelocity(0,0.25D,0);
                         } else {
                             PowerHolderComponent.getPowers(entity, ResourcePower.class).forEach((resourcePower -> {if (resourcePower.getMax()>8) resourcePower.setValue(resourcePower.getValue()+8);}));
                         }
-//                    }
                 }));
+        register(new ActionFactory<>(Declarar.getIdentifier("slam"), new SerializableData()
+                ,
+                (data, entity) -> {
+                    LivingEntity target = entity.world.getClosestEntity(LivingEntity.class, TargetPredicate.createAttackable(), (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(5));
+                    if (target != null) {
+                        target.addVelocity(0, -5, 0);
+                        target.removeStatusEffect(StatusEffects.SLOW_FALLING);
+                    }
+                    entity.addVelocity(0, -5, 0);
+                    ((LivingEntity) entity).removeStatusEffect(StatusEffects.SLOW_FALLING);
+                    ((PlayerEntityInterface) entity).setDracoSlam(true);
 
+                }));
     }
 
 

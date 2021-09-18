@@ -4,16 +4,7 @@
     "type": "origins:and",
     "actions": [
       {
-        "type": "origins:and",
-        "actions": [
-          {
-            "type": "apotheosis:charge"
-          },
-          {
-            "type": "origins:trigger_cooldown",
-            "power": "apotheosis:knight/draco/draco_slam"
-          }
-        ]
+        "type": "apotheosis:slam"
       },
       {
         "type": "origins:and",
@@ -24,12 +15,12 @@
               {
                 "type": "origins:change_resource",
                 "resource": "apotheosis:knight/draco/draco_rage",
-                "change": -8
+                "change": -16
               },
               {
                 "type": "origins:change_resource",
                 "resource": "apotheosis:knight/draco/draco_rage_plus",
-                "change": -8
+                "change": -16
               }
             ]
           },
@@ -39,12 +30,12 @@
               {
                 "type": "origins:change_resource",
                 "resource": "apotheosis:knight/draco/draco_rage_enhanced",
-                "change": -8
+                "change": -16
               },
               {
                 "type": "origins:change_resource",
                 "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
-                "change": -8
+                "change": -16
               }
             ]
           }
@@ -62,7 +53,8 @@
     "type": "origins:and",
     "conditions": [
       {
-        "type": "origins:on_block"
+        "type": "origins:on_block",
+        "inverted": true
       },
       {
         "type": "origins:or",
@@ -74,13 +66,13 @@
                 "type": "origins:resource",
                 "resource": "apotheosis:knight/draco/draco_rage",
                 "comparison": ">=",
-                "compare_to": 8
+                "compare_to": 16
               },
               {
                 "type": "origins:resource",
                 "resource": "apotheosis:knight/draco/draco_rage_plus",
                 "comparison": ">=",
-                "compare_to": 8
+                "compare_to": 16
               }
             ]
           },
@@ -91,13 +83,13 @@
                 "type": "origins:resource",
                 "resource": "apotheosis:knight/draco/draco_rage_enhanced",
                 "comparison": ">=",
-                "compare_to": 8
+                "compare_to": 16
               },
               {
                 "type": "origins:resource",
                 "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
                 "comparison": ">=",
-                "compare_to": 8
+                "compare_to": 16
               }
             ]
           }

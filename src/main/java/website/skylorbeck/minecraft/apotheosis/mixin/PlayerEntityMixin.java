@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
+import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,6 +35,8 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin implements PlayerEntityInterface {
     private boolean spyGlassOverride = false;
+    private boolean dracoSlam = false;
+    private boolean dracoFallImmune = false;
 
     @Inject(at = @At(value = "INVOKE",target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"),method = "attack",cancellable = true)
     public void injectedHasEnchantments(Entity target, CallbackInfo ci){
@@ -189,6 +192,18 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
         if (spyGlassOverride)
         cir.setReturnValue(true);
     }
+    @Inject(at = @At(value = "INVOKE"),method = "handleFallDamage", cancellable = true)
+    private void dracoSlam(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+        if (dracoFallImmune) {
+            if (dracoSlam) {
+                PlayerEntity entity = ((PlayerEntity) (Object) this);
+                setDracoSlam(false);
+                entity.world.createExplosion(entity, entity.getX(), entity.getY(), entity.getZ(), 5, false, Explosion.DestructionType.NONE);
+            }
+            setDracoFallImmune(false);
+            cir.cancel();
+        }
+    }
 
     @Override
     public void setSpyGlassOveride(boolean bool) {
@@ -198,5 +213,20 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
     @Override
     public boolean getSpyGlassOverride() {
         return this.spyGlassOverride;
+    }
+
+    @Override
+    public void setDracoSlam(boolean bool) {
+        this.dracoSlam = bool;
+    }
+
+    @Override
+    public void setDracoFallImmune(boolean bool) {
+        this.dracoFallImmune = bool;
+    }
+
+    @Override
+    public boolean getDracoslam() {
+        return this.dracoSlam;
     }
 }

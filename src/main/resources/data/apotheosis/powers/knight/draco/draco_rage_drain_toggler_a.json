@@ -22,7 +22,7 @@
             "type": "origins:resource",
             "resource": "apotheosis:knight/draco/draco_rage_plus",
             "comparison": ">=",
-            "compare_to": 32
+            "compare_to": 48
           }
         ]
       },
@@ -39,7 +39,7 @@
             "type": "origins:resource",
             "resource": "apotheosis:knight/draco/draco_rage_enhanced_plus",
             "comparison": ">=",
-            "compare_to": 56
+            "compare_to": 72
           }
         ]
       }
