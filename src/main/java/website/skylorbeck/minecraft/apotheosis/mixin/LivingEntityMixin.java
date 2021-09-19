@@ -2,6 +2,7 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -23,23 +24,19 @@ public class LivingEntityMixin {
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
         LivingEntity entity = ((LivingEntity) (Object) this);
-
-        if (((Object)this) instanceof WolfEntity) {
-            PetComponent petComponent = PETKEY.get(((LivingEntity) (Object) this));
-            if (petComponent.getTimeLeft() >= 0) {
+        if (((Object)this) instanceof MobEntity) {
+            PetComponent petComponent = PETKEY.get(entity);
+            if (petComponent.getTimeLeft() >= 0 && petComponent.getOwnerUUID() !=null) {
                 petComponent.setTimeLeft(petComponent.getTimeLeft() - 1);
                 if (petComponent.getTimeLeft() <= 0) {
-                    LivingEntity e = ((LivingEntity) (Object) this);
-                    if (e instanceof WolfEntity) {
                         try {
-                        ((PlayerEntity) ((WolfEntity) e).getOwner()).sendMessage(Text.of("Pet Expired"), true);
-                        e.world.playSound(null, e.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, e.world.random.nextFloat() * 0.1F + 0.9F);
+                            entity.world.getPlayerByUuid(petComponent.getOwnerUUID()).sendMessage(Text.of("Pet Expired"), true);
+                            entity.world.playSound(null, entity.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
                         } catch (Exception ignored){}
-                    }
-                    ((LivingEntity) (Object) this).discard();
+                    entity.discard();
                 }
                 if (petComponent.getTimeLeft() % 20 == 0) {
-                    PETKEY.sync(((LivingEntity) (Object) this));
+                    PETKEY.sync(entity);
                 }
             }
         }

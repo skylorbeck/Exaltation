@@ -11,20 +11,25 @@ import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.mob.WitherSkeletonEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
@@ -40,9 +45,13 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.ExplosionBehavior;
+import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisAttackWithOwnerGoal;
+import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisFollowOwnerGoal;
+import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisTrackOwnerAttackerGoal;
 import website.skylorbeck.minecraft.apotheosis.data.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
+import website.skylorbeck.minecraft.apotheosis.mixin.MobEntityAccessor;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
@@ -50,6 +59,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,7 +109,7 @@ public class ApoEntityActions {
                 .add("base_damage", SerializableDataTypes.DOUBLE, 4.0D)
                 .add("base_health", SerializableDataTypes.DOUBLE, 20.0D)
                 .add("time", SerializableDataTypes.INT, 600)
-//                .add("living_entity", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
+                .add("entity_type", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
                 ,
                 (data, entity) -> {
                     boolean toggle = false;
@@ -120,8 +130,8 @@ public class ApoEntityActions {
                         }
                     }
                     if (!toggle) {
-//                   LivingEntity pet = (LivingEntity) ((EntityType<?>)data.get("living_entity")).create(entity.world);
-                        WolfEntity pet = EntityType.WOLF.create(entity.world);
+                        MobEntity pet = (MobEntity) ((EntityType<?>) data.get("entity_type")).create(entity.world);
+//                        WolfEntity pet = EntityType.WOLF.create(entity.world);
                         pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
                         BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
                         pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
@@ -129,8 +139,15 @@ public class ApoEntityActions {
                         boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
                         boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
 //                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
-                        pet.setTamed(true);
-                        pet.setOwner((PlayerEntity) entity);
+//                        pet.setTamed(true);
+//                        pet.setOwner((PlayerEntity) entity);
+                        GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
+                        targetSelector.clear();
+                        targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
+                        targetSelector.add(2, new ApotheosisAttackWithOwnerGoal((LivingEntity) entity, pet));
+                        targetSelector.add(3, (new RevengeGoal((PathAwareEntity) pet, PlayerEntity.class)));
+                        GoalSelector goalSelector = ((MobEntityAccessor) pet).getGoalSelector();
+                        goalSelector.add(1, new ApotheosisFollowOwnerGoal(pet, (LivingEntity) entity, 2.0D, 10.0F, 2.0F, false));
                         PETKEY.get(pet).setOwnerUUID(entity.getUuid());
                         PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
                         if (APOXP.get(entity).getLevel() >= 50) {
@@ -222,31 +239,33 @@ public class ApoEntityActions {
         register(new ActionFactory<>(Declarar.getIdentifier("charge"), new SerializableData()
                 ,
                 (data, entity) -> {
-                        int d = 64;
-                        Vec3d vec3d = entity.getCameraPosVec(MinecraftClient.getInstance().getTickDelta());
-                        Vec3d vec3d2 = entity.getRotationVec(1.0F);
-                        EntityHitResult hit = ProjectileUtil.raycast(entity, vec3d, vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d), entity.getBoundingBox().stretch(vec3d2.multiply(d)).expand(1.0D, 1.0D, 1.0D), (entityx) -> {
-                            return !entityx.isSpectator() && entityx.collides();
-                        }, d);
-                        if (hit != null) {
-                            Entity target = hit.getEntity();
-                            double x = target.getX() - entity.getX();
-                            double z = target.getZ() - entity.getZ();
-                            x *= 0.25;
-                            z *= 0.25;
-                            ((LivingEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,30),entity);
-                            entity.setOnGround(false);
-                            entity.addVelocity(x, 1.5, z);
-                            entity.velocityModified = true;
-                            ((PlayerEntityInterface) entity).setDracoFallImmune(true);
-                            ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING,30),entity);
-                            target.setOnGround(false);
-                            target.addVelocity(0, 1.5, 0);
-                            target.velocityModified = true;
-                            ((PlayerEntity) entity).attack(target);
-                        } else {
-                            PowerHolderComponent.getPowers(entity, ResourcePower.class).forEach((resourcePower -> {if (resourcePower.getMax()>8) resourcePower.setValue(resourcePower.getValue()+8);}));
-                        }
+                    int d = 64;
+                    Vec3d vec3d = entity.getCameraPosVec(MinecraftClient.getInstance().getTickDelta());
+                    Vec3d vec3d2 = entity.getRotationVec(1.0F);
+                    EntityHitResult hit = ProjectileUtil.raycast(entity, vec3d, vec3d.add(vec3d2.x * d, vec3d2.y * d, vec3d2.z * d), entity.getBoundingBox().stretch(vec3d2.multiply(d)).expand(1.0D, 1.0D, 1.0D), (entityx) -> {
+                        return !entityx.isSpectator() && entityx.collides();
+                    }, d);
+                    if (hit != null) {
+                        Entity target = hit.getEntity();
+                        double x = target.getX() - entity.getX();
+                        double z = target.getZ() - entity.getZ();
+                        x *= 0.25;
+                        z *= 0.25;
+                        ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 30), entity);
+                        entity.setOnGround(false);
+                        entity.addVelocity(x, 1.5, z);
+                        entity.velocityModified = true;
+                        ((PlayerEntityInterface) entity).setDracoFallImmune(true);
+                        ((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 30), entity);
+                        target.setOnGround(false);
+                        target.addVelocity(0, 1.5, 0);
+                        target.velocityModified = true;
+                        ((PlayerEntity) entity).attack(target);
+                    } else {
+                        PowerHolderComponent.getPowers(entity, ResourcePower.class).forEach((resourcePower -> {
+                            if (resourcePower.getMax() > 8) resourcePower.setValue(resourcePower.getValue() + 8);
+                        }));
+                    }
                 }));
         register(new ActionFactory<>(Declarar.getIdentifier("slam"), new SerializableData()
                 ,
@@ -264,11 +283,11 @@ public class ApoEntityActions {
                 .add("power", ApoliDataTypes.POWER_TYPE)
                 ,
                 (data, entity) -> {
-                    if(entity instanceof PlayerEntity) {
+                    if (entity instanceof PlayerEntity) {
                         PowerHolderComponent component = PowerHolderComponent.KEY.get(entity);
-                        Power p = component.getPower((PowerType<?>)data.get("power"));
-                        if(p instanceof ActiveCooldownPower) {
-                            ActiveCooldownPower acp = (ActiveCooldownPower)p;
+                        Power p = component.getPower((PowerType<?>) data.get("power"));
+                        if (p instanceof ActiveCooldownPower) {
+                            ActiveCooldownPower acp = (ActiveCooldownPower) p;
                             if (acp.canUse()) {
                                 acp.onUse();
                                 PowerHolderComponent.sync(entity);
@@ -280,12 +299,12 @@ public class ApoEntityActions {
                 ,
                 (data, entity) -> {
                     PlayerEntity player = (PlayerEntity) entity;
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST,600,3),player);
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED,600,1),player);
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH,600,1),player);
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,600,1),player);
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,600,0),player);
-                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE,600,20),player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 600, 3), player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 600, 1), player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 600, 1), player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 1), player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 0), player);
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 600, 20), player);
                 }));
     }
 

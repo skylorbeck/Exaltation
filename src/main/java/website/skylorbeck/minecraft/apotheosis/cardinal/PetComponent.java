@@ -1,18 +1,19 @@
 package website.skylorbeck.minecraft.apotheosis.cardinal;
 
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.nbt.NbtCompound;
 
 import java.util.UUID;
 
 public class PetComponent implements AutoSyncedComponent {
-    private final WolfEntity wolfEntity;
+    private final MobEntity pet;
     private int timeLeft = 0;
     private UUID ownerUUID;
 
-    public PetComponent(WolfEntity provider) {
-        this.wolfEntity = provider;
+    public PetComponent(MobEntity provider) {
+        this.pet = provider;
 
     }
 

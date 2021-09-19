@@ -18,6 +18,7 @@
     "EntityAttributeModifierMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "MobEntityAccessor",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin"
   ],
