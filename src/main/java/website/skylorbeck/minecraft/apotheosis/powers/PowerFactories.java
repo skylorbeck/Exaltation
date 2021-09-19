@@ -62,7 +62,7 @@ public class PowerFactories {
                         .add("scale", SerializableDataTypes.INT, 1),
                 data ->
                         (type, player) -> {
-                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"),((AttributedEntityAttributeModifier)data.get("modifier")).getModifier().getValue());
+                            LeveledAttributePower ap = new LeveledAttributePower(type, player, data.getInt("tick_rate"),data.getInt("scale"));
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
                             }
@@ -164,29 +164,14 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("druid_bond_wolf"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) DruidWolfBondPower::new));
-        /*register(new PowerFactory<>(Declarar.getIdentifier("marksman_arrow_cycle"),
-                new SerializableData()
-                        .add("potions", ApoDataTypes.STRINGS, null)
-                        .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
-                ,
-                data -> ((type, player) ->{
-                    List<String> strings = (List<String>) data.get("potions");
-                    Potion[][] potions = new Potion[1][strings.size()];
-                    for (int i = 0; i < strings.size(); i++) {
-                        potions[0][i] = Potion.byId(strings.get(i));
-                    }
-                    MarksmanArrowCyclingPower power = new MarksmanArrowCyclingPower(type, player,potions);
-                    power.setKey((Active.Key)data.get("key"));
-                    return power;
-                }
-                )));*/
+
         register(new PowerFactory<>(Declarar.getIdentifier("marksman_quiver_manager"),
                 new SerializableData()
                         .add("quivers", ApoDataTypes.QUIVERS)
                         .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
                 ,
                 data -> ((type, player) ->{
-                    List<QuiverData> quiverData = (List<QuiverData>) data.get("quivers");//todo rewrite this again to use status effects instead of potions
+                    List<QuiverData> quiverData = (List<QuiverData>) data.get("quivers");
                     StatusEffectInstance[][] instances = new StatusEffectInstance[quiverData.size()][];
                     boolean[] doDamage = new boolean[quiverData.size()];
 

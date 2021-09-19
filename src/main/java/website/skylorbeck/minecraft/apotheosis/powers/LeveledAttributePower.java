@@ -19,8 +19,7 @@ public class LeveledAttributePower extends Power {
     private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<>();
     private final int tickRate;
     private final int scale;
-    private final double originalValue;
-    private int playerLevelLast = 0;
+    private double originalValue;
 
     public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate,int scale,double originalValue) {
         super(type, entity);
@@ -28,23 +27,22 @@ public class LeveledAttributePower extends Power {
         this.tickRate = tickRate;
         this.scale = scale;
         this.originalValue =originalValue;
-
+    }
+    public LeveledAttributePower(PowerType<?> type, LivingEntity entity, int tickRate,int scale) {
+        super(type, entity);
+        this.setTicking(true);
+        this.tickRate = tickRate;
+        this.scale = scale;
     }
 
     @Override
     public void tick() {
-        if(entity.age % tickRate == 0 && entity.isPlayer()) {
+        if (entity.age % tickRate == 0 && entity.isPlayer()) {
             float previousMaxHealth = entity.getMaxHealth();
             float previousHealthPercent = entity.getHealth() / previousMaxHealth;
             if (this.isActive()) {
-
-                int lvl = APOXP.get(entity).getLevel();
-//                if (playerLevelLast != lvl) {
-//                    playerLevelLast = lvl;
-                    removeMods();
-                    addMods();
-//                }
-
+                removeMods();
+                addMods();
             } else {
                 removeMods();
             }
@@ -55,19 +53,52 @@ public class LeveledAttributePower extends Power {
         }
     }
 
+   /* @Override
+    public void onAdded() {
+        if(!entity.world.isClient) {
+            float previousMaxHealth = entity.getMaxHealth();
+            float previousHealthPercent = entity.getHealth() / previousMaxHealth;
+            modifiers.forEach(mod -> {
+                if(entity.getAttributes().hasAttribute(mod.getAttribute())) {
+                    entity.getAttributeInstance(mod.getAttribute()).addTemporaryModifier(mod.getModifier());
+                }
+            });
+            float afterMaxHealth = entity.getMaxHealth();
+            if(afterMaxHealth != previousMaxHealth) {
+                entity.setHealth(afterMaxHealth * previousHealthPercent);
+            }
+        }
+    }*/
+
     @Override
     public void onRemoved() {
-        float previousMaxHealth = entity.getMaxHealth();
-        float previousHealthPercent = entity.getHealth() / previousMaxHealth;
-        removeMods();
-        float afterMaxHealth = entity.getMaxHealth();
-        if(afterMaxHealth != previousMaxHealth) {
-            entity.setHealth(afterMaxHealth * previousHealthPercent);
+        if(!entity.world.isClient) {
+            float previousMaxHealth = entity.getMaxHealth();
+            float previousHealthPercent = entity.getHealth() / previousMaxHealth;
+            modifiers.forEach(mod -> {
+                if (entity.getAttributes().hasAttribute(mod.getAttribute())) {
+                    entity.getAttributeInstance(mod.getAttribute()).removeModifier(mod.getModifier());
+                }
+                EntityAttributeModifier modifier = mod.getModifier();
+                ((EntityAttributeModifierMixin) modifier).setValue(originalValue);
+            });
+            float afterMaxHealth = entity.getMaxHealth();
+            if( afterMaxHealth != previousMaxHealth) {
+                entity.setHealth(afterMaxHealth * previousHealthPercent);
+            }
         }
+    }
+    @Override
+    public void onLost() {
+        modifiers.forEach(mod -> {
+            EntityAttributeModifier modifier = mod.getModifier();
+            ((EntityAttributeModifierMixin) modifier).setValue(originalValue);
+        });
     }
 
     public LeveledAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
         this.modifiers.add(modifier);
+        this.originalValue = modifier.getModifier().getValue();
         return this;
     }
 
