@@ -48,6 +48,7 @@ import net.minecraft.world.explosion.ExplosionBehavior;
 import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisAttackWithOwnerGoal;
 import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisFollowOwnerGoal;
 import website.skylorbeck.minecraft.apotheosis.AIGoals.ApotheosisTrackOwnerAttackerGoal;
+import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
 import website.skylorbeck.minecraft.apotheosis.data.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
@@ -148,10 +149,11 @@ public class ApoEntityActions {
                         targetSelector.add(3, (new RevengeGoal((PathAwareEntity) pet, PlayerEntity.class)));
                         GoalSelector goalSelector = ((MobEntityAccessor) pet).getGoalSelector();
                         goalSelector.add(1, new ApotheosisFollowOwnerGoal(pet, (LivingEntity) entity, 2.0D, 10.0F, 2.0F, false));
-                        PETKEY.get(pet).setOwnerUUID(entity.getUuid());
-                        PETKEY.get(pet).setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
+                        PetComponent petComponent = PETKEY.get(pet);
+                        petComponent.setOwnerUUID(entity.getUuid());
+                        petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
                         if (APOXP.get(entity).getLevel() >= 50) {
-                            PETKEY.get(pet).setTimeLeft(3600);
+                            petComponent.setTimeLeft(3600);
                         }
                         PETKEY.sync(pet);
                         APOXP.get(entity).setPetUUID(pet.getUuid());

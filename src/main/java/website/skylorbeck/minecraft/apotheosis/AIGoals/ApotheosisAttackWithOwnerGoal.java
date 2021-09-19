@@ -27,7 +27,9 @@ public class ApotheosisAttackWithOwnerGoal extends TrackTargetGoal {
             } else {
                 this.attacking = owner.getAttacking();
                 int i = owner.getLastAttackTime();
-                return i != this.lastAttackTime && this.canTrack(this.attacking, TargetPredicate.DEFAULT);
+                TargetPredicate targetPredicate =  TargetPredicate.DEFAULT;
+                targetPredicate.setPredicate((LivingEntity::isAlive));
+                return i != this.lastAttackTime && this.canTrack(this.attacking, targetPredicate);
             }
 
     }
