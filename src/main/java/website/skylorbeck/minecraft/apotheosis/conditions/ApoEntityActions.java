@@ -124,7 +124,7 @@ public class ApoEntityActions {
                         predicate.setPredicate((pet ->{
                             if (pet.getType() == data.get("entity_type")) {
                                 for (UUID uuid : pets) {
-                                    if (pet.getUuid() == uuid) {
+                                    if (pet.getUuid().equals(uuid)) {
                                         return true;
                                     }
                                 }
