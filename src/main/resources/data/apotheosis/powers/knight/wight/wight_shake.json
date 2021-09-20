@@ -1,0 +1,8 @@
+{
+  "type": "origins:shaking",
+  "condition": {
+    "type": "origins:brightness",
+    "comparison": ">=",
+    "compare_to": 0.5
+  }
+}

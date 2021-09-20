@@ -116,7 +116,6 @@ public class ApoEntityActions {
                 .add("amount",SerializableDataTypes.INT,1)
                 ,
                 (data, entity) -> {
-
                     boolean toggle = false;
                     if (APOXP.get(entity).getPetUUID() != null) {
                         UUID[] pets = APOXP.get(entity).getPetUUID();
