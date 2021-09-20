@@ -6,11 +6,13 @@ import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
     private int Level = 1;
     private boolean ascended = false;
-    private UUID petUUID;
+    private UUID[] petUUID;
     private final PlayerEntity playerEntity;
 
     public XPComponent(PlayerEntity provider) {
@@ -34,10 +36,6 @@ public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
     @Override
     public void addLevel(int level) {
         this.Level+=level;
-//        if (this.Level ==50 && ModComponents.ORIGIN.get(playerEntity).getOrigin(OriginLayers.getLayer(new Identifier("apotheosis","class"))).hasUpgrade()){
-//            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup1"),false);
-//            playerEntity.sendMessage(new TranslatableText("apotheosis.levelup2"),false);
-//        }
     }
 
     @Override
@@ -47,27 +45,35 @@ public class XPComponent implements XPComponentInterface, AutoSyncedComponent {
 
     @Override
     public void readFromNbt(@NotNull NbtCompound tag) {
-        if (tag.contains("petUUID"))
-        this.petUUID = tag.getUuid("petUUID");
+        if (tag.contains("petUUID")) {
+            this.petUUID = new UUID[tag.getInt("petUUID")];
+            for (int i = 0; i < tag.getInt("petUUID"); i++) {
+                this.petUUID[i] =  tag.getUuid("petUUID"+i);
+            }
+        }
         this.Level = tag.getInt("APOLV");
         this.ascended = tag.getBoolean("ASCEND");
     }
 
     @Override
     public void writeToNbt(@NotNull NbtCompound tag) {
-        if (this.petUUID!=null)
-            tag.putUuid("petUUID",this.petUUID);
-        else
+        if (this.petUUID!=null) {
+            for (int i = 0; i < this.petUUID.length; i++) {
+                tag.putUuid("petUUID" + i, this.petUUID[i]);
+            }
+            tag.putInt("petUUID",petUUID.length);
+        } else {
             tag.remove("petUUID");
+        }
         tag.putInt("APOLV",this.Level);
         tag.putBoolean("ASCEND",this.ascended);
     }
 
-    public UUID getPetUUID() {
+    public UUID[] getPetUUID() {
         return petUUID;
     }
 
-    public void setPetUUID(UUID petUUID) {
+    public void setPetUUID(UUID[] petUUID) {
         this.petUUID = petUUID;
 
     }

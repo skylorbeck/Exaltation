@@ -38,6 +38,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +61,7 @@ import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,68 +113,91 @@ public class ApoEntityActions {
                 .add("base_health", SerializableDataTypes.DOUBLE, 20.0D)
                 .add("time", SerializableDataTypes.INT, 600)
                 .add("entity_type", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
+                .add("amount",SerializableDataTypes.INT,1)
                 ,
                 (data, entity) -> {
+
                     boolean toggle = false;
                     if (APOXP.get(entity).getPetUUID() != null) {
-                        try {
-                            TargetPredicate predicate = TargetPredicate.DEFAULT;
-                            predicate.setPredicate((pet -> PETKEY.maybeGet(pet).isPresent() && PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
-                            WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
-                            if (oldPet != null) {
-                                if (PETKEY.get(oldPet).getTimeLeft() == -1) {
-                                    toggle = true;
+                        UUID[] pets = APOXP.get(entity).getPetUUID();
+                        TargetPredicate predicate = TargetPredicate.DEFAULT;
+                        predicate.setPredicate((pet ->{
+                            if (pet.getType() == data.get("entity_type")) {
+                                for (UUID uuid : pets) {
+                                    if (pet.getUuid() == uuid) {
+                                        return true;
+                                    }
                                 }
-                                oldPet.discard();
                             }
-                            APOXP.get(entity).setPetUUID(null);
-                            APOXP.sync(entity);
-                        } catch (Exception ignored) {
+                            return false;
+                        }));
+                        for (int i = 0; i < pets.length; i++) {
+                            try {
+                                LivingEntity oldPet = entity.world.getClosestEntity(MobEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
+                                if (oldPet != null) {
+                                    if (PETKEY.get(oldPet).getTimeLeft() == -1) {
+                                        toggle = true;
+                                    }
+                                    oldPet.discard();
+                                }
+                            } catch (Exception ignored) {
+                            }
                         }
+                        APOXP.get(entity).setPetUUID(null);
+                        APOXP.sync(entity);
                     }
                     if (!toggle) {
-                        MobEntity pet = (MobEntity) ((EntityType<?>) data.get("entity_type")).create(entity.world);
-//                        WolfEntity pet = EntityType.WOLF.create(entity.world);
-                        pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
-                        BlockPos blockPos = new BlockPos(entity.raycast(1, 1f, true).getPos());
-                        pet.setPos(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
-                        boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
-                        boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
-                        boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
-//                    ((LivingEntityInterface) pet).setTimeRemaining(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0));
-//                        pet.setTamed(true);
-//                        pet.setOwner((PlayerEntity) entity);
-                        GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
-                        targetSelector.clear();
-                        targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
-                        targetSelector.add(2, new ApotheosisAttackWithOwnerGoal((LivingEntity) entity, pet));
-                        targetSelector.add(3, (new RevengeGoal((PathAwareEntity) pet, PlayerEntity.class)));
-                        GoalSelector goalSelector = ((MobEntityAccessor) pet).getGoalSelector();
-                        goalSelector.add(1, new ApotheosisFollowOwnerGoal(pet, (LivingEntity) entity, 2.0D, 10.0F, 2.0F, false));
-                        PetComponent petComponent = PETKEY.get(pet);
-                        petComponent.setOwnerUUID(entity.getUuid());
-                        petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
-                        if (APOXP.get(entity).getLevel() >= 50) {
-                            petComponent.setTimeLeft(3600);
+                        UUID[] UUIDArray = new UUID[data.getInt("amount")];
+                        for (int i = 0; i < data.getInt("amount"); i++) {
+                            MobEntity pet = (MobEntity) ((EntityType<?>) data.get("entity_type")).create(entity.world);
+                            assert pet != null;
+                            pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
+                            BlockHitResult hitResult = (BlockHitResult) entity.raycast(1, 1f, true);
+                            BlockPos blockPos = new BlockPos(hitResult.getPos());
+                            switch (hitResult.getSide()){
+                                case NORTH, SOUTH, UP -> {
+                                    pet.setPos(i%2==0? blockPos.getX()+i :blockPos.getX()-i, blockPos.getY() + 1,blockPos.getZ());
+                                }
+                                case WEST, EAST, DOWN -> {
+                                    pet.setPos(blockPos.getX(), blockPos.getY() + 1,i%2==0? blockPos.getZ()+i :blockPos.getZ()-i);
+                                }
+                            }
+                            boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
+                            boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
+                            boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
+                            GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
+                            targetSelector.clear();
+                            targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
+                            targetSelector.add(2, new ApotheosisAttackWithOwnerGoal((LivingEntity) entity, pet));
+                            targetSelector.add(3, (new RevengeGoal((PathAwareEntity) pet, PlayerEntity.class)));
+                            GoalSelector goalSelector = ((MobEntityAccessor) pet).getGoalSelector();
+                            goalSelector.add(1, new ApotheosisFollowOwnerGoal(pet, (LivingEntity) entity, 2.0D, 10.0F, 2.0F, false));
+                            PetComponent petComponent = PETKEY.get(pet);
+                            petComponent.setOwnerUUID(entity.getUuid());
+                            petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
+                            if (APOXP.get(entity).getLevel() >= 50) {
+                                petComponent.setTimeLeft(3600);
+                            }
+                            PETKEY.sync(pet);
+                            UUIDArray[i] = pet.getUuid();
+                            if (pack) {
+                                PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
+                                pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
+                            }
+                            if (bond) {
+                                PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
+                            }
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
+                            pet.setHealth((float) data.getDouble("base_health"));
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
+                            if (!entity.world.isClient) {
+                                entity.world.spawnEntity(pet);
+                                ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
+                                entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
+                            }
                         }
-                        PETKEY.sync(pet);
-                        APOXP.get(entity).setPetUUID(pet.getUuid());
+                        APOXP.get(entity).setPetUUID(UUIDArray);
                         APOXP.sync(entity);
-                        if (pack) {
-                            PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_mark")), Declarar.getIdentifier("wolfmark"));
-                            pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
-                        }
-                        if (bond) {
-                            PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
-                        }
-                        pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
-                        pet.setHealth((float) data.getDouble("base_health"));
-                        pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
-                        if (!entity.world.isClient) {
-                            entity.world.spawnEntity(pet);
-                            ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
-                            entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
-                        }
                     }
                 }));
 

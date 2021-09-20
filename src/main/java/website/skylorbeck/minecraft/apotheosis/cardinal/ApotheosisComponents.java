@@ -6,6 +6,7 @@ import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
 import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 
@@ -18,6 +19,6 @@ public class ApotheosisComponents implements EntityComponentInitializer{
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
         registry.registerForPlayers(APOXP, XPComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
-        registry.registerFor(MobEntity.class,PETKEY,(PetComponent::new));
+        registry.registerFor(MobEntity.class,PETKEY, PetComponent::new);
     }
 }
