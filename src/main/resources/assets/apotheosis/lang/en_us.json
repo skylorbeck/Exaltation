@@ -208,5 +208,11 @@
   "power.apotheosis.knight/wight/wight_mana.name": "Necromana",
   "power.apotheosis.knight/wight/wight_mana_charge_else.description": "+1/8th charge per kill",
   "power.apotheosis.knight/wight/wight_mana_charge_player.description": "+1/16th charge per Undead kill",
-  "power.apotheosis.knight/wight/wight_mana_charge_undead.description": "+1/2 charge per Player/Villager kill"
+  "power.apotheosis.knight/wight/wight_mana_charge_undead.description": "+1/2 charge per Player/Villager kill",
+  "power.apotheosis.knight/wight/wight_summon.name": "Summon Ghouls (1 Charge)",
+  "power.apotheosis.knight/wight/wight_summon.description": "Create two allied Zombies that will defend you",
+  "power.apotheosis.knight/wight/wight_type.name": "Undead Nature",
+  "power.apotheosis.knight/wight/wight_type.description": "Immune to Poison and Regen, vulnerable to Smite",
+  "power.apotheosis.knight/wight/wight_blast.name": "Necrotic Blast (Secondary)(1 Charge)",
+  "power.apotheosis.knight/wight/wight_blast.description": "Launch a Wither Skull"
 }
