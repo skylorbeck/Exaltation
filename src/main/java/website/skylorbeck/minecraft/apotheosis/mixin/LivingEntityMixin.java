@@ -111,7 +111,7 @@ public abstract class LivingEntityMixin {
 
                 XPComponent xpComponent = APOXP.get(entity);
                 UUID[] pets = xpComponent.getPetUUID();
-                if (pets.length > 0) {
+                if (pets.length > 0 && xpComponent.getLevel()>=50) {
                     TargetPredicate predicate = TargetPredicate.DEFAULT;
                     predicate.setPredicate((pet -> {
                         for (UUID uuid : pets) {
