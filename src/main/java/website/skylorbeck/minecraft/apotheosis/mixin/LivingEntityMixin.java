@@ -1,17 +1,28 @@
 package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import org.apache.commons.lang3.ArrayUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,29 +30,34 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
+import website.skylorbeck.minecraft.apotheosis.cardinal.XPComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 
 import java.util.Objects;
+import java.util.UUID;
 
+import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.APOXP;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @Shadow public abstract EntityGroup getGroup();
+    @Shadow
+    public abstract EntityGroup getGroup();
 
-    @Inject(at = @At("TAIL"),method = "tick")
+    @Inject(at = @At("TAIL"), method = "tick")
     public void injectedTick(CallbackInfo ci) {
         LivingEntity entity = ((LivingEntity) (Object) this);
-        if (((Object)this) instanceof MobEntity) {
+        if (((Object) this) instanceof MobEntity) {
             PetComponent petComponent = PETKEY.get(entity);
-            if (petComponent.getTimeLeft() >= 0 && petComponent.getOwnerUUID() !=null) {
+            if (petComponent.getTimeLeft() >= 0 && petComponent.getOwnerUUID() != null) {
                 petComponent.setTimeLeft(petComponent.getTimeLeft() - 1);
                 if (petComponent.getTimeLeft() <= 0) {
-                        try {
-                            entity.world.getPlayerByUuid(petComponent.getOwnerUUID()).sendMessage(Text.of("Pet Expired"), true);
-                            entity.world.playSound(null, entity.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
-                        } catch (Exception ignored){}
+                    try {
+                        entity.world.getPlayerByUuid(petComponent.getOwnerUUID()).sendMessage(Text.of("Pet Expired"), true);
+                        entity.world.playSound(null, entity.getBlockPos(), SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
+                    } catch (Exception ignored) {
+                    }
                     entity.discard();
                 }
                 if (petComponent.getTimeLeft() % 20 == 0) {
@@ -59,27 +75,71 @@ public abstract class LivingEntityMixin {
 //        }
     }
 
-    @Inject(at = @At(value = "RETURN"),method = "isBlocking", cancellable = true)
+    @Inject(at = @At(value = "RETURN"), method = "isBlocking", cancellable = true)
     public void injectedIsBlocking(CallbackInfoReturnable<Boolean> cir) {
-        if (PowerHolderComponent.hasPower(((LivingEntity)(Object)this), DracoKnightShieldPower.class)){
-            if (!PowerHolderComponent.KEY.get(((LivingEntity)(Object)this)).getPowers(DracoKnightShieldPower.class).get(0).canUse()){
+        if (PowerHolderComponent.hasPower(((LivingEntity) (Object) this), DracoKnightShieldPower.class)) {
+            if (!PowerHolderComponent.KEY.get(((LivingEntity) (Object) this)).getPowers(DracoKnightShieldPower.class).get(0).canUse()) {
                 cir.setReturnValue(true);
             }
         }
     }
-    @Inject(at = @At(value = "RETURN"),method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", cancellable = true)
-    public void ignoreUndead(LivingEntity target,CallbackInfoReturnable<Boolean> cir) {
-        if (target.isPlayer()&& ((LivingEntity)(Object)this).getGroup().equals(EntityGroup.UNDEAD)&& target.getGroup().equals(EntityGroup.UNDEAD)){
+
+    @Inject(at = @At(value = "RETURN"), method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", cancellable = true)
+    public void ignoreUndead(LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
+        if (target.isPlayer() && ((LivingEntity) (Object) this).getGroup().equals(EntityGroup.UNDEAD) && target.getGroup().equals(EntityGroup.UNDEAD)) {
             cir.setReturnValue(false);
         }
     }
-    @Inject(at = @At(value = "RETURN"),method = "onAttacking", cancellable = true)
+
+    @Inject(at = @At(value = "RETURN"), method = "onAttacking", cancellable = true)
     public void ignoreUndead(Entity target, CallbackInfo ci) {
-        PetComponent petComponent = PETKEY.maybeGet(this).isPresent()? PETKEY.get(this) :null ;
-        if (petComponent!=null && petComponent.shouldHealOwner()){
+        PetComponent petComponent = PETKEY.maybeGet(this).isPresent() ? PETKEY.get(this) : null;
+        if (petComponent != null && petComponent.shouldHealOwner()) {
             PlayerEntity pe = target.world.getPlayerByUuid(petComponent.getOwnerUUID());
-            if (pe!=null)
-            pe.heal((float) (((LivingEntity)(Object)this).getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)/2));
+            if (pe != null)
+                pe.heal((float) (((LivingEntity) (Object) this).getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) / 2));
+        }
+    }
+
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;tryUseTotem(Lnet/minecraft/entity/damage/DamageSource;)Z"), method = "damage", cancellable = true)
+    public void killPetSavePlayer(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (source.isOutOfWorld()) {
+
+        } else {
+            LivingEntity entity = ((LivingEntity) (Object) this);
+            if (entity.isPlayer() && APOXP.get(entity).getPetUUID() != null) {
+
+                XPComponent xpComponent = APOXP.get(entity);
+                UUID[] pets = xpComponent.getPetUUID();
+                if (pets.length > 0) {
+                    TargetPredicate predicate = TargetPredicate.DEFAULT;
+                    predicate.setPredicate((pet -> {
+                        for (UUID uuid : pets) {
+                            if (pet.getUuid().equals(uuid)) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }));
+                    try {
+                        LivingEntity oldPet = entity.world.getClosestEntity(MobEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(100D));
+                        if (oldPet != null) {
+                            oldPet.discard();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                    xpComponent.setPetUUID(ArrayUtils.remove(APOXP.get(entity).getPetUUID(), 0));
+
+                    entity.setHealth(1.0F);
+                    entity.clearStatusEffects();
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+                    entity.world.sendEntityStatus(entity, (byte) 35);
+                    APOXP.sync(entity);
+                    cir.cancel();
+                }
+            }
         }
     }
 }
