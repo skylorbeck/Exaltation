@@ -19,7 +19,8 @@
     "apotheosis:knight/wight/wight_bone",
 
     "apotheosis:knight/wight/wight_summon_3_a",
-    "apotheosis:knight/wight/wight_summon_3_a_placeholder"
+    "apotheosis:knight/wight/wight_summon_3_a_placeholder",
+    "apotheosis:knight/wight/wight_pet_charge"
   ],
   "icon": "minecraft:wither_skeleton_skull",
   "unchoosable": "true",

@@ -237,6 +237,9 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("wight_hell_b"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WightHellBPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("wight_pet_charge"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WightPetChargePower::new));
 
     }
 

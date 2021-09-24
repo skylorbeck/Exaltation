@@ -170,6 +170,8 @@ public class ApoEntityActions {
                             boolean bone = (PowerHolderComponent.hasPower(entity, WightBonePower.class));
                             boolean hell_a = (PowerHolderComponent.hasPower(entity, WightHellAPower.class));
                             boolean hell_b = (PowerHolderComponent.hasPower(entity, WightHellBPower.class));
+                            boolean petCharge = (PowerHolderComponent.hasPower(entity, WightPetChargePower.class));
+                            petCharge&=APOXP.get(entity).getLevel() >= 50;
                             GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
                             targetSelector.clear();
                             targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
@@ -211,6 +213,10 @@ public class ApoEntityActions {
                                 ItemStack sword = new ItemStack(Items.STONE_SWORD);
                                 sword.addEnchantment(Enchantments.FIRE_ASPECT,1);
                                 pet.equipStack(EquipmentSlot.MAINHAND,sword);
+                            }
+                            if (petCharge) {
+                                PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("knight/wight/wight_mana_charge_pet_else")), Declarar.getIdentifier("wight_mana_charge_pet_else"));
+                                PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("knight/wight/wight_mana_charge_pet_player")), Declarar.getIdentifier("wight_mana_charge_pet_player"));
                             }
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D));
                             pet.setHealth((float) data.getDouble("base_health"));
@@ -375,6 +381,26 @@ public class ApoEntityActions {
                             } else {
                                 entity.world.spawnEntity(new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), stack));
                             }
+                        }
+                    }
+                }));
+        register(new ActionFactory<>(Declarar.getIdentifier("change_owner_resource"), new SerializableData()
+                .add("resource", ApoliDataTypes.POWER_TYPE)
+                .add("change", SerializableDataTypes.INT),
+                (data, entity) -> {
+                    PlayerEntity e = PETKEY.maybeGet(entity).isPresent()?PETKEY.get(entity).getOwnerUUID()!=null?entity.world.getPlayerByUuid(PETKEY.get(entity).getOwnerUUID()):null:null;
+                    if(e !=null) {
+                        PowerHolderComponent component = PowerHolderComponent.KEY.get(e);
+                        Power p = component.getPower((PowerType<?>)data.get("resource"));
+                        if(p instanceof VariableIntPower) {
+                            VariableIntPower vip = (VariableIntPower)p;
+                            int newValue = vip.getValue() + data.getInt("change");
+                            vip.setValue(newValue);
+                            PowerHolderComponent.sync((PlayerEntity)e);
+                        } else if(p instanceof CooldownPower) {
+                            CooldownPower cp = (CooldownPower)p;
+                            cp.modify(data.getInt("change"));
+                            PowerHolderComponent.sync((PlayerEntity)e);
                         }
                     }
                 }));
