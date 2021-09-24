@@ -12,6 +12,8 @@ import net.minecraft.util.TypeFilter;
 import java.util.LinkedList;
 import java.util.List;
 
+import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
+
 public class AoEPower extends Power {
 
     private final List<StatusEffectInstance>  effectInstances;
@@ -32,7 +34,10 @@ public class AoEPower extends Power {
         List<MobEntity> entityList =  entity.world.getEntitiesByType(TypeFilter.instanceOf(MobEntity.class),entity.getBoundingBox().expand(distance),(LivingEntity::isAlive));
         for (MobEntity e:entityList) {
             if(entity.age % tickRate == 0) {
-                for (StatusEffectInstance effect:effectInstances) {
+                if (PETKEY.maybeGet(e).isPresent() && PETKEY.get(e).getOwnerUUID()!=null && PETKEY.get(e).getOwnerUUID().equals(entity.getUuid())){
+                    continue;
+                }
+                    for (StatusEffectInstance effect:effectInstances) {
                     e.addStatusEffect(new StatusEffectInstance(effect));
                 }
             }

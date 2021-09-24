@@ -10,7 +10,9 @@ import io.github.apace100.apoli.registry.ApoliRegistries;
 import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.*;
@@ -30,6 +32,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.raid.RaiderEntity;
+import net.minecraft.item.BowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
@@ -164,6 +168,8 @@ public class ApoEntityActions {
                             boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
                             boolean blight = (PowerHolderComponent.hasPower(entity, WightBlightPower.class));
                             boolean bone = (PowerHolderComponent.hasPower(entity, WightBonePower.class));
+                            boolean hell_a = (PowerHolderComponent.hasPower(entity, WightHellAPower.class));
+                            boolean hell_b = (PowerHolderComponent.hasPower(entity, WightHellBPower.class));
                             GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
                             targetSelector.clear();
                             targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
@@ -189,6 +195,22 @@ public class ApoEntityActions {
                             }
                             if (bone) {
                                 PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("knight/wight/wight_bone_pet")), Declarar.getIdentifier("wight_bone_pet"));
+                            }
+                            if (hell_a){
+                                pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) + (pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10));
+                                ItemStack bow = new ItemStack(Items.BOW);
+                                bow.addEnchantment(Enchantments.FLAME,1);
+                                pet.equipStack(EquipmentSlot.MAINHAND,bow);
+                                pet.equipStack(EquipmentSlot.HEAD,new ItemStack(Items.CHAINMAIL_HELMET));
+                                pet.equipStack(EquipmentSlot.CHEST,new ItemStack(Items.CHAINMAIL_CHESTPLATE));
+                                pet.equipStack(EquipmentSlot.LEGS,new ItemStack(Items.CHAINMAIL_LEGGINGS));
+                                pet.equipStack(EquipmentSlot.FEET,new ItemStack(Items.CHAINMAIL_BOOTS));
+                            }
+                            if (hell_b){
+                                pet.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) -((pet.getAttributeBaseValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) / 10)*3));
+                                ItemStack sword = new ItemStack(Items.STONE_SWORD);
+                                sword.addEnchantment(Enchantments.FIRE_ASPECT,1);
+                                pet.equipStack(EquipmentSlot.MAINHAND,sword);
                             }
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D));
                             pet.setHealth((float) data.getDouble("base_health"));
@@ -347,7 +369,9 @@ public class ApoEntityActions {
                             ((PlayerEntity) entity).getInventory().offerOrDrop(stack);
                         } else {
                             if (PETKEY.maybeGet(entity).isPresent()) {
-                                Objects.requireNonNull(entity.world.getPlayerByUuid(PETKEY.get(entity).getOwnerUUID())).getInventory().offerOrDrop(stack);
+                                try {
+                                    entity.world.getPlayerByUuid(PETKEY.get(entity).getOwnerUUID()).getInventory().offerOrDrop(stack);
+                                } catch (Exception ignored){}
                             } else {
                                 entity.world.spawnEntity(new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), stack));
                             }
