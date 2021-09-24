@@ -1,5 +1,5 @@
 {
-  "name": "power.apotheosis.wight/wight_aoe.name",
+  "name": "power.apotheosis.knight/wight/wight_aoe.name",
   "type": "origins:attacker_action_when_hit",
   "entity_action": {
     "type": "origins:apply_effect",

@@ -45,7 +45,7 @@
       },
       {
         "type": "apotheosis:summon_pet",
-        "entity_type": "minecraft:husk",
+        "entity_type": "minecraft:zombie",
         "amount": 2,
         "base_health": 25,
         "base_damage": 8
