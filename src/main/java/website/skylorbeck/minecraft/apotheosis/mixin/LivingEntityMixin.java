@@ -45,14 +45,14 @@ public abstract class LivingEntityMixin {
                 }
             }
         }
-        if (entity.isPlayer() && entity.getGroup()== EntityGroup.UNDEAD && entity.world.isDay() && !entity.world.isClient) {
-            float f = entity.getBrightnessAtEyes();
-            BlockPos blockPos = new BlockPos(entity.getX(), entity.getEyeY(), entity.getZ());
-            boolean bl = entity.isWet() || entity.inPowderSnow || entity.wasInPowderSnow;
-            if (f > 0.5F && entity.world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !bl && entity.world.isSkyVisible(blockPos)) {
-                entity.setOnFireFor(8);
-            }
-        }
+//        if (entity.isPlayer() && entity.getGroup()== EntityGroup.UNDEAD && entity.world.isDay() && !entity.world.isClient) {
+//            float f = entity.getBrightnessAtEyes();
+//            BlockPos blockPos = new BlockPos(entity.getX(), entity.getEyeY(), entity.getZ());
+//            boolean bl = entity.isWet() || entity.inPowderSnow || entity.wasInPowderSnow;
+//            if (f > 0.5F && entity.world.random.nextFloat() * 30.0F < (f - 0.4F) * 2.0F && !bl && entity.world.isSkyVisible(blockPos)) {
+//                entity.setOnFireFor(8);
+//            }
+//        }
     }
 
     @Inject(at = @At(value = "RETURN"),method = "isBlocking", cancellable = true)

@@ -1,5 +1,6 @@
 package website.skylorbeck.minecraft.apotheosis.powers;
 
+import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.*;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -210,6 +211,18 @@ public class PowerFactories {
                                     (ActionFactory<Entity>.Instance)data.get("entity_action"));
                             power.setKey((Active.Key)data.get("key"));
                             return power;
+                        })
+                .allowCondition());
+
+        register(new PowerFactory<>(Declarar.getIdentifier("aoe_power"),
+                new SerializableData()
+                        .add("effects", SerializableDataTypes.STATUS_EFFECT_INSTANCES, null)
+                        .add("distance", SerializableDataTypes.INT,5)
+                        .add("tickrate", SerializableDataTypes.INT,20)
+                ,
+                data ->
+                        (type, player) -> {
+                            return new AoEPower(type,player, data.getInt("tickrate"), data.getInt("distance"),(List<StatusEffectInstance>)data.get("effects"));
                         })
                 .allowCondition());
 
