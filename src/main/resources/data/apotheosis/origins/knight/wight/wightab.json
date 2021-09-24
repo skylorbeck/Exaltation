@@ -16,7 +16,9 @@
     "apotheosis:knight/wight/wight_knockback_resist_leveled",
 
     "apotheosis:knight/wight/wight_blast",
-    "apotheosis:knight/wight/wight_blast_drain"
+    "apotheosis:knight/wight/wight_blast_drain",
+
+    "apotheosis:knight/wight/wight_bone"
   ],
   "icon": "minecraft:wither_skeleton_skull",
   "unchoosable": "true",

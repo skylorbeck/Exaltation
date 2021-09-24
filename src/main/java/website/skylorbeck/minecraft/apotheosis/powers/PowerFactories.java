@@ -228,6 +228,10 @@ public class PowerFactories {
         register(new PowerFactory<>(Declarar.getIdentifier("wight_blight"),
                 new SerializableData(),
                 data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WightBlightPower::new));
+        register(new PowerFactory<>(Declarar.getIdentifier("wight_bone"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WightBonePower::new));
+
     }
 
     private static void register(PowerFactory serializer) {

@@ -14,7 +14,11 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.DyeColor;
@@ -47,6 +51,8 @@ public class Declarar {
     public static final BlockItem goldaltarItem = new AltarBlockItem(goldaltar,new FabricItemSettings().group(ItemGroup.MISC));
     public static final BlockItem diamondaltarItem = new AltarBlockItem(diamondaltar,new FabricItemSettings().group(ItemGroup.MISC));
     public static final BlockItem netheritealtarItem = new AltarBlockItem(netheritealtar,new FabricItemSettings().group(ItemGroup.MISC));
+
+    public static final Item boneFragment = new Item(new FabricItemSettings().group(ItemGroup.MISC).food(new FoodComponent.Builder().statusEffect(new StatusEffectInstance(StatusEffects.INSTANT_DAMAGE,1,0),1).statusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,100,0),1).alwaysEdible().snack().build()));
 
     public static final BlockEntityType<AltarEntity> ALTARENTITY = Registry.register(
             Registry.BLOCK_ENTITY_TYPE,

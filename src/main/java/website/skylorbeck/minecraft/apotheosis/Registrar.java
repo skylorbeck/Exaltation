@@ -24,6 +24,7 @@ public class Registrar {
         regItem("diamondaltar",Declarar.diamondaltarItem,MODID);
         regBlock("netheritealtar",Declarar.netheritealtar,MODID);
         regItem("netheritealtar",Declarar.netheritealtarItem,MODID);
+        regItem("bonefragment",Declarar.boneFragment,MODID);
         Registry.register(Registry.STATUS_EFFECT, Declarar.getIdentifier("wolfmark"),Declarar.WOLFMARK);
         Registry.register(Registry.STATUS_EFFECT, Declarar.getIdentifier("hemorrhaging"),Declarar.HEMORRHAGING);
     }

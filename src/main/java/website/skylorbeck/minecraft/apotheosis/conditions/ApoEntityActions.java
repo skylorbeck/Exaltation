@@ -54,10 +54,7 @@ import website.skylorbeck.minecraft.apotheosis.data.ApoDataTypes;
 import website.skylorbeck.minecraft.apotheosis.Declarar;
 import website.skylorbeck.minecraft.apotheosis.PlayerEntityInterface;
 import website.skylorbeck.minecraft.apotheosis.mixin.MobEntityAccessor;
-import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
-import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
-import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
-import website.skylorbeck.minecraft.apotheosis.powers.WightBlightPower;
+import website.skylorbeck.minecraft.apotheosis.powers.*;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -114,14 +111,14 @@ public class ApoEntityActions {
                 .add("base_health", SerializableDataTypes.DOUBLE, 20.0D)
                 .add("time", SerializableDataTypes.INT, 600)
                 .add("entity_type", SerializableDataTypes.ENTITY_TYPE, EntityType.WOLF)
-                .add("amount",SerializableDataTypes.INT,1)
+                .add("amount", SerializableDataTypes.INT, 1)
                 ,
                 (data, entity) -> {
                     boolean toggle = false;
                     if (APOXP.get(entity).getPetUUID() != null) {
                         UUID[] pets = APOXP.get(entity).getPetUUID();
                         TargetPredicate predicate = TargetPredicate.DEFAULT;
-                        predicate.setPredicate((pet ->{
+                        predicate.setPredicate((pet -> {
                             if (pet.getType().equals(data.get("entity_type"))) {
                                 for (UUID uuid : pets) {
                                     if (pet.getUuid().equals(uuid)) {
@@ -154,18 +151,19 @@ public class ApoEntityActions {
                             pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
                             BlockHitResult hitResult = (BlockHitResult) entity.raycast(1, 1f, true);
                             BlockPos blockPos = new BlockPos(hitResult.getPos());
-                            switch (hitResult.getSide()){
+                            switch (hitResult.getSide()) {
                                 case NORTH, SOUTH, UP -> {
-                                    pet.setPos(i%2==0? blockPos.getX()+i :blockPos.getX()-i, blockPos.getY() + 1,blockPos.getZ());
+                                    pet.setPos(i % 2 == 0 ? blockPos.getX() + i : blockPos.getX() - i, blockPos.getY() + 1, blockPos.getZ());
                                 }
                                 case WEST, EAST, DOWN -> {
-                                    pet.setPos(blockPos.getX(), blockPos.getY() + 1,i%2==0? blockPos.getZ()+i :blockPos.getZ()-i);
+                                    pet.setPos(blockPos.getX(), blockPos.getY() + 1, i % 2 == 0 ? blockPos.getZ() + i : blockPos.getZ() - i);
                                 }
                             }
                             boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
                             boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
                             boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
                             boolean blight = (PowerHolderComponent.hasPower(entity, WightBlightPower.class));
+                            boolean bone = (PowerHolderComponent.hasPower(entity, WightBonePower.class));
                             GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
                             targetSelector.clear();
                             targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
@@ -176,7 +174,7 @@ public class ApoEntityActions {
                             PetComponent petComponent = PETKEY.get(pet);
                             petComponent.setOwnerUUID(entity.getUuid());
                             petComponent.setHealOwner(blight);
-                            petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0)+ (blight ? 100 : 0));
+                            petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0) + (blight ? 100 : 0));
                             if (APOXP.get(entity).getLevel() >= 50) {
                                 petComponent.setTimeLeft(3600);
                             }
@@ -189,7 +187,10 @@ public class ApoEntityActions {
                             if (bond) {
                                 PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
                             }
-                            pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D) );
+                            if (bone) {
+                                PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("knight/wight/wight_bone_pet")), Declarar.getIdentifier("wight_bone_pet"));
+                            }
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D));
                             pet.setHealth((float) data.getDouble("base_health"));
                             pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (blight ? 4D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                             if (!entity.world.isClient) {
@@ -334,6 +335,24 @@ public class ApoEntityActions {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 600, 1), player);
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 0), player);
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 600, 20), player);
+                }));
+
+        register(new ActionFactory<>(Declarar.getIdentifier("gift_owner"), new SerializableData()
+                .add("stack", SerializableDataTypes.ITEM_STACK),
+                (data, entity) -> {
+                    if (!entity.world.isClient()) {
+                        ItemStack stack = (ItemStack) data.get("stack");
+                        stack = stack.copy();
+                        if (entity instanceof PlayerEntity) {
+                            ((PlayerEntity) entity).getInventory().offerOrDrop(stack);
+                        } else {
+                            if (PETKEY.maybeGet(entity).isPresent()) {
+                                Objects.requireNonNull(entity.world.getPlayerByUuid(PETKEY.get(entity).getOwnerUUID())).getInventory().offerOrDrop(stack);
+                            } else {
+                                entity.world.spawnEntity(new ItemEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), stack));
+                            }
+                        }
+                    }
                 }));
     }
 

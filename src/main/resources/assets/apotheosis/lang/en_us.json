@@ -21,6 +21,7 @@
   "block.apotheosis.goldaltarblock": "Gold Altar",
   "block.apotheosis.diamondaltarblock": "Diamond Altar",
   "block.apotheosis.netheritealtarblock": "Netherite Altar",
+  "item.apotheosis.bonefragmentitem": "Bone Fragments",
 
   "enchantment.apotheosis.healthbooster": "Healthy",
   "enchantment.apotheosis.armorsharpness": "Finesse",
@@ -228,5 +229,7 @@
   "power.apotheosis.knight/wight/wight_aoe.description": "Emit an Aura that inflicts Slowness",
   "power.apotheosis.knight/wight/wight_revenge.description": "All attackers become poisoned",
   "power.apotheosis.knight/wight/wight_blight.name": "Blighted Magic",
-  "power.apotheosis.knight/wight/wight_blight.description": "Pet stats++; Heal for 1/2 damage done by pets"
+  "power.apotheosis.knight/wight/wight_blight.description": "Pet stats++; Heal for 1/2 damage done by pets",
+  "power.apotheosis.knight/wight/wight_bone.name": "Bone Arcana",
+  "power.apotheosis.knight/wight/wight_bone.description": "Pet kills grant you a healing consumable"
 }
