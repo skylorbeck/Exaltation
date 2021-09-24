@@ -1,8 +1,10 @@
 package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
+
+import java.util.Objects;
 
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
 
@@ -65,8 +69,17 @@ public abstract class LivingEntityMixin {
     }
     @Inject(at = @At(value = "RETURN"),method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", cancellable = true)
     public void ignoreUndead(LivingEntity target,CallbackInfoReturnable<Boolean> cir) {
-        if (((LivingEntity)(Object)this).getGroup().equals(EntityGroup.UNDEAD)&& target.getGroup().equals(EntityGroup.UNDEAD)){
+        if (target.isPlayer()&& ((LivingEntity)(Object)this).getGroup().equals(EntityGroup.UNDEAD)&& target.getGroup().equals(EntityGroup.UNDEAD)){
             cir.setReturnValue(false);
+        }
+    }
+    @Inject(at = @At(value = "RETURN"),method = "onAttacking", cancellable = true)
+    public void ignoreUndead(Entity target, CallbackInfo ci) {
+        PetComponent petComponent = PETKEY.maybeGet(this).isPresent()? PETKEY.get(this) :null ;
+        if (petComponent!=null && petComponent.shouldHealOwner()){
+            PlayerEntity pe = target.world.getPlayerByUuid(petComponent.getOwnerUUID());
+            if (pe!=null)
+            pe.heal((float) (((LivingEntity)(Object)this).getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)/2));
         }
     }
 }

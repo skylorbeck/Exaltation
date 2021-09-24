@@ -27,12 +27,12 @@
             "actions": [
               {
                 "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana",
+                "resource": "apotheosis:knight/wight/wight_mana_25",
                 "change": 8
               },
               {
                 "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana",
+                "resource": "apotheosis:knight/wight/wight_mana_45",
                 "change": 8
               }
             ]

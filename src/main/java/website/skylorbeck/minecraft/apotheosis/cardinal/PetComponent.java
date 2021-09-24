@@ -11,6 +11,7 @@ public class PetComponent implements AutoSyncedComponent {
     private final MobEntity pet;
     private int timeLeft = 0;
     private UUID ownerUUID;
+    private boolean healOwner = false;
 
     public PetComponent(MobEntity provider) {
         this.pet = provider;
@@ -23,6 +24,8 @@ public class PetComponent implements AutoSyncedComponent {
         this.ownerUUID = tag.getUuid("owner");
         if (tag.contains("timeleft"))
             this.timeLeft = tag.getInt("timeleft");
+        if (tag.contains("heal"))
+            this.healOwner = tag.getBoolean("heal");
     }
 
     @Override
@@ -31,6 +34,7 @@ public class PetComponent implements AutoSyncedComponent {
             tag.putUuid("owner", this.ownerUUID);
         }
         tag.putInt("timeleft", this.timeLeft);
+        tag.putBoolean("heal", this.healOwner);
     }
 
     public int getTimeLeft() {
@@ -47,5 +51,13 @@ public class PetComponent implements AutoSyncedComponent {
 
     public void setOwnerUUID(UUID ownerUUID) {
         this.ownerUUID = ownerUUID;
+    }
+
+    public boolean shouldHealOwner() {
+        return healOwner;
+    }
+
+    public void setHealOwner(boolean healOwner) {
+        this.healOwner = healOwner;
     }
 }

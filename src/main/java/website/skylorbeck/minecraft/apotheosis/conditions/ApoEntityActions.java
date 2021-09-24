@@ -57,6 +57,7 @@ import website.skylorbeck.minecraft.apotheosis.mixin.MobEntityAccessor;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidDireWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidPackWolfPower;
 import website.skylorbeck.minecraft.apotheosis.powers.DruidWolfBondPower;
+import website.skylorbeck.minecraft.apotheosis.powers.WightBlightPower;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -121,7 +122,7 @@ public class ApoEntityActions {
                         UUID[] pets = APOXP.get(entity).getPetUUID();
                         TargetPredicate predicate = TargetPredicate.DEFAULT;
                         predicate.setPredicate((pet ->{
-                            if (pet.getType() == data.get("entity_type")) {
+                            if (pet.getType().equals(data.get("entity_type"))) {
                                 for (UUID uuid : pets) {
                                     if (pet.getUuid().equals(uuid)) {
                                         return true;
@@ -164,6 +165,7 @@ public class ApoEntityActions {
                             boolean dire = (PowerHolderComponent.hasPower(entity, DruidDireWolfPower.class));
                             boolean pack = (PowerHolderComponent.hasPower(entity, DruidPackWolfPower.class));
                             boolean bond = (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class));
+                            boolean blight = (PowerHolderComponent.hasPower(entity, WightBlightPower.class));
                             GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
                             targetSelector.clear();
                             targetSelector.add(1, new ApotheosisTrackOwnerAttackerGoal((LivingEntity) entity, pet));
@@ -173,7 +175,8 @@ public class ApoEntityActions {
                             goalSelector.add(1, new ApotheosisFollowOwnerGoal(pet, (LivingEntity) entity, 2.0D, 10.0F, 2.0F, false));
                             PetComponent petComponent = PETKEY.get(pet);
                             petComponent.setOwnerUUID(entity.getUuid());
-                            petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0));
+                            petComponent.setHealOwner(blight);
+                            petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0)+ (blight ? 100 : 0));
                             if (APOXP.get(entity).getLevel() >= 50) {
                                 petComponent.setTimeLeft(3600);
                             }
@@ -186,9 +189,9 @@ public class ApoEntityActions {
                             if (bond) {
                                 PowerHolderComponent.KEY.get(pet).addPower(PowerTypeRegistry.get(Declarar.getIdentifier("ranger/druid/wolf_hemorrhage")), Declarar.getIdentifier("wolf_hemorrhage"));
                             }
-                            pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D));
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D) );
                             pet.setHealth((float) data.getDouble("base_health"));
-                            pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (blight ? 4D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                             if (!entity.world.isClient) {
                                 entity.world.spawnEntity(pet);
                                 ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);

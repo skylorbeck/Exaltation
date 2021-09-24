@@ -225,7 +225,9 @@ public class PowerFactories {
                             return new AoEPower(type,player, data.getInt("tickrate"), data.getInt("distance"),(List<StatusEffectInstance>)data.get("effects"));
                         })
                 .allowCondition());
-
+        register(new PowerFactory<>(Declarar.getIdentifier("wight_blight"),
+                new SerializableData(),
+                data -> (BiFunction<PowerType<Power>, LivingEntity, Power>) WightBlightPower::new));
     }
 
     private static void register(PowerFactory serializer) {
