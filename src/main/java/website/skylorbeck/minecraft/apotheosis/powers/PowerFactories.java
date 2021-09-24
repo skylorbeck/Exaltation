@@ -212,6 +212,7 @@ public class PowerFactories {
                             return power;
                         })
                 .allowCondition());
+
     }
 
     private static void register(PowerFactory serializer) {

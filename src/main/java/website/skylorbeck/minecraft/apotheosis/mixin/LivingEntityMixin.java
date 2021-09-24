@@ -11,6 +11,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,7 +22,9 @@ import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
 import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents.PETKEY;
 
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin {
+public abstract class LivingEntityMixin {
+
+    @Shadow public abstract EntityGroup getGroup();
 
     @Inject(at = @At("TAIL"),method = "tick")
     public void injectedTick(CallbackInfo ci) {
@@ -60,5 +63,10 @@ public class LivingEntityMixin {
             }
         }
     }
-
+    @Inject(at = @At(value = "RETURN"),method = "canTarget(Lnet/minecraft/entity/LivingEntity;)Z", cancellable = true)
+    public void ignoreUndead(LivingEntity target,CallbackInfoReturnable<Boolean> cir) {
+        if (((LivingEntity)(Object)this).getGroup().equals(EntityGroup.UNDEAD)&& target.getGroup().equals(EntityGroup.UNDEAD)){
+            cir.setReturnValue(false);
+        }
+    }
 }

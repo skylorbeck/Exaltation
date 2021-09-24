@@ -16,6 +16,7 @@
     "EnchantmentScreenHandlerAccessor",
     "EnchantmentScreenHandlerMixin",
     "EntityAttributeModifierMixin",
+    "IronGolemEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobEntityAccessor",
