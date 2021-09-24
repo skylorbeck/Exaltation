@@ -4,7 +4,7 @@
   "powers": [
     "apotheosis:branchat25",
 
-    "apotheosis:knight/wight/wight_mana",
+    "apotheosis:knight/wight/wight_mana_10",
     "apotheosis:knight/wight/wight_mana_charge_undead",
     "apotheosis:knight/wight/wight_mana_charge_player",
     "apotheosis:knight/wight/wight_mana_charge_else",
@@ -13,6 +13,7 @@
     "apotheosis:knight/wight/wight_color",
     "apotheosis:knight/wight/wight_particle",
     "apotheosis:knight/wight/wight_type",
+    "apotheosis:knight/wight/wight_knockback_resist_leveled",
 
     "apotheosis:knight/wight/wight_blast",
     "apotheosis:knight/wight/wight_blast_drain"

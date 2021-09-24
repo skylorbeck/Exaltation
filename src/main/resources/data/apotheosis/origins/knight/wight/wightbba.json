@@ -2,7 +2,16 @@
   "name": "origin.apotheosis.wight.name",
   "description": "origin.apotheosis.wight.description",
   "powers": [
-
+  "apotheosis:knight/wight/wight_mana_45",
+  "apotheosis:knight/wight/wight_mana_charge_undead",
+  "apotheosis:knight/wight/wight_mana_charge_player",
+  "apotheosis:knight/wight/wight_mana_charge_else",
+  "apotheosis:knight/wight/wight_summon",
+  "apotheosis:knight/wight/wight_shake",
+  "apotheosis:knight/wight/wight_color",
+  "apotheosis:knight/wight/wight_particle",
+  "apotheosis:knight/wight/wight_type",
+  "apotheosis:knight/wight/wight_knockback_resist_leveled"
   ],
   "icon": "minecraft:wither_skeleton_skull",
   "unchoosable": "true",

@@ -2,9 +2,44 @@
   "name": "power.apotheosis.knight/wight/wight_mana.name",
   "type": "origins:self_action_on_kill",
   "entity_action": {
-    "type": "origins:change_resource",
-    "resource": "apotheosis:knight/wight/wight_mana",
-    "change": 8
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/wight/wight_mana",
+                "change": 8
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/wight/wight_mana_10",
+                "change": 8
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/wight/wight_mana",
+                "change": 8
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "apotheosis:knight/wight/wight_mana",
+                "change": 8
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "cooldown": 1,
   "hud_render": {

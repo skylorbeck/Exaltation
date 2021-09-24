@@ -12,16 +12,38 @@
     "type": "origins:or",
     "conditions": [
       {
-        "type": "origins:resource",
-        "resource": "apotheosis:knight/wight/wight_mana",
-        "comparison": ">=",
-        "compare_to": 16
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "apotheosis:knight/wight/wight_mana",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "apotheosis:knight/wight/wight_mana_10",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
       },
       {
-        "type": "origins:resource",
-        "resource": "apotheosis:knight/wight/wight_mana_enhanced",
-        "comparison": ">=",
-        "compare_to": 16
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "apotheosis:knight/wight/wight_mana_25",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "apotheosis:knight/wight/wight_mana_45",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
       }
     ]
   }

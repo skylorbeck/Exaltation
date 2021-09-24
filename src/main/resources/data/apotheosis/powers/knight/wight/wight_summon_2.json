@@ -10,42 +10,55 @@
             "type": "origins:and",
             "actions": [
               {
-                "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana",
-                "change": -16
+                "type": "origins:and",
+                "actions": [
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "apotheosis:knight/wight/wight_mana",
+                    "change": -16
+                  },
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "apotheosis:knight/wight/wight_mana_10",
+                    "change": -16
+                  }
+                ]
               },
               {
-                "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana_10",
-                "change": -16
-              }
-            ]
-          },
-          {
-            "type": "origins:and",
-            "actions": [
-              {
-                "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana",
-                "change": -16
-              },
-              {
-                "type": "origins:change_resource",
-                "resource": "apotheosis:knight/wight/wight_mana",
-                "change": -16
+                "type": "origins:and",
+                "actions": [
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "apotheosis:knight/wight/wight_mana",
+                    "change": -16
+                  },
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "apotheosis:knight/wight/wight_mana",
+                    "change": -16
+                  }
+                ]
               }
             ]
           }
         ]
+      },
+      {
+        "type": "apotheosis:summon_pet",
+        "entity_type": "minecraft:husk",
+        "amount": 1,
+        "base_health": 40,
+        "base_damage": 12,
+        "time": 400
       }
     ]
   },
-  "cooldown": 20,
+  "key": "key.apotheosis.primary_active",
+  "cooldown": 100,
   "hud_render": {
-    "should_render": false
-  },
-  "key": {
-    "key": "key.apotheosis.secondary_active"
+    "should_render": true,
+    "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+    "bar_index": 7
   },
   "condition": {
     "type": "origins:or",
@@ -85,6 +98,5 @@
         ]
       }
     ]
-  },
-  "hidden": true
+  }
 }
