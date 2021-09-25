@@ -235,5 +235,8 @@
   "power.apotheosis.knight/wight/wight_blight.name": "Blighted Magic",
   "power.apotheosis.knight/wight/wight_blight.description": "Pet stats++; Heal for 1/2 damage done by pets",
   "power.apotheosis.knight/wight/wight_bone.name": "Bone Arcana",
-  "power.apotheosis.knight/wight/wight_bone.description": "Pet kills grant you a healing consumable"
+  "power.apotheosis.knight/wight/wight_bone.description": "Pet kills grant you a healing consumable",
+  "power.apotheosis.knight/wight/wight_pet_charge.name": "Soul Link",
+  "power.apotheosis.knight/wight/wight_pet_charge.description": "Pet kills charge your mana",
+  "power.apotheosis.knight/wight/wight_pet_totem.description": "Pets Sacrifice their lives for you"
 }

@@ -56,9 +56,8 @@
   "key": "key.apotheosis.secondary_active",
   "cooldown": 100,
   "hud_render": {
-    "should_render": true,
     "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-    "bar_index": 7
+    "bar_index": 1
   },
   "condition": {
     "type": "origins:or",

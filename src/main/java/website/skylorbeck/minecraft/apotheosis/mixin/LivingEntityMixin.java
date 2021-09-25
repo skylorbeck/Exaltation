@@ -32,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.apotheosis.cardinal.PetComponent;
 import website.skylorbeck.minecraft.apotheosis.cardinal.XPComponent;
 import website.skylorbeck.minecraft.apotheosis.powers.DracoKnightShieldPower;
+import website.skylorbeck.minecraft.apotheosis.powers.TotemPetPower;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -111,7 +112,7 @@ public abstract class LivingEntityMixin {
 
                 XPComponent xpComponent = APOXP.get(entity);
                 UUID[] pets = xpComponent.getPetUUID();
-                if (pets.length > 0 && xpComponent.getLevel()>=50) {
+                if (pets.length > 0 && xpComponent.getLevel()>=50 && PowerHolderComponent.hasPower(entity, TotemPetPower.class)) {
                     TargetPredicate predicate = TargetPredicate.DEFAULT;
                     predicate.setPredicate((pet -> {
                         for (UUID uuid : pets) {
