@@ -7,11 +7,14 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.*;
 import net.minecraft.screen.CraftingScreenHandler;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,38 +27,36 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 
 @Mixin(CraftingScreenHandler.class)
 public class CraftingScreenHandlerMixin {
-    @Shadow @Final private ScreenHandlerContext context;
-
-    @Redirect(method = "updateResult", at = @At(value = "INVOKE",target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
-    private static void injectedUpdateResult(CraftingResultInventory craftingResultInventory, int slot, ItemStack stack) {
-        if (smithArmor()) {
+    @Redirect(method = "updateResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/CraftingResultInventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
+    private static void injectedUpdateResult(CraftingResultInventory craftingResultInventory, int slot, ItemStack stack, ScreenHandler handler, World world, PlayerEntity player, CraftingInventory craftingInventory, CraftingResultInventory resultInventory) {
+        if (PowerHolderComponent.hasPower(player, SmithingArmorPower.class)) {
             Item item = stack.getItem();
-            int scale= 0;
+            int scale = 0;
             if (item instanceof ArmorItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                scale = smithArmorScale();
+                scale = smithArmorScale(player);
                 if (scale != 0) {
                     stack.addEnchantment(Enchantments.UNBREAKING, scale);
                     stack.addEnchantment(Enchantments.PROTECTION, scale);
                 }
             }
         }
-        if (smithWeapon()) {
+        if (PowerHolderComponent.hasPower(player, SmithingWeaponPower.class)) {
             Item item = stack.getItem();
-            int scale= 0;
+            int scale = 0;
             if (item instanceof SwordItem || item instanceof AxeItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                scale = smithWeaponScale();
+                scale = smithWeaponScale(player);
                 if (scale != 0) {
                     stack.addEnchantment(Enchantments.UNBREAKING, scale);
-                    if (warsmithSword()){
-                        scale+=5;
+                    if (PowerHolderComponent.hasPower(player, WarsmithSwordBuffPower.class)) {
+                        scale += 5;
                     }
                     stack.addEnchantment(Enchantments.SHARPNESS, scale);
                 }
             }
         }
-        if (warsmithShield()) {
+        if (PowerHolderComponent.hasPower(player, WarsmithShieldBuffPower.class)) {
             Item item = stack.getItem();
             if (item instanceof ShieldItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
@@ -63,124 +64,71 @@ public class CraftingScreenHandlerMixin {
                 stack.addEnchantment(Declarar.KNOCKBACKRESIST, 1);
             }
         }
-        if (warsmithArmor()) {
+        if (PowerHolderComponent.hasPower(player, WarsmithArmorBuffPower.class)) {
             Item item = stack.getItem();
             if (item instanceof ArmorItem) {
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                 stack.addEnchantment(Declarar.ARMORSHARPNESS, 1);
             }
         }
-        if (arcanesmithEnchant()) {
+        if (PowerHolderComponent.hasPower(player, ArcanesmithAlwaysEnchanted.class)) {
             Item item = stack.getItem();
             if ((item instanceof ToolItem || item instanceof ArmorItem) && item.isEnchantable(stack)) {
-                stack = EnchantmentHelper.enchant(MinecraftClient.getInstance().world.random, stack,0,false);
+                stack = EnchantmentHelper.enchant(world.random, stack, 0, false);
                 stack.getOrCreateNbt().putBoolean("ApoSmith", true);
             }
         }
-        if (arcanesmithChest()) {
+        if (PowerHolderComponent.hasPower(player, ArcanesmithChestBuffPower.class)) {
             Item item = stack.getItem();
             if (item instanceof ArmorItem) {
-                if (((ArmorItem)item).getSlotType()== EquipmentSlot.CHEST){
+                if (((ArmorItem) item).getSlotType() == EquipmentSlot.CHEST) {
                     stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                    stack.addEnchantment(Declarar.HEALTHBOOST,2);
+                    stack.addEnchantment(Declarar.HEALTHBOOST, 2);
                 }
             }
         }
-        if (arcanesmithBoots()) {
+        if (PowerHolderComponent.hasPower(player, ArcanesmithBootBuffPower.class)) {
             Item item = stack.getItem();
             if (item instanceof ArmorItem) {
-                if (((ArmorItem)item).getSlotType()== EquipmentSlot.FEET){
+                if (((ArmorItem) item).getSlotType() == EquipmentSlot.FEET) {
                     stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                    stack.addEnchantment(Declarar.SPEEDBOOSTER,1);
+                    stack.addEnchantment(Declarar.SPEEDBOOSTER, 1);
                 }
             }
         }
-        if (arcanesmithSword()) {
+        if (PowerHolderComponent.hasPower(player, ArcanemithSwordBuffPower.class)) {
             Item item = stack.getItem();
             if (item instanceof ArmorItem) {
-                if (((ArmorItem)item).getSlotType()== EquipmentSlot.FEET){
+                if (((ArmorItem) item).getSlotType() == EquipmentSlot.FEET) {
                     stack.getOrCreateNbt().putBoolean("ApoSmith", true);
-                    Enchantment[] enchantment = new Enchantment[]{Declarar.WITHERASPECT,Declarar.POISONASPECT,Declarar.POISONASPECT};
-                    stack.addEnchantment(enchantment[MinecraftClient.getInstance().world.random.nextInt(enchantment.length)],3);
+                    Enchantment[] enchantment = new Enchantment[]{Declarar.WITHERASPECT, Declarar.POISONASPECT, Declarar.POISONASPECT};
+                    stack.addEnchantment(enchantment[world.random.nextInt(enchantment.length)], 3);
                 }
             }
         }
-        craftingResultInventory.setStack(slot,stack);
-    }
-
-    private static boolean smithArmor(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingArmorPower.class);
-    }
-    private static boolean smithWeapon(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player,SmithingWeaponPower.class);
-    }
-    private static boolean warsmithShield(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithShieldBuffPower.class);
-    }
-    private static boolean warsmithArmor(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithArmorBuffPower.class);
-    }
-
-    private static boolean warsmithSword(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, WarsmithSwordBuffPower.class);
-    }
-    private static boolean arcanesmithEnchant(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithAlwaysEnchanted.class);
-    }
-    private static boolean arcanesmithChest(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithChestBuffPower.class);
-    }
-    private static boolean arcanesmithBoots(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanesmithBootBuffPower.class);
-    }
-    private static boolean arcanesmithSword(){
-        assert MinecraftClient.getInstance().player != null;
-        return PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, ArcanemithSwordBuffPower.class);
+        craftingResultInventory.setStack(slot, stack);
     }
 
 
-    private static int smithArmorScale(){
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient client = MinecraftClient.getInstance();
-        PlayerEntity playerEntity = client.player;
-        ServerPlayerEntity serverPlayerEntity = client.getServer().getPlayerManager().getPlayer(playerEntity.getUuid());
-        assert serverPlayerEntity != null;
-        int scale = (PowerHolderComponent.getPowers(serverPlayerEntity, SmithingArmorPower.class).get(0)).getScale();
-//        Logger.getGlobal().log(Level.SEVERE,"SMITHSCALECHECK: "+scale + "::: power count: "+PowerHolderComponent.getPowers(serverPlayerEntity,SmithingArmorPower.class).size());
-
-        if (scale!=0) {
-            if (APOXP.get(serverPlayerEntity).getAscended()){
-                return Math.floorDiv(50,scale);
+    private static int smithArmorScale(PlayerEntity playerEntity) {
+        int scale = (PowerHolderComponent.getPowers(playerEntity, SmithingArmorPower.class).get(0)).getScale();
+        if (scale != 0) {
+            if (APOXP.get(playerEntity).getAscended()) {
+                return Math.floorDiv(50, scale);
             }
-            return Math.floorDiv(APOXP.get(serverPlayerEntity).getLevel(), scale);
-        }
-            else
-                return 0;
+            return Math.floorDiv(APOXP.get(playerEntity).getLevel(), scale);
+        } else
+            return 0;
     }
-    private static int smithWeaponScale(){
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient client = MinecraftClient.getInstance();
-        PlayerEntity playerEntity = client.player;
-        ServerPlayerEntity serverPlayerEntity = client.getServer().getPlayerManager().getPlayer(playerEntity.getUuid());
-        assert serverPlayerEntity != null;
-        int scale = (PowerHolderComponent.getPowers(serverPlayerEntity, SmithingWeaponPower.class).get(0)).getScale();
-//        Logger.getGlobal().log(Level.SEVERE,"SMITHSCALECHECK: "+scale + "::: power count: "+PowerHolderComponent.getPowers(serverPlayerEntity,SmithingArmorPower.class).size());
 
-        if (scale!=0) {
-            if (APOXP.get(serverPlayerEntity).getAscended()){
-                return Math.floorDiv(50,scale);
+    private static int smithWeaponScale(PlayerEntity playerEntity) {
+        int scale = (PowerHolderComponent.getPowers(playerEntity, SmithingWeaponPower.class).get(0)).getScale();
+        if (scale != 0) {
+            if (APOXP.get(playerEntity).getAscended()) {
+                return Math.floorDiv(50, scale);
             }
-            return Math.floorDiv(APOXP.get(serverPlayerEntity).getLevel(), scale);
-        }
-            else
-                return 0;
+            return Math.floorDiv(APOXP.get(playerEntity).getLevel(), scale);
+        } else
+            return 0;
     }
 }
