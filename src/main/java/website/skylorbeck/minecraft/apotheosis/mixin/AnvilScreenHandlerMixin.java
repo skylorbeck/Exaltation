@@ -2,6 +2,7 @@ package website.skylorbeck.minecraft.apotheosis.mixin;
 
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
@@ -43,7 +44,7 @@ public abstract class AnvilScreenHandlerMixin {
                     to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/Property;get()I"))
     )
     public void injectedHasEnchantments(CallbackInfo ci) {
-        if (PowerHolderComponent.hasPower((MinecraftClient.getInstance().player), ArcanesmithCheapEnchantingPower.class)) {
+        if (PowerHolderComponent.hasPower(((PlayerInventory)((AnvilScreenHandler)(Object)this).slots.get(3).inventory).player, ArcanesmithCheapEnchantingPower.class)) {
             ((AnvilScreenHandlerAccessor) this).getlevelCost().set(getLevelCost() / 2);
         }
     }
