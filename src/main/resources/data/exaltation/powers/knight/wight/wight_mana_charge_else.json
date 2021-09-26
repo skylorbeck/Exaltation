@@ -1,0 +1,73 @@
+{
+  "name": "power.exaltation.knight/wight/wight_mana.name",
+  "type": "origins:self_action_on_kill",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana",
+                "change": 2
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_10",
+                "change": 2
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_25",
+                "change": 2
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_45",
+                "change": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "cooldown": 1,
+  "hud_render": {
+    "should_render": false
+  },
+  "target_condition":  {
+    "type": "origins:and",
+    "conditions": [
+      {
+        "type": "origins:entity_group",
+        "group": "undead",
+        "inverted": true
+      },
+      {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:entity_type",
+            "entity_type": "minecraft:player",
+            "inverted": true
+          },
+          {
+            "type": "origins:entity_type",
+            "entity_type": "minecraft:villager",
+            "inverted": true
+          }
+        ]
+      }
+    ]
+  }
+}

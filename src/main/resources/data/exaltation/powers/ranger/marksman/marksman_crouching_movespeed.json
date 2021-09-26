@@ -1,0 +1,12 @@
+{
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.movement_speed",
+    "value": 0.002,
+    "operation": "addition"
+  },
+  "scale": 5,
+  "condition": {
+    "type": "origins:sneaking"
+  }
+}

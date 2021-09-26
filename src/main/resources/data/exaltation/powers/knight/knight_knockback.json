@@ -1,0 +1,10 @@
+{
+  "name": "power.exaltation.knight/knight_base_attack.name",
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.attack_knockback",
+    "value": 0.04,
+    "operation": "addition"
+  },
+  "scale": 1
+}

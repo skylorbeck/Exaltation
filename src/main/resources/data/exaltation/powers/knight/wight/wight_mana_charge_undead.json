@@ -1,0 +1,52 @@
+{
+  "name": "power.exaltation.knight/wight/wight_mana.name",
+  "type": "origins:self_action_on_kill",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana",
+                "change": 1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_10",
+                "change": 1
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_25",
+                "change": 1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/wight/wight_mana_45",
+                "change": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "cooldown": 1,
+  "hud_render": {
+    "should_render": false
+  },
+  "target_condition": {
+    "type": "origins:entity_group",
+    "group": "undead"
+  }
+}

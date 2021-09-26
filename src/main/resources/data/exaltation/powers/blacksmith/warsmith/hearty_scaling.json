@@ -1,0 +1,10 @@
+{
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.max_health",
+    "value": 1,
+    "operation": "addition"
+  },
+  "scale": 5,
+  "name": "power.exaltation.hearty.name"
+}

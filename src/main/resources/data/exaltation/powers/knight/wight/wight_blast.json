@@ -1,0 +1,50 @@
+{
+  "type": "origins:fire_projectile",
+  "entity_type": "minecraft:wither_skull",
+  "cooldown": 20,
+  "hud_render": {
+    "should_render": false
+  },
+  "key": {
+    "key": "key.exaltation.secondary_active"
+  },
+  "condition": {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_10",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_25",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_45",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      }
+    ]
+  }
+}

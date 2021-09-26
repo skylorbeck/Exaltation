@@ -1,0 +1,41 @@
+{
+  "name": "origin.exaltation.draco.name",
+  "description": "origin.exaltation.draco.description",
+  "powers": [
+    "exaltation:knight/knight_knockback_resist",
+    "exaltation:knight/knight_knockback",
+
+    "exaltation:knight/draco/draco_rage_enhanced_plus",
+
+    "exaltation:knight/draco/draco_rage_charge",
+    "exaltation:knight/draco/draco_rage_drain",
+    "exaltation:knight/draco/draco_rage_buff_1",
+    "exaltation:knight/draco/draco_rage_buff_2",
+    "exaltation:knight/draco/draco_rage_buff_3",
+    "exaltation:knight/draco/draco_rage_buff_4",
+    "exaltation:knight/draco/draco_rage_buff_5",
+    "exaltation:knight/draco/draco_rage_buff_6",
+    "exaltation:knight/draco/draco_rage_buff_7",
+    "exaltation:knight/draco/draco_rage_buff_8",
+    "exaltation:knight/draco/draco_rage_buff_9",
+    "exaltation:knight/draco/draco_rage_drain_toggle",
+    "exaltation:knight/draco/draco_rage_drain_toggler_a",
+    "exaltation:knight/draco/draco_rage_drain_toggler_b",
+    "exaltation:knight/draco/draco_scales",
+    "exaltation:knight/draco/draco_armor_leveled",
+    "exaltation:knight/draco/draco_attack_leveled",
+    "exaltation:knight/draco/draco_movespeed_leveled",
+    "exaltation:knight/draco/draco_block",
+    "exaltation:knight/draco/draco_shield_ban",
+    "exaltation:knight/draco/draco_knockback",
+    "exaltation:knight/draco/draco_hearty",
+
+    "exaltation:knight/draco/draco_scales_enhanced",
+
+    "exaltation:knight/draco/draco_ultimate",
+    "exaltation:knight/draco/draco_ultimate_trigger"
+  ],
+  "icon": "minecraft:dragon_head",
+  "unchoosable": "true",
+  "impact": 3
+}

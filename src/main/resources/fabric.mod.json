@@ -1,34 +1,34 @@
 {
   "schemaVersion": 1,
-  "id": "apotheosis",
+  "id": "exaltation",
   "version": "0.1.5",
-  "name": "Apotheosis",
-  "description": "Apotheosis: Ascend to another Class",
+  "name": "Exaltation",
+  "description": "Exaltation: Ascend to another Class",
   "authors": [
     "Skylor Beck"
   ],
   "contact": {
     "homepage": "https://www.skylorbeck.website",
-    "source": "https://github.com/Skylortrexler/apotheosis",
-    "repo": "https://github.com/Skylortrexler/apotheosis",
-    "issues": "https://github.com/Skylortrexler/apotheosis/issues"
+    "source": "https://github.com/Skylortrexler/exaltation",
+    "repo": "https://github.com/Skylortrexler/exaltation",
+    "issues": "https://github.com/Skylortrexler/exaltation/issues"
   },
   "license": "LGPL-3.0",
-  "icon": "assets/apotheosis/icon.png",
+  "icon": "assets/exaltation/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "website.skylorbeck.minecraft.apotheosis.client.ApotheosisClient"
+      "website.skylorbeck.minecraft.exaltation.client.ExaltationClient"
     ],
     "main": [
-      "website.skylorbeck.minecraft.apotheosis.Apotheosis"
+      "website.skylorbeck.minecraft.exaltation.Exaltation"
     ],
     "cardinal-components-entity": [
-      "website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisComponents"
+      "website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents"
     ]
   },
   "mixins": [
-    "apotheosis.mixins.json"
+    "exaltation.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.11.6",
@@ -39,8 +39,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "apotheosis:xp",
-      "apotheosis:petkey"
+      "exaltation:xp",
+      "exaltation:petkey"
     ]
   }
 }

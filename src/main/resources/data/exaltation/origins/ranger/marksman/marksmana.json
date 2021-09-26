@@ -1,0 +1,31 @@
+{
+  "name": "origin.exaltation.marksman.name",
+  "description": "origin.exaltation.marksman.description",
+  "powers": [
+    "exaltation:branchat25",
+    "exaltation:ranger/marksman/marksman_consuming",
+    "exaltation:ranger/marksman/marksman_discount",
+
+    "exaltation:ranger/ranger_accuracy",
+    "exaltation:ranger/ranger_movespeed",
+    "exaltation:ranger/ranger_summon",
+
+    "exaltation:ranger/marksman/marksman_damage",
+    "exaltation:ranger/marksman/marksman_crouching_movespeed",
+
+    "exaltation:ranger/marksman/marksman_zoom"
+  ],
+  "icon": "minecraft:crossbow",
+  "unchoosable": "true",
+  "impact": 2,
+  "upgrades": [
+    {
+      "condition": "exaltation:ranger/marksman/marksmana_upgrade_a",
+      "origin": "exaltation:ranger/marksman/marksmanaa"
+    },
+    {
+      "condition": "exaltation:ranger/marksman/marksmana_upgrade_b",
+      "origin": "exaltation:ranger/marksman/marksmanab"
+    }
+  ]
+}

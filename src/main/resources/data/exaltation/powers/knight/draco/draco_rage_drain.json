@@ -1,0 +1,51 @@
+{
+  "name": "power.exaltation.knight/draco/draco_rage.name",
+  "type": "origins:action_over_time",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage",
+                "change": -1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_plus",
+                "change": -1
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced",
+                "change": -1
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced_plus",
+                "change": -1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "interval": 20,
+  "condition": {
+    "type": "origins:resource",
+    "resource": "exaltation:knight/draco/draco_rage_drain_toggle",
+    "comparison": "==",
+    "compare_to": 1
+  }
+}

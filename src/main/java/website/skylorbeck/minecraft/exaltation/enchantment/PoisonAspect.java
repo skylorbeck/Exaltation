@@ -1,0 +1,36 @@
+package website.skylorbeck.minecraft.exaltation.enchantment;
+
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.entity.EquipmentSlot;
+
+public class PoisonAspect extends Enchantment {
+    public PoisonAspect() {
+        super(Rarity.VERY_RARE, EnchantmentTarget.WEAPON, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+    }
+
+    @Override
+    public int getMinLevel() {
+        return 1;
+    }
+
+    @Override
+    public int getMaxLevel() {
+        return 3;
+    }
+
+    @Override
+    public boolean isTreasure() {
+        return true;
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return true;
+    }
+
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return true;
+    }
+}

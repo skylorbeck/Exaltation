@@ -1,0 +1,25 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "ABA",
+    " C ",
+    " D "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "B": {
+      "item": "minecraft:nether_star"
+    },
+    "C": {
+      "item": "exaltation:diamondaltaritem"
+    },
+    "D": {
+      "item": "minecraft:netherite_block"
+    }
+  },
+  "result": {
+    "item": "exaltation:netheritealtaritem"
+  }
+}

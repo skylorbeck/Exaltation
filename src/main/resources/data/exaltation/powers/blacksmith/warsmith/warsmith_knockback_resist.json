@@ -1,0 +1,9 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.knockback_resistance",
+    "value": 0.25,
+    "operation": "addition"
+  },
+  "name": "power.exaltation.blacksmith/warsmith/warsmith_armor.name"
+}

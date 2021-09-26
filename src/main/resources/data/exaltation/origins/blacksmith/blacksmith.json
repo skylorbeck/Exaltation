@@ -1,0 +1,26 @@
+{
+  "name": "origin.exaltation.blacksmith.name",
+  "description": "origin.exaltation.blacksmith.description",
+  "powers": [
+    "exaltation:resetlevel",
+    "exaltation:branchat50",
+    "exaltation:blacksmith/blacksmith_consuming",
+    "exaltation:blacksmith/smithing_armor_power",
+    "exaltation:blacksmith/smithing_weapon_power",
+    "exaltation:blacksmith/lucky"
+  ],
+  "icon": "minecraft:iron_ingot",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "exaltation:blacksmith/blacksmith_upgrade_a",
+      "origin": "exaltation:blacksmith/warsmith/warsmith",
+      "announcement": "Warsmith Activated"
+    },
+    {
+      "condition": "exaltation:blacksmith/blacksmith_upgrade_b",
+      "origin": "exaltation:blacksmith/arcanesmith/arcanesmith",
+      "announcement": "Magesmith Activated"
+    }
+  ]
+}

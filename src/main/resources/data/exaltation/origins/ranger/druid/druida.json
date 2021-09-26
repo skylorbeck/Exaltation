@@ -1,0 +1,34 @@
+{
+  "name": "origin.exaltation.druid.name",
+  "description": "origin.exaltation.druid.description",
+  "powers": [
+    "exaltation:branchat25",
+    "exaltation:ranger/druid/druid_consuming",
+
+    "exaltation:ranger/ranger_accuracy",
+    "exaltation:ranger/ranger_damage",
+    "exaltation:ranger/ranger_movespeed",
+
+    "exaltation:ranger/druid/druid_summon",
+    "exaltation:ranger/druid/druid_biome_forest_bonus_a",
+    "exaltation:ranger/druid/druid_biome_jungle_bonus_a",
+    "exaltation:ranger/druid/druid_biome_plains_bonus_a",
+    "exaltation:ranger/druid/druid_mark_toggle",
+    "exaltation:ranger/druid/druid_mark_consumer",
+
+    "exaltation:ranger/druid/druid_crippling_mark"
+  ],
+  "icon": "minecraft:bow",
+  "unchoosable": "true",
+  "impact": 2,
+  "upgrades": [
+    {
+      "condition": "exaltation:ranger/druid/druida_upgrade_a",
+      "origin": "exaltation:ranger/druid/druidaa"
+    },
+    {
+      "condition": "exaltation:ranger/druid/druida_upgrade_b",
+      "origin": "exaltation:ranger/druid/druidab"
+    }
+  ]
+}

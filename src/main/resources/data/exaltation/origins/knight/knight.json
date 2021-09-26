@@ -1,0 +1,31 @@
+{
+  "name": "origin.exaltation.knight.name",
+  "description": "origin.exaltation.knight.description",
+  "powers": [
+    "exaltation:resetlevel",
+    "exaltation:branchat50",
+
+    "exaltation:hearty",
+    "exaltation:blacksmith/warsmith/hearty_scaling",
+    "exaltation:knight/knight_base_attack",
+    "exaltation:knight/knight_knockback",
+    "exaltation:knight/knight_knockback_resist",
+    "exaltation:knight/knight_blocking_movespeed",
+    "exaltation:knight/knight_blocking_movespeed_leveled"
+
+  ],
+  "icon": "minecraft:shield",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "exaltation:knight/knight_upgrade_a",
+      "origin": "exaltation:knight/draco/draco",
+      "announcement": "Draco Knight Activated"
+    },
+    {
+      "condition": "exaltation:knight/knight_upgrade_b",
+      "origin": "exaltation:knight/wight/wight",
+      "announcement": "Wight Knight Activated"
+    }
+  ]
+}

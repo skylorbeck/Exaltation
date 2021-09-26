@@ -1,0 +1,15 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+    "type": "exaltation:zoom_toggle",
+    "item": "minecraft:crossbow"
+
+  },
+  "cooldown": 0,
+  "hud_render": {
+    "should_render": false
+  },
+  "key": {
+    "key": "key.exaltation.secondary_active"
+  }
+}

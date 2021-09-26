@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "exaltation:block/altartop",
+    "front": "exaltation:block/netheritealtar",
+    "bottom": "exaltation:block/netheritealtar_bottom",
+    "side": "#front"
+  }
+}

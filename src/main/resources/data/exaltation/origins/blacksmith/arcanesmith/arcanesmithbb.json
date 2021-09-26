@@ -1,0 +1,30 @@
+{
+  "name": "origin.exaltation.arcanesmith.name",
+  "description": "origin.exaltation.arcanesmith.description",
+  "powers": [
+    "exaltation:branchat45",
+    "exaltation:blacksmith/arcanesmith/arcanesmith_consuming",
+    "exaltation:blacksmith/smithing_armor_power",
+    "exaltation:blacksmith/smithing_weapon_power",
+
+    "exaltation:blacksmith/arcanesmith/lucky",
+    "exaltation:blacksmith/arcanesmith/arcanesmith_always_enchant",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_boot_buff",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_cheap_enchanting"
+  ],
+  "icon": "minecraft:potion",
+  "unchoosable": "true",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "exaltation:blacksmith/arcanesmith/arcanesmithbb_upgrade_a",
+      "origin": "exaltation:blacksmith/arcanesmith/arcanesmithbba"
+    },
+    {
+      "condition": "exaltation:blacksmith/arcanesmith/arcanesmithbb_upgrade_b",
+      "origin": "exaltation:blacksmith/arcanesmith/arcanesmithbbb"
+    }
+  ]
+}

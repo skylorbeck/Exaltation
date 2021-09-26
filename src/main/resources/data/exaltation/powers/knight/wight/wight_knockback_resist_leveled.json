@@ -1,0 +1,10 @@
+{
+  "name": "power.exaltation.wight/wight_health_leveled.name",
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.knockback_resistance",
+    "value": 0.0025,
+    "operation": "addition"
+  },
+  "scale": 1
+}

@@ -1,0 +1,7 @@
+{
+  "type": "origins:action_over_time",
+  "entity_action": {
+    "type": "exaltation:mending"
+  },
+  "interval": 100
+}

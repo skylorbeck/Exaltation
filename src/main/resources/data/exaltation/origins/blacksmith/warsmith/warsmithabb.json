@@ -1,0 +1,25 @@
+{
+  "name": "origin.exaltation.warsmith.name",
+  "description": "origin.exaltation.warsmith.description",
+  "powers": [
+    "exaltation:blacksmith/blacksmith_consuming",
+    "exaltation:blacksmith/smithing_armor_power",
+    "exaltation:blacksmith/smithing_weapon_power",
+    "exaltation:blacksmith/lucky",
+
+    "exaltation:blacksmith/warsmith/hearty_scaling",
+    "exaltation:blacksmith/warsmith/warsmith_damage",
+    "exaltation:blacksmith/warsmith/warsmith_damage_reduction",
+
+    "exaltation:blacksmith/warsmith/warsmith_damage_durability",
+
+    "exaltation:blacksmith/warsmith/warsmith_shield_buff",
+
+    "exaltation:blacksmith/warsmith/warsmith_sword_buff",
+
+    "exaltation:blacksmith/warsmith/warsmith_ultimate"
+  ],
+  "icon": "minecraft:iron_sword",
+  "unchoosable": "true",
+  "impact": 1
+}

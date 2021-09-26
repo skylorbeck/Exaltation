@@ -1,0 +1,32 @@
+{
+  "name": "origin.exaltation.warsmith.name",
+  "description": "origin.exaltation.warsmith.description",
+  "powers": [
+    "exaltation:branchat45",
+    "exaltation:blacksmith/blacksmith_consuming",
+    "exaltation:blacksmith/smithing_armor_power",
+    "exaltation:blacksmith/smithing_weapon_power",
+    "exaltation:blacksmith/lucky",
+
+    "exaltation:blacksmith/warsmith/hearty_scaling",
+    "exaltation:blacksmith/warsmith/warsmith_damage",
+    "exaltation:blacksmith/warsmith/warsmith_damage_reduction",
+
+    "exaltation:blacksmith/warsmith/warsmith_damage_durability",
+
+    "exaltation:blacksmith/warsmith/warsmith_shield_buff"
+  ],
+  "icon": "minecraft:iron_sword",
+  "unchoosable": "true",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "exaltation:blacksmith/warsmith/warsmithab_upgrade_a",
+      "origin": "exaltation:blacksmith/warsmith/warsmithaba"
+    },
+    {
+      "condition": "exaltation:blacksmith/warsmith/warsmithab_upgrade_b",
+      "origin": "exaltation:blacksmith/warsmith/warsmithabb"
+    }
+  ]
+}

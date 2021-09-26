@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "A A",
+    " B ",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:smooth_stone"
+    },
+    "B": {
+      "item": "minecraft:campfire"
+    }
+  },
+  "result": {
+    "item": "exaltation:stonealtaritem"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "power.exaltation.knight/draco/draco_rage.name",
+  "type": "origins:conditioned_attribute",
+  "modifiers":[ {
+    "attribute": "minecraft:generic.attack_speed",
+    "value": 0.2,
+    "operation": "addition"
+  },{
+    "attribute": "minecraft:generic.armor",
+    "value": 2,
+    "operation": "addition"
+  },{
+    "attribute": "minecraft:generic.attack_damage",
+    "value": 1,
+    "operation": "addition"
+  }
+    ],
+  "tick_rate": 20,
+  "condition": {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage",
+                "comparison": ">=",
+                "compare_to": 16
+              },
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_plus",
+                "comparison": ">=",
+                "compare_to": 16
+              }
+            ]
+          },
+          {
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced",
+                "comparison": ">=",
+                "compare_to": 16
+              },
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced_plus",
+                "comparison": ">=",
+                "compare_to": 16
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "origins:resource",
+        "resource": "exaltation:knight/draco/draco_rage_drain_toggle",
+        "comparison": "==",
+        "compare_to": 1
+      }
+    ]
+  }
+}

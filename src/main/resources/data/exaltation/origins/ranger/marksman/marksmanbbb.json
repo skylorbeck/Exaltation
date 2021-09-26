@@ -1,0 +1,22 @@
+{
+  "name": "origin.exaltation.marksman.name",
+  "description": "origin.exaltation.marksman.description",
+  "powers": [
+    "exaltation:ranger/marksman/marksman_consuming",
+    "exaltation:ranger/marksman/marksman_discount",
+
+    "exaltation:ranger/ranger_accuracy",
+    "exaltation:ranger/ranger_movespeed",
+    "exaltation:ranger/ranger_summon",
+
+    "exaltation:ranger/marksman/marksman_damage",
+    "exaltation:ranger/marksman/marksman_crouching_movespeed",
+
+    "exaltation:ranger/marksman/marksman_quiver_combo_upgraded",
+
+    "exaltation:ranger/marksman/marksman_ultimate"
+  ],
+  "icon": "minecraft:crossbow",
+  "unchoosable": "true",
+  "impact": 2
+}

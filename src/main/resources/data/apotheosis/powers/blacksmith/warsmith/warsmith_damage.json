@@ -1,9 +1,0 @@
-{
-  "type": "apotheosis:leveled_attribute",
-  "modifier": {
-    "attribute": "minecraft:generic.attack_damage",
-    "value": 0.05,
-    "operation": "addition"
-  },
-  "scale": 1
-}

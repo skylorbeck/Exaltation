@@ -1,0 +1,29 @@
+{
+  "name": "origin.exaltation.wight.name",
+  "description": "origin.exaltation.wight.description",
+  "powers": [
+
+    "exaltation:knight/wight/wight_mana_45",
+    "exaltation:knight/wight/wight_mana_charge_undead",
+    "exaltation:knight/wight/wight_mana_charge_player",
+    "exaltation:knight/wight/wight_mana_charge_else",
+    "exaltation:knight/wight/wight_shake",
+    "exaltation:knight/wight/wight_color",
+    "exaltation:knight/wight/wight_particle",
+    "exaltation:knight/wight/wight_type",
+    "exaltation:knight/wight/wight_knockback_resist_leveled",
+
+    "exaltation:knight/wight/wight_blast",
+    "exaltation:knight/wight/wight_blast_drain",
+
+    "exaltation:knight/wight/wight_bone",
+
+    "exaltation:knight/wight/wight_summon_3_b",
+    "exaltation:knight/wight/wight_summon_3_b_placeholder",
+    "exaltation:knight/wight/wight_pet_charge",
+    "exaltation:knight/wight/wight_pet_totem"
+  ],
+  "icon": "minecraft:wither_skeleton_skull",
+  "unchoosable": "true",
+  "impact": 2
+}

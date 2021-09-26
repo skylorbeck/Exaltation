@@ -1,0 +1,10 @@
+{
+  "name": "power.exaltation.knight/draco/draco_armor_leveled.name",
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.movement_speed",
+    "value": 0.001,
+    "operation": "addition"
+  },
+  "scale": 5
+}

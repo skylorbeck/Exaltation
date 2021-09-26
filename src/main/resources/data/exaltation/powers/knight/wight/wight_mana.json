@@ -1,0 +1,10 @@
+{
+  "type": "origins:resource",
+  "min": 0,
+  "max": 32,
+  "hud_render": {
+    "should_render": true,
+    "sprite_location": "exaltation:textures/gui/wight_bar.png",
+    "bar_index": 0
+  }
+}

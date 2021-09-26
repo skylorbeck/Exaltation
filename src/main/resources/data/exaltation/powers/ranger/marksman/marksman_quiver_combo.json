@@ -1,0 +1,47 @@
+{
+  "type": "exaltation:marksman_quiver_manager",
+  "quivers": [
+    {
+      "effects": [
+        {
+          "effect": "minecraft:poison",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:weakness",
+          "duration": 300,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:slowness",
+          "duration": 300,
+          "amplifier": 0
+        }
+      ]
+    },
+    {
+      "doDamage": false,
+      "effects": [
+        {
+          "effect": "minecraft:speed",
+          "duration": 400,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:instant_health",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:regeneration",
+          "duration": 100,
+          "amplifier": 0
+        },{
+          "effect": "minecraft:haste",
+          "duration": 400,
+          "amplifier": 0
+        }
+      ]
+    }
+  ],
+  "key": {
+    "key": "key.exaltation.secondary_active"
+  }
+}

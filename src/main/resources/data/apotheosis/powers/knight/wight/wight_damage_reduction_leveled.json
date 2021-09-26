@@ -1,9 +1,0 @@
-{
-  "type": "apotheosis:leveled_attribute",
-  "modifier": {
-    "attribute": "minecraft:generic.armor",
-    "value": 1,
-    "operation": "addition"
-  },
-  "scale": 10
-}

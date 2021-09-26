@@ -1,0 +1,108 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "exaltation:charge"
+          },
+          {
+            "type": "origins:trigger_cooldown",
+            "power": "exaltation:knight/draco/draco_slam"
+          }
+        ]
+      },
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage",
+                "change": -8
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_plus",
+                "change": -8
+              }
+            ]
+          },
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced",
+                "change": -8
+              },
+              {
+                "type": "origins:change_resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced_plus",
+                "change": -8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "key": "key.exaltation.secondary_active",
+  "cooldown": 10,
+  "hud_render": {
+    "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+    "bar_index": 1
+  },
+  "condition": {
+    "type": "origins:and",
+    "conditions": [
+      {
+        "type": "origins:on_block"
+      },
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage",
+                "comparison": ">=",
+                "compare_to": 8
+              },
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_plus",
+                "comparison": ">=",
+                "compare_to": 8
+              }
+            ]
+          },
+          {
+            "type": "origins:or",
+            "conditions": [
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced",
+                "comparison": ">=",
+                "compare_to": 8
+              },
+              {
+                "type": "origins:resource",
+                "resource": "exaltation:knight/draco/draco_rage_enhanced_plus",
+                "comparison": ">=",
+                "compare_to": 8
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

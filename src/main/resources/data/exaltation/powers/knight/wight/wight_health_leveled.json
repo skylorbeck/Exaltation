@@ -1,0 +1,9 @@
+{
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.max_health",
+    "value": 2,
+    "operation": "addition"
+  },
+  "scale": 10
+}

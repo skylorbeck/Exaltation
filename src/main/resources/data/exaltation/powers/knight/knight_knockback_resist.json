@@ -1,0 +1,9 @@
+{
+  "name": "power.exaltation.knight/knight_base_attack.name",
+  "type": "origins:attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.knockback_resistance",
+    "value": 0.1,
+    "operation": "addition"
+  }
+}

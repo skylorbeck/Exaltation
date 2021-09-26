@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "website.skylorbeck.minecraft.exaltation.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AbstractClientPlayerEntityMixin",
+    "AnvilScreenHandlerAccessor",
+    "AnvilScreenHandlerMixin",
+    "ArrowEntityMixin",
+    "AttributeUtilMixin",
+    "BowItemMixin",
+    "CraftingScreenHandlerMixin",
+    "CrossbowItemMixin",
+    "EnchantmentLevelEntryAccessor",
+    "EnchantmentScreenHandlerAccessor",
+    "EnchantmentScreenHandlerMixin",
+    "EntityAttributeModifierMixin",
+    "IronGolemEntityMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "MobEntityAccessor",
+    "PlayerEntityMixin",
+    "ServerPlayerEntityMixin"
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

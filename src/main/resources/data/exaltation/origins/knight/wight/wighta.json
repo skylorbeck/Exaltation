@@ -1,0 +1,34 @@
+{
+  "name": "origin.exaltation.wight.name",
+  "description": "origin.exaltation.wight.description",
+  "powers": [
+    "exaltation:branchat25",
+
+    "exaltation:knight/wight/wight_mana_10",
+    "exaltation:knight/wight/wight_mana_charge_undead",
+    "exaltation:knight/wight/wight_mana_charge_player",
+    "exaltation:knight/wight/wight_mana_charge_else",
+    "exaltation:knight/wight/wight_summon",
+    "exaltation:knight/wight/wight_shake",
+    "exaltation:knight/wight/wight_color",
+    "exaltation:knight/wight/wight_particle",
+    "exaltation:knight/wight/wight_type",
+    "exaltation:knight/wight/wight_knockback_resist_leveled",
+
+    "exaltation:knight/wight/wight_blast",
+    "exaltation:knight/wight/wight_blast_drain"
+  ],
+  "icon": "minecraft:wither_skeleton_skull",
+  "unchoosable": "true",
+  "impact": 2,
+  "upgrades": [
+    {
+      "condition": "exaltation:knight/wight/wighta_upgrade_a",
+      "origin": "exaltation:knight/wight/wightaa"
+    },
+    {
+      "condition": "exaltation:knight/wight/wighta_upgrade_b",
+      "origin": "exaltation:knight/wight/wightab"
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "top": "apotheosis:block/altartop",
-    "front": "apotheosis:block/stonealtar",
-    "bottom": "apotheosis:block/stonealtar_bottom",
-    "side": "#front"
-  }
-}

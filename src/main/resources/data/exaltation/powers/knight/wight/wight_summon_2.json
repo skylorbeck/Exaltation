@@ -1,0 +1,101 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+    "type": "origins:and",
+    "actions": [
+      {
+        "type": "origins:and",
+        "actions": [
+          {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:and",
+                "actions": [
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "exaltation:knight/wight/wight_mana",
+                    "change": -16
+                  },
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "exaltation:knight/wight/wight_mana_10",
+                    "change": -16
+                  }
+                ]
+              },
+              {
+                "type": "origins:and",
+                "actions": [
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "exaltation:knight/wight/wight_mana_25",
+                    "change": -16
+                  },
+                  {
+                    "type": "origins:change_resource",
+                    "resource": "exaltation:knight/wight/wight_mana_45",
+                    "change": -16
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "exaltation:summon_pet",
+        "entity_type": "minecraft:husk",
+        "amount": 1,
+        "base_health": 40,
+        "base_damage": 12,
+        "time": 400
+      }
+    ]
+  },
+  "key": "key.exaltation.secondary_active",
+  "cooldown": 100,
+  "hud_render": {
+    "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+    "bar_index": 1
+  },
+  "condition": {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_10",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_25",
+            "comparison": ">=",
+            "compare_to": 16
+          },
+          {
+            "type": "origins:resource",
+            "resource": "exaltation:knight/wight/wight_mana_45",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      }
+    ]
+  }
+}

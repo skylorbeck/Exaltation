@@ -1,0 +1,30 @@
+{
+  "name": "origin.exaltation.druid.name",
+  "description": "origin.exaltation.druid.description",
+  "powers": [
+    "exaltation:ranger/druid/druid_consuming",
+
+    "exaltation:ranger/ranger_accuracy",
+    "exaltation:ranger/ranger_damage",
+    "exaltation:ranger/ranger_movespeed",
+
+    "exaltation:ranger/druid/druid_summon",
+    "exaltation:ranger/druid/druid_biome_forest_bonus_a",
+    "exaltation:ranger/druid/druid_biome_jungle_bonus_a",
+    "exaltation:ranger/druid/druid_biome_plains_bonus_a",
+    "exaltation:ranger/druid/druid_mark_toggle",
+    "exaltation:ranger/druid/druid_mark",
+    "exaltation:ranger/druid/druid_mark_consumer",
+
+    "exaltation:ranger/druid/druid_dire_wolf",
+
+    "exaltation:ranger/druid/druid_night_vision",
+    "exaltation:ranger/druid/druid_blinding_mark",
+
+    "exaltation:ranger/druid/druid_wolf_bond",
+    "exaltation:ranger/druid/druid_ultimate"
+  ],
+  "icon": "minecraft:bow",
+  "unchoosable": "true",
+  "impact": 2
+}

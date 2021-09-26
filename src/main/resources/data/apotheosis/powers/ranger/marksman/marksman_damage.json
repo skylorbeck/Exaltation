@@ -1,7 +1,0 @@
-{
-  "name": "power.apotheosis.ranger/ranger_damage.name",
-  "type": "apotheosis:ranger_damage_increase",
-  "damage": 2,
-  "damage_scaled": 0.2,
-  "scale": 1
-}

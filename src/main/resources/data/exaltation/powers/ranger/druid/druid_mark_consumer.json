@@ -1,0 +1,17 @@
+{
+  "type": "origins:self_action_on_hit",
+  "entity_action": {
+    "type": "origins:delay",
+    "ticks": 20,
+    "action": {
+      "type": "exaltation:toggle_power",
+      "power": "exaltation:ranger/druid/druid_mark_toggle"
+    }
+  },
+  "condition": {
+    "type": "origins:power_active",
+    "power": "exaltation:ranger/druid/druid_mark_toggle"
+  },
+  "cooldown": 0,
+  "hidden": true
+}

@@ -1,0 +1,23 @@
+{
+  "name": "origin.exaltation.arcanesmith.name",
+  "description": "origin.exaltation.arcanesmith.description",
+  "powers": [
+    "exaltation:blacksmith/arcanesmith/arcanesmith_consuming",
+    "exaltation:blacksmith/smithing_armor_power",
+    "exaltation:blacksmith/smithing_weapon_power",
+
+    "exaltation:blacksmith/arcanesmith/lucky",
+    "exaltation:blacksmith/arcanesmith/arcanesmith_always_enchant",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_chest_buff",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_sword_buff",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_free_lapis",
+
+    "exaltation:blacksmith/arcanesmith/arcanesmith_ultimate"
+  ],
+  "icon": "minecraft:potion",
+  "unchoosable": "true",
+  "impact": 1
+}

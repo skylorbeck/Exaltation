@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "A A",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:gold_block"
+    },
+    "B": {
+      "item": "exaltation:ironaltaritem"
+    }
+  },
+  "result": {
+    "item": "exaltation:goldaltaritem"
+  }
+}

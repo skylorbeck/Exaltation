@@ -1,0 +1,25 @@
+{
+  "type": "exaltation:marksman_quiver_manager",
+  "quivers": [
+    {
+      "effects": [
+        {
+          "effect": "minecraft:poison",
+          "duration": 200,
+          "amplifier": 1
+        },{
+          "effect": "minecraft:weakness",
+          "duration": 600,
+          "amplifier": 1
+        },{
+          "effect": "minecraft:slowness",
+          "duration": 600,
+          "amplifier": 1
+        }
+      ]
+    }
+  ],
+  "key": {
+    "key": "key.exaltation.secondary_active"
+  }
+}

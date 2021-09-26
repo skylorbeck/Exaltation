@@ -1,0 +1,28 @@
+{
+  "name": "origin.exaltation.ranger.name",
+  "description": "origin.exaltation.ranger.description",
+  "powers": [
+    "exaltation:resetlevel",
+    "exaltation:branchat50",
+    "exaltation:ranger/ranger_consuming",
+
+    "exaltation:ranger/ranger_accuracy",
+    "exaltation:ranger/ranger_damage",
+    "exaltation:ranger/ranger_movespeed",
+    "exaltation:ranger/ranger_summon"
+  ],
+  "icon": "minecraft:arrow",
+  "impact": 1,
+  "upgrades": [
+    {
+      "condition": "exaltation:ranger/ranger_upgrade_a",
+      "origin": "exaltation:ranger/druid/druid",
+      "announcement": "Druid Activated"
+    },
+    {
+      "condition": "exaltation:ranger/ranger_upgrade_b",
+      "origin": "exaltation:ranger/marksman/marksman",
+      "announcement": "Marksman Activated"
+    }
+  ]
+}

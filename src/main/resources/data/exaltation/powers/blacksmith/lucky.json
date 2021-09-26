@@ -1,0 +1,9 @@
+{
+  "type": "exaltation:leveled_attribute",
+  "modifier": {
+    "attribute": "minecraft:generic.luck",
+    "value": 0.02,
+    "operation": "addition"
+  },
+  "scale": 1
+}

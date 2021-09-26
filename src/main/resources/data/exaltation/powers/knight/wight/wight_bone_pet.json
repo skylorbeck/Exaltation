@@ -1,0 +1,14 @@
+{
+  "type": "origins:self_action_on_kill",
+  "entity_action": {
+    "type": "exaltation:gift_owner",
+    "stack": {
+      "item": "exaltation:bonefragmentitem",
+      "amount": 2
+    }
+  },
+  "cooldown": 0,
+  "hud_render": {
+    "should_render": false
+  }
+}
