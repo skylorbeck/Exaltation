@@ -43,7 +43,7 @@ public class CommandCenter {
                                                     ServerPlayerEntity target = EntityArgumentType.getPlayer(command, "target");
                                                     Origin origin = OriginArgumentType.getOrigin(command,"class");
                                                             setOrigin(target,origin);
-                                                    command.getSource().sendFeedback(new TranslatableText("Set "+ target.getDisplayName().getString()+" to "+origin.getName().getString()), true);
+                                                    command.getSource().sendFeedback(new TranslatableText("Set "+ target.getDisplayName().getString()+" to ").append(origin.getName()), true);
                                                     return 0;
                                                 }))))
         );
