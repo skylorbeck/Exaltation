@@ -5,25 +5,26 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AbstractClientPlayerEntityMixin",
-    "AnvilScreenHandlerAccessor",
-    "AnvilScreenHandlerMixin",
     "ArrowEntityMixin",
     "AttributeUtilMixin",
     "BowItemMixin",
-    "CraftingScreenHandlerMixin",
     "CrossbowItemMixin",
     "EnchantmentLevelEntryAccessor",
-    "EnchantmentScreenHandlerAccessor",
-    "EnchantmentScreenHandlerMixin",
     "EntityAttributeModifierMixin",
     "IronGolemEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobEntityAccessor",
     "PlayerEntityMixin",
-    "ServerPlayerEntityMixin"
+    "ServerPlayerEntityMixin",
+    "EnchantmentScreenHandlerMixin",
+    "EnchantmentScreenHandlerAccessor",
+    "AnvilScreenHandlerAccessor",
+    "AnvilScreenHandlerMixin",
+    "CraftingScreenHandlerMixin"
   ],
   "client": [
+
   ],
   "injectors": {
     "defaultRequire": 1

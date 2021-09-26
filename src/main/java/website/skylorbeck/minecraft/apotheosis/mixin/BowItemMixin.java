@@ -22,8 +22,8 @@ import static website.skylorbeck.minecraft.apotheosis.cardinal.ApotheosisCompone
 @Mixin(BowItem.class)
 public class BowItemMixin {
     @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"),method = "onStoppedUsing")
-    private boolean addDamage(World world, Entity entity){
-        LivingEntity user = MinecraftClient.getInstance().player;
+    private boolean addDamage(World world, Entity entity,ItemStack stack, World worldx, LivingEntity user, int remainingUseTicks){
+//        LivingEntity user = MinecraftClient.getInstance().player;
         PersistentProjectileEntity persistentProjectileEntity = (PersistentProjectileEntity) entity;
         if( PowerHolderComponent.hasPower(user, RangerDamagePower.class)){
             RangerDamagePower power =PowerHolderComponent.getPowers(user, RangerDamagePower.class).get(0);
@@ -40,8 +40,8 @@ public class BowItemMixin {
 
 
     @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 1.0f,ordinal = 0))
-    private float modifyAccuracy(float accuracy){
-        LivingEntity user = MinecraftClient.getInstance().player;
+    private float modifyAccuracy(float accuracy,ItemStack stack, World world, LivingEntity user, int remainingUseTicks){
+//        LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
             accuracy= 1.0f-(Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())*0.02f);
@@ -49,8 +49,8 @@ public class BowItemMixin {
         return accuracy;
     }
     @ModifyConstant(method = "onStoppedUsing",constant = @Constant(floatValue = 3.0f,ordinal = 0))
-    private float modifySpeed(float speed){
-        LivingEntity user = MinecraftClient.getInstance().player;
+    private float modifySpeed(float speed,ItemStack stack, World world, LivingEntity user, int remainingUseTicks){
+//        LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
             speed= 3.0f+(Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())*0.03f);
