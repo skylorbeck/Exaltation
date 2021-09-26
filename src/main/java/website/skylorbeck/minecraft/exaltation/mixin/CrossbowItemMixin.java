@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import website.skylorbeck.minecraft.exaltation.powers.*;
 
 import static net.minecraft.item.CrossbowItem.hasProjectile;
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 @Mixin(CrossbowItem.class)
 public abstract class CrossbowItemMixin {
@@ -30,11 +30,11 @@ public abstract class CrossbowItemMixin {
     private static void injectedShootAll(World world, LivingEntity shooter, Hand hand, ItemStack crossbow, ItemStack projectile, float soundPitch, boolean creative, float speed, float divergence, float simulated) {
         if (PowerHolderComponent.hasPower(shooter, RangerRangedItemAccuracyPower.class)) {
             RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(shooter, RangerRangedItemAccuracyPower.class).get(0);
-            divergence = 1.0f - (Math.floorDiv(APOXP.get(shooter).getLevel(), power.getScale()) * 0.02f);
+            divergence = 1.0f - (Math.floorDiv(EXALXP.get(shooter).getLevel(), power.getScale()) * 0.02f);
         }
         if (PowerHolderComponent.hasPower(shooter, RangerRangedItemAccuracyPower.class)) {
             RangerRangedItemAccuracyPower power = PowerHolderComponent.getPowers(shooter, RangerRangedItemAccuracyPower.class).get(0);
-            speed = (hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F) + (Math.floorDiv(APOXP.get(shooter).getLevel(), power.getScale()) * ((hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F)/100f));
+            speed = (hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F) + (Math.floorDiv(EXALXP.get(shooter).getLevel(), power.getScale()) * ((hasProjectile(crossbow, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F)/100f));
         }
         shoot(world, shooter, hand, crossbow, projectile, soundPitch, creative, speed, divergence, simulated);
     }
@@ -44,7 +44,7 @@ public abstract class CrossbowItemMixin {
         if (PowerHolderComponent.hasPower(entity, RangerDamagePower.class)) {
             RangerDamagePower power = PowerHolderComponent.getPowers(entity, RangerDamagePower.class).get(0);
             PersistentProjectileEntity persistentProjectileEntity = cir.getReturnValue();
-            persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + power.getDamage() + (power.getDamageScaled() * Math.floorDiv(APOXP.get(entity).getLevel(), power.getScale())));
+            persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage() + power.getDamage() + (power.getDamageScaled() * Math.floorDiv(EXALXP.get(entity).getLevel(), power.getScale())));
             if (PowerHolderComponent.hasPower(entity, MarksmanArrowCyclingPower.class)) {
                 MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(entity).getPowers(MarksmanArrowCyclingPower.class).get(0);
                 if (marksmanArrowCyclingPower.isActive() && !marksmanArrowCyclingPower.doDamage()){

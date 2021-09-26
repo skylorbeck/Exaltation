@@ -11,7 +11,7 @@ import website.skylorbeck.minecraft.exaltation.mixin.EntityAttributeModifierMixi
 import java.util.LinkedList;
 import java.util.List;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 public class LeveledAttributePower extends Power {
 
@@ -109,7 +109,7 @@ public class LeveledAttributePower extends Power {
                     if(!instance.hasModifier(mod.getModifier())) {
                         EntityAttributeModifier modifier = mod.getModifier();
                         if (entity.isPlayer()) {
-                            ((EntityAttributeModifierMixin) modifier).setValue(originalValue * Math.floorDiv(APOXP.get(entity).getLevel(),scale));
+                            ((EntityAttributeModifierMixin) modifier).setValue(originalValue * Math.floorDiv(EXALXP.get(entity).getLevel(),scale));
                         }
                         instance.addTemporaryModifier(modifier);
                         super.onAdded();

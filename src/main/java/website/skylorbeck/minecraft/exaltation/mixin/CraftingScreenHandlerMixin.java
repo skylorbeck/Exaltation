@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 import website.skylorbeck.minecraft.exaltation.powers.*;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 @Mixin(CraftingScreenHandler.class)
 public class CraftingScreenHandlerMixin {
@@ -108,10 +108,10 @@ public class CraftingScreenHandlerMixin {
     private static int smithArmorScale(PlayerEntity playerEntity) {
         int scale = (PowerHolderComponent.getPowers(playerEntity, SmithingArmorPower.class).get(0)).getScale();
         if (scale != 0) {
-            if (APOXP.get(playerEntity).getAscended()) {
+            if (EXALXP.get(playerEntity).getAscended()) {
                 return Math.floorDiv(50, scale);
             }
-            return Math.floorDiv(APOXP.get(playerEntity).getLevel(), scale);
+            return Math.floorDiv(EXALXP.get(playerEntity).getLevel(), scale);
         } else
             return 0;
     }
@@ -119,10 +119,10 @@ public class CraftingScreenHandlerMixin {
     private static int smithWeaponScale(PlayerEntity playerEntity) {
         int scale = (PowerHolderComponent.getPowers(playerEntity, SmithingWeaponPower.class).get(0)).getScale();
         if (scale != 0) {
-            if (APOXP.get(playerEntity).getAscended()) {
+            if (EXALXP.get(playerEntity).getAscended()) {
                 return Math.floorDiv(50, scale);
             }
-            return Math.floorDiv(APOXP.get(playerEntity).getLevel(), scale);
+            return Math.floorDiv(EXALXP.get(playerEntity).getLevel(), scale);
         } else
             return 0;
     }

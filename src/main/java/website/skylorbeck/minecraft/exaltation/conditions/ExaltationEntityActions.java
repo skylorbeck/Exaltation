@@ -41,17 +41,17 @@ import website.skylorbeck.minecraft.exaltation.AIGoals.ExaltationTrackOwnerAttac
 import website.skylorbeck.minecraft.exaltation.Declarar;
 import website.skylorbeck.minecraft.exaltation.PlayerEntityInterface;
 import website.skylorbeck.minecraft.exaltation.cardinal.PetComponent;
-import website.skylorbeck.minecraft.exaltation.data.ApoDataTypes;
+import website.skylorbeck.minecraft.exaltation.data.ExaltationDataTypes;
 import website.skylorbeck.minecraft.exaltation.mixin.MobEntityAccessor;
 import website.skylorbeck.minecraft.exaltation.powers.*;
 
 import java.util.List;
 import java.util.UUID;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.PETKEY;
 
-public class ApoEntityActions {
+public class ExaltationEntityActions {
     public static void register() {
         register(new ActionFactory<>(Declarar.getIdentifier("mending"), new SerializableData(),
                 (data, entity) -> {
@@ -99,8 +99,8 @@ public class ApoEntityActions {
                 ,
                 (data, entity) -> {
                     boolean toggle = false;
-                    if (APOXP.get(entity).getPetUUID() != null) {
-                        UUID[] pets = APOXP.get(entity).getPetUUID();
+                    if (EXALXP.get(entity).getPetUUID() != null) {
+                        UUID[] pets = EXALXP.get(entity).getPetUUID();
                         TargetPredicate predicate = TargetPredicate.DEFAULT;
                         predicate.setPredicate((pet -> {
                             if (pet.getType().equals(data.get("entity_type"))) {
@@ -124,15 +124,15 @@ public class ApoEntityActions {
                             } catch (Exception ignored) {
                             }
                         }
-                        APOXP.get(entity).setPetUUID(null);
-                        APOXP.sync(entity);
+                        EXALXP.get(entity).setPetUUID(null);
+                        EXALXP.sync(entity);
                     }
                     if (!toggle) {
                         UUID[] UUIDArray = new UUID[data.getInt("amount")];
                         for (int i = 0; i < data.getInt("amount"); i++) {
                             MobEntity pet = (MobEntity) ((EntityType<?>) data.get("entity_type")).create(entity.world);
                             assert pet != null;
-                            pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + APOXP.get(entity).getLevel()));
+                            pet.setCustomName(Text.of(entity.getName().getString() + "'s Pet  Lv:" + EXALXP.get(entity).getLevel()));
                             BlockHitResult hitResult = (BlockHitResult) entity.raycast(1, 1f, true);
                             BlockPos blockPos = new BlockPos(hitResult.getPos());
                             switch (hitResult.getSide()) {
@@ -151,7 +151,7 @@ public class ApoEntityActions {
                             boolean hell_a = (PowerHolderComponent.hasPower(entity, WightHellAPower.class));
                             boolean hell_b = (PowerHolderComponent.hasPower(entity, WightHellBPower.class));
                             boolean petCharge = (PowerHolderComponent.hasPower(entity, WightPetChargePower.class));
-                            petCharge &= APOXP.get(entity).getLevel() >= 50;
+                            petCharge &= EXALXP.get(entity).getLevel() >= 50;
                             GoalSelector targetSelector = ((MobEntityAccessor) pet).getTargetSelector();
                             targetSelector.clear();
                             targetSelector.add(1, new ExaltationTrackOwnerAttackerGoal((LivingEntity) entity, pet));
@@ -163,7 +163,7 @@ public class ApoEntityActions {
                             petComponent.setOwnerUUID(entity.getUuid());
                             petComponent.setHealOwner(blight);
                             petComponent.setTimeLeft(data.getInt("time") + (dire ? 100 : 0) + (pack ? 100 : 0) + (bond ? 100 : 0) + (blight ? 100 : 0));
-                            if (APOXP.get(entity).getLevel() >= 50) {
+                            if (EXALXP.get(entity).getLevel() >= 50) {
                                 petComponent.setTimeLeft(3600);
                             }
                             PETKEY.sync(pet);
@@ -200,15 +200,15 @@ public class ApoEntityActions {
                             }
                             pet.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(data.getDouble("base_health") + (dire ? 5D : 0D) + (pack ? 5D : 0D) + (bond ? 10D : 0D) + (blight ? 12D : 0D));
                             pet.setHealth((float) data.getDouble("base_health"));
-                            pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (blight ? 4D : 0D) + (Math.floorDiv(APOXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
+                            pet.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(data.getDouble("base_damage") + (dire ? 2D : 0D) + (pack ? 2D : 0D) + (blight ? 4D : 0D) + (Math.floorDiv(EXALXP.get(entity).getLevel(), data.getInt("scale")) * data.getDouble("scaled_damage")));
                             if (!entity.world.isClient) {
                                 entity.world.spawnEntity(pet);
                                 ((PlayerEntity) entity).sendMessage(Text.of("Pet Summoned"), true);
                                 entity.world.playSound(null, pet.getBlockPos(), SoundEvents.BLOCK_NOTE_BLOCK_BELL, SoundCategory.PLAYERS, 1.0F, entity.world.random.nextFloat() * 0.1F + 0.9F);
                             }
                         }
-                        APOXP.get(entity).setPetUUID(UUIDArray);
-                        APOXP.sync(entity);
+                        EXALXP.get(entity).setPetUUID(UUIDArray);
+                        EXALXP.sync(entity);
                     }
                 }));
 
@@ -249,7 +249,7 @@ public class ApoEntityActions {
 
         register(new ActionFactory<>(Declarar.getIdentifier("arrow_spawn"), new SerializableData()
                 .add("potion", SerializableDataTypes.STRING, null)
-                .add("potions", ApoDataTypes.STRINGS, null)
+                .add("potions", ExaltationDataTypes.STRINGS, null)
                 .add("min", SerializableDataTypes.INT, 1)
                 .add("max", SerializableDataTypes.INT, 5)
                 ,

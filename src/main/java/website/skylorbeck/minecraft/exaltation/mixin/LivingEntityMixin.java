@@ -28,7 +28,7 @@ import website.skylorbeck.minecraft.exaltation.powers.TotemPetPower;
 
 import java.util.UUID;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.PETKEY;
 
 @Mixin(LivingEntity.class)
@@ -99,9 +99,9 @@ public abstract class LivingEntityMixin {
 
         } else {
             LivingEntity entity = ((LivingEntity) (Object) this);
-            if (entity.isPlayer() && APOXP.get(entity).getPetUUID() != null) {
+            if (entity.isPlayer() && EXALXP.get(entity).getPetUUID() != null) {
 
-                XPComponent xpComponent = APOXP.get(entity);
+                XPComponent xpComponent = EXALXP.get(entity);
                 UUID[] pets = xpComponent.getPetUUID();
                 if (pets.length > 0 && xpComponent.getLevel()>=50 && PowerHolderComponent.hasPower(entity, TotemPetPower.class)) {
                     TargetPredicate predicate = TargetPredicate.DEFAULT;
@@ -120,7 +120,7 @@ public abstract class LivingEntityMixin {
                         }
                     } catch (Exception ignored) {
                     }
-                    xpComponent.setPetUUID(ArrayUtils.remove(APOXP.get(entity).getPetUUID(), 0));
+                    xpComponent.setPetUUID(ArrayUtils.remove(EXALXP.get(entity).getPetUUID(), 0));
 
                     entity.setHealth(1.0F);
                     entity.clearStatusEffects();
@@ -128,7 +128,7 @@ public abstract class LivingEntityMixin {
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
                     entity.world.sendEntityStatus(entity, (byte) 35);
-                    APOXP.sync(entity);
+                    EXALXP.sync(entity);
                     cir.cancel();
                 }
             }

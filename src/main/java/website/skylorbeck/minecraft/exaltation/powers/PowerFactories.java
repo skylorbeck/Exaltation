@@ -20,7 +20,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.exaltation.Declarar;
-import website.skylorbeck.minecraft.exaltation.data.ApoDataTypes;
+import website.skylorbeck.minecraft.exaltation.data.ExaltationDataTypes;
 import website.skylorbeck.minecraft.exaltation.data.QuiverData;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class PowerFactories {
                         .add("tick_rate", SerializableDataTypes.INT, 20),
                 data ->
                         (type, player) -> {
-                            ApoConditionedAttributePower ap = new ApoConditionedAttributePower(type, player, data.getInt("tick_rate"));
+                            ExaltationConditionedAttributePower ap = new ExaltationConditionedAttributePower(type, player, data.getInt("tick_rate"));
                             if(data.isPresent("modifier")) {
                                 ap.addModifier((AttributedEntityAttributeModifier)data.get("modifier"));
                             }
@@ -168,7 +168,7 @@ public class PowerFactories {
 
         register(new PowerFactory<>(Declarar.getIdentifier("marksman_quiver_manager"),
                 new SerializableData()
-                        .add("quivers", ApoDataTypes.QUIVERS)
+                        .add("quivers", ExaltationDataTypes.QUIVERS)
                         .add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
                 ,
                 data -> ((type, player) ->{

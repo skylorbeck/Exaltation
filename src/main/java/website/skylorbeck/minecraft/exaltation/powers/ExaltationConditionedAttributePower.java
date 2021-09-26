@@ -9,12 +9,12 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ApoConditionedAttributePower extends Power {
+public class ExaltationConditionedAttributePower extends Power {
 
     private final List<AttributedEntityAttributeModifier> modifiers = new LinkedList<AttributedEntityAttributeModifier>();
     private final int tickRate;
 
-    public ApoConditionedAttributePower(PowerType<?> type, LivingEntity entity, int tickRate) {
+    public ExaltationConditionedAttributePower(PowerType<?> type, LivingEntity entity, int tickRate) {
         super(type, entity);
         this.setTicking(true);
         this.tickRate = tickRate;
@@ -42,7 +42,7 @@ public class ApoConditionedAttributePower extends Power {
         removeMods();
     }
 
-    public ApoConditionedAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
+    public ExaltationConditionedAttributePower addModifier(AttributedEntityAttributeModifier modifier) {
         this.modifiers.add(modifier);
         return this;
     }

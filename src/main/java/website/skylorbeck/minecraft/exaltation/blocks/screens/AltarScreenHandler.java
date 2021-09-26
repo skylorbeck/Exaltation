@@ -33,7 +33,7 @@ import website.skylorbeck.minecraft.exaltation.cardinal.XPComponent;
 import website.skylorbeck.minecraft.exaltation.powers.ConsumingItemPower;
 import website.skylorbeck.minecraft.exaltation.powers.ResetLevelPower;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 public class AltarScreenHandler extends ScreenHandler {
     private BlockPos pos = BlockPos.ORIGIN;
@@ -104,7 +104,7 @@ public class AltarScreenHandler extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        int xp =APOXP.get(player).getLevel();
+        int xp = EXALXP.get(player).getLevel();
         boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier("class"))).hasUpgrade();
         int altarLevel = 0;
         switch (((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()){
@@ -148,20 +148,20 @@ public class AltarScreenHandler extends ScreenHandler {
                 Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier( "class")));
                 Identifier advancementID = id == 0 ? new Identifier(origin.getIdentifier() + "_upgrade_a") : new Identifier(origin.getIdentifier() + "_upgrade_b");
                 if (PowerHolderComponent.hasPower(player, ResetLevelPower.class)) {
-                    APOXP.get(player).setLevel(1);
-                    APOXP.get(player).setAscended(true);
+                    EXALXP.get(player).setLevel(1);
+                    EXALXP.get(player).setAscended(true);
                 }
                 context.run(((world, blockPos) -> {
                     world.getServer().getCommandManager().execute(new ServerCommandSource(world.getServer(), new Vec3d(player.getX(), player.getY(), player.getZ()), Vec2f.ZERO, (ServerWorld) world, 4, "exaltation", new LiteralText("exaltation"), world.getServer(), null),
                             String.format("advancement grant " + player.getEntityName() + " only " + advancementID));
                 }));
-                APOXP.sync(player);
+                EXALXP.sync(player);
                 this.context.run(((world, blockPos) -> {
                     world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                 }));
             }
             case 3 -> {
-                XPComponent xpComponent= APOXP.get(player);
+                XPComponent xpComponent= EXALXP.get(player);
                 int APOXPLVL = xpComponent.getLevel();
                 int xpcost = xpComponent.getLevelUpCost();
 
@@ -192,7 +192,7 @@ public class AltarScreenHandler extends ScreenHandler {
                                 if (player.experienceLevel>=xpcost) {
                                     player.addExperienceLevels(-(xpcost));
                                     xpComponent.addLevel(1);
-                                    APOXP.sync(player);
+                                    EXALXP.sync(player);
                                     this.context.run(((world, blockPos) -> {
                                         world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                                     }));
@@ -208,7 +208,7 @@ public class AltarScreenHandler extends ScreenHandler {
                     if (player.experienceLevel>=xpcost || player.isCreative()) {
                         player.addExperienceLevels(-(xpcost));
                         xpComponent.addLevel(1);
-                        APOXP.sync(player);
+                        EXALXP.sync(player);
                         this.context.run(((world, blockPos) -> {
                             world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                         }));

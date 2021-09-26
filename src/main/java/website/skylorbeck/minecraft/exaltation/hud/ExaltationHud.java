@@ -14,10 +14,10 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.DyeColor;
 import website.skylorbeck.minecraft.exaltation.powers.MarksmanArrowCyclingPower;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
-public class ApoHud {
-    public ApoHud() {
+public class ExaltationHud {
+    public ExaltationHud() {
         HudRenderCallback.EVENT.register(this::render);
     }
     private void render(MatrixStack matrixStack, float delta) {
@@ -26,7 +26,7 @@ public class ApoHud {
         ItemRenderer itemRenderer = client.getItemRenderer();
         int scaledWidth = client.getWindow().getScaledWidth();//these are CRITICAL for dynamically scaled ui elements
         int scaledHeight = client.getWindow().getScaledHeight();
-        String string = String.valueOf(APOXP.get(client.player).getLevel());
+        String string = String.valueOf(EXALXP.get(client.player).getLevel());
         int x = (scaledWidth - textRenderer.getWidth(string)) / 2;
         int y = scaledHeight - 45;
         textRenderer.draw(matrixStack, (String)string, (float)(x + 1), (float)y, 0);

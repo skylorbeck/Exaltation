@@ -9,14 +9,14 @@ import net.minecraft.entity.mob.MobEntity;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 
 public class ExaltationComponents implements EntityComponentInitializer{
-    public static final ComponentKey<XPComponent> APOXP =
+    public static final ComponentKey<XPComponent> EXALXP =
             ComponentRegistry.getOrCreate(Declarar.getIdentifier("xp"), XPComponent.class);
     public static final ComponentKey<PetComponent> PETKEY =
             ComponentRegistry.getOrCreate(Declarar.getIdentifier("petkey"),PetComponent.class);
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(APOXP, XPComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerForPlayers(EXALXP, XPComponent::new, RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerFor(MobEntity.class,PETKEY, PetComponent::new);
     }
 }

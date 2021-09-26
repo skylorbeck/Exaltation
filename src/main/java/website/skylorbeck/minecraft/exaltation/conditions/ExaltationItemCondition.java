@@ -10,7 +10,7 @@ import net.minecraft.item.ToolItem;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 
-public class ApoItemCondition {
+public class ExaltationItemCondition {
     public static void register() {
         register(new ConditionFactory<>(Declarar.getIdentifier("durability"), new SerializableData()
                 .add("percent", SerializableDataTypes.FLOAT),

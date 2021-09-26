@@ -23,7 +23,7 @@ import website.skylorbeck.minecraft.exaltation.PlayerEntityInterface;
 import website.skylorbeck.minecraft.exaltation.enchantment.EnchantmentHelper;
 import website.skylorbeck.minecraft.exaltation.powers.DruidWolfBondPower;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.PETKEY;
 
 @Mixin(PlayerEntity.class)
@@ -171,7 +171,7 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
                 }
             }
         }
-        if (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class) && APOXP.get(entity).getPetUUID() != null) {
+        if (PowerHolderComponent.hasPower(entity, DruidWolfBondPower.class) && EXALXP.get(entity).getPetUUID() != null) {
             TargetPredicate predicate = TargetPredicate.DEFAULT;
             predicate.setPredicate((pet -> pet instanceof WolfEntity && PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
             WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(5D));

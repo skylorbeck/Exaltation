@@ -13,7 +13,7 @@ import website.skylorbeck.minecraft.exaltation.mixin.EntityAttributeModifierMixi
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 public class ScalingModifyDamageTakenPower extends ValueModifyingPower {
 
@@ -45,7 +45,7 @@ public class ScalingModifyDamageTakenPower extends ValueModifyingPower {
     }
 
     public void executeActions(Entity attacker) {
-        ((EntityAttributeModifierMixin)this.getModifiers().get(0)).setValue(originalValue*Math.floorDiv(APOXP.get(this.entity).getLevel(),scale));
+        ((EntityAttributeModifierMixin)this.getModifiers().get(0)).setValue(originalValue*Math.floorDiv(EXALXP.get(this.entity).getLevel(),scale));
         if(selfAction != null) {
             selfAction.accept(entity);
         }

@@ -16,7 +16,7 @@ import net.minecraft.text.TranslatableText;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 public class CommandCenter {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -28,8 +28,8 @@ public class CommandCenter {
                                                 .executes((command) -> {
                                                     int i = IntegerArgumentType.getInteger(command, "level");
                                                     ServerPlayerEntity target = EntityArgumentType.getPlayer(command, "target");
-                                                    APOXP.get(target).setLevel(i);
-                                                    APOXP.sync(target);
+                                                    EXALXP.get(target).setLevel(i);
+                                                    EXALXP.sync(target);
                                                     command.getSource().sendFeedback(Text.of("Set "+ target.getDisplayName().getString()+(" Lv:" + i)), true);
                                                     return i;
                                                 }))))

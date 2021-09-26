@@ -7,7 +7,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 
 import java.util.List;
 
-public class ApoDataTypes {
+public class ExaltationDataTypes {
     public static final SerializableDataType<List<String>> STRINGS =
             SerializableDataType.list(SerializableDataTypes.STRING);
 

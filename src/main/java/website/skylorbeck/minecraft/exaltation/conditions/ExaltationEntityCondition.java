@@ -11,9 +11,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.registry.Registry;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
-public class ApoEntityCondition {
+public class ExaltationEntityCondition {
     @SuppressWarnings("unchecked")
     public static void register() {
         register(new ConditionFactory<>(Declarar.getIdentifier("level"), new SerializableData()
@@ -21,7 +21,7 @@ public class ApoEntityCondition {
                         .add("compare_to", SerializableDataTypes.INT),
                 (data, entity) -> {
                     if(entity.isPlayer()) {
-                        return ((Comparison)data.get("comparison")).compare(APOXP.get(((PlayerEntity)entity)).getLevel(), data.getInt("compare_to"));
+                        return ((Comparison)data.get("comparison")).compare(EXALXP.get(((PlayerEntity)entity)).getLevel(), data.getInt("compare_to"));
                     }
                     return false;
                 }

@@ -16,7 +16,7 @@ import website.skylorbeck.minecraft.exaltation.powers.MarksmanArrowCyclingPower;
 import website.skylorbeck.minecraft.exaltation.powers.RangerDamagePower;
 import website.skylorbeck.minecraft.exaltation.powers.RangerRangedItemAccuracyPower;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 @Mixin(BowItem.class)
 public class BowItemMixin {
@@ -26,7 +26,7 @@ public class BowItemMixin {
         PersistentProjectileEntity persistentProjectileEntity = (PersistentProjectileEntity) entity;
         if( PowerHolderComponent.hasPower(user, RangerDamagePower.class)){
             RangerDamagePower power =PowerHolderComponent.getPowers(user, RangerDamagePower.class).get(0);
-            persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage()+power.getDamage()+(power.getDamageScaled()*Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())));
+            persistentProjectileEntity.setDamage(persistentProjectileEntity.getDamage()+power.getDamage()+(power.getDamageScaled()*Math.floorDiv(EXALXP.get(user).getLevel(),power.getScale())));
         }
         if (PowerHolderComponent.hasPower(user, MarksmanArrowCyclingPower.class)) {
             MarksmanArrowCyclingPower marksmanArrowCyclingPower = PowerHolderComponent.KEY.get(user).getPowers(MarksmanArrowCyclingPower.class).get(0);
@@ -43,7 +43,7 @@ public class BowItemMixin {
 //        LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
-            accuracy= 1.0f-(Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())*0.02f);
+            accuracy= 1.0f-(Math.floorDiv(EXALXP.get(user).getLevel(),power.getScale())*0.02f);
         }
         return accuracy;
     }
@@ -52,7 +52,7 @@ public class BowItemMixin {
 //        LivingEntity user = MinecraftClient.getInstance().player;
         if( PowerHolderComponent.hasPower(user, RangerRangedItemAccuracyPower.class)){
             RangerRangedItemAccuracyPower power =PowerHolderComponent.getPowers(user, RangerRangedItemAccuracyPower.class).get(0);
-            speed= 3.0f+(Math.floorDiv(APOXP.get(user).getLevel(),power.getScale())*0.03f);
+            speed= 3.0f+(Math.floorDiv(EXALXP.get(user).getLevel(),power.getScale())*0.03f);
         }
         return speed;
     }

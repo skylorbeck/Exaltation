@@ -37,7 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.APOXP;
+import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationComponents.EXALXP;
 
 public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
     private static final Identifier TEXTURE = Declarar.getIdentifier("textures/gui/altarbg.png");
@@ -164,7 +164,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             case normal -> {
                 if (this.isPointWithinBounds(60, 53, 107, 19, mouseX, mouseY)) {
                     PlayerEntity player =this.client.player;
-                    XPComponent xpComponent= APOXP.get(player);
+                    XPComponent xpComponent= EXALXP.get(player);
                     int APOXPLVL = xpComponent.getLevel();
                     List<Text> tooltip = Lists.newArrayList();
                     if ((APOXPLVL + 1) % 5 == 0 && PowerHolderComponent.hasPower(player, ConsumingItemPower.class) && !player.isCreative()) {
@@ -302,8 +302,8 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
         assert player != null;
 
         MCXP = player.experienceLevel;
-        AXP = APOXP.get(player).getLevel();
-        AXPC = APOXP.get(player).getLevelUpCost();
+        AXP = EXALXP.get(player).getLevel();
+        AXPC = EXALXP.get(player).getLevelUpCost();
         OriginLayer originLayer = OriginLayers.getLayer(Declarar.getIdentifier("class"));
         origin = ModComponents.ORIGIN.get(player).getOrigin(originLayer);
 //        if (AXP>=50 ||(APOXP.get(player).getAscended() && (this.AXP==15||this.AXP==25||this.AXP==45))){

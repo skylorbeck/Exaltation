@@ -12,11 +12,11 @@ import website.skylorbeck.minecraft.exaltation.Declarar;
 import website.skylorbeck.minecraft.exaltation.Registrar;
 import website.skylorbeck.minecraft.exaltation.blocks.entities.AltarEntityRenderer;
 import website.skylorbeck.minecraft.exaltation.blocks.entities.AltarItemEntityRenderer;
-import website.skylorbeck.minecraft.exaltation.hud.ApoHud;
+import website.skylorbeck.minecraft.exaltation.hud.ExaltationHud;
 
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class ExaltationClient implements ClientModInitializer{
-    public static ApoHud apoHud;
+    public static ExaltationHud exaltationHud;
     public static KeyBinding bind1 = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.exaltation.primary_active",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V,"exaltation.category"));
     public static KeyBinding bind2 = KeyBindingHelper.registerKeyBinding(new KeyBinding("key.exaltation.secondary_active",InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_B,"exaltation.category"));
     @Override
@@ -29,7 +29,7 @@ public class ExaltationClient implements ClientModInitializer{
         GeoItemRenderer.registerItemRenderer(Declarar.goldaltarItem,new AltarItemEntityRenderer());
         GeoItemRenderer.registerItemRenderer(Declarar.diamondaltarItem,new AltarItemEntityRenderer());
         GeoItemRenderer.registerItemRenderer(Declarar.netheritealtarItem,new AltarItemEntityRenderer());
-        apoHud = new ApoHud();
+        exaltationHud = new ExaltationHud();
 
 
         /*ClientTickEvents.END_CLIENT_TICK.register(client -> {
