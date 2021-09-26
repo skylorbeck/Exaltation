@@ -55,10 +55,10 @@ public abstract class CrossbowItemMixin {
                     persistentProjectileEntity.setDamage(1);
                 }
             }
-            if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
+            if (PowerHolderComponent.hasPower(entity, MarksmanReloadingPower.class)) {
                 persistentProjectileEntity.setPierceLevel((byte) (persistentProjectileEntity.getPierceLevel()+1));
             }
-            if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanUltimatePower.class)) {
+            if (PowerHolderComponent.hasPower(entity, MarksmanUltimatePower.class)) {
                 persistentProjectileEntity.setPierceLevel((byte) (persistentProjectileEntity.getPierceLevel()+5));
             }
             cir.setReturnValue(persistentProjectileEntity);
@@ -69,7 +69,7 @@ public abstract class CrossbowItemMixin {
 
     @Inject(method = "getPullTime", at = @At(value = "RETURN"), cancellable = true)
     private static void modifyPullTime(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        if (PowerHolderComponent.hasPower(MinecraftClient.getInstance().player, MarksmanReloadingPower.class)) {
+        if (PowerHolderComponent.hasPower(stack.getHolder(), MarksmanReloadingPower.class)) {
             cir.setReturnValue(cir.getReturnValue()/2);
         }
         if (cir.getReturnValue()<=0){
