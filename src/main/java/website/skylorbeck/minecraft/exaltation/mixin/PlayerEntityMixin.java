@@ -11,6 +11,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -65,7 +68,7 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
 
     @Inject(at = @At("TAIL"),method = "tick")
     public void healthBoostCheck(CallbackInfo ci) {
-        LivingEntity entity = ((PlayerEntity) (Object) this);
+        PlayerEntity entity = ((PlayerEntity) (Object) this);
         //todo config for time checked
         if (entity.age % 20 == 0) {
             float previousMaxHealth = entity.getMaxHealth();
@@ -176,10 +179,14 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
             predicate.setPredicate((pet -> pet instanceof WolfEntity && PETKEY.get(pet).getOwnerUUID() == entity.getUuid()));
             WolfEntity oldPet = entity.world.getClosestEntity(WolfEntity.class, predicate, (LivingEntity) entity, entity.getX(), entity.getY(), entity.getZ(), entity.getBoundingBox().expand(5D));
             if (oldPet != null) {
-                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE,20));
+                entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20));
             }
         }
+        if (getSpyGlassOverride() && !entity.getStackInHand(Hand.MAIN_HAND).isOf(Items.CROSSBOW)) {
+            setSpyGlassOveride(false);
+        }
     }
+
 
     @Inject(at = @At(value = "RETURN"),method = "isUsingSpyglass", cancellable = true)
     private void spyGlassOverride(CallbackInfoReturnable<Boolean> cir){
