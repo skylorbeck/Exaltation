@@ -5,6 +5,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.origins.origin.*;
 import io.github.apace100.origins.registry.ModComponents;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.impl.networking.ClientSidePacketRegistryImpl;
+import net.fabricmc.fabric.impl.networking.ServerSidePacketRegistryImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -16,6 +20,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ServerAdvancementLoader;
@@ -42,7 +47,7 @@ import static website.skylorbeck.minecraft.exaltation.cardinal.ExaltationCompone
 public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
     private static final Identifier TEXTURE = Declarar.getIdentifier("textures/gui/altarbg.png");
     private Origin origin;
-    private final Origin[] originUpgrades = new Origin[2];
+    public final Origin[] originUpgrades = new Origin[2];
     private int AXP;
     private int AXPC;
     private int MCXP;
@@ -239,6 +244,7 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
                     double v = mouseY - (double) (y + 14);
                     if (originUpgrades[i] != null && u >= 0.0D && v >= 0.0D && u < 54D && v < 57D && this.handler.onButtonClick(this.client.player, i)) {
                         this.client.interactionManager.clickButton(this.handler.syncId, i);
+                        this.onClose();
                         return true;
                     }
                 }
@@ -290,15 +296,14 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
     @Override
     protected void init() {
         this.client = MinecraftClient.getInstance();
+
         super.init();
     }
 
     public void levelUpClicked(){
         this.client = MinecraftClient.getInstance();
-        MinecraftServer server = client.getServer();
-        assert server != null;
-        ServerAdvancementLoader advancementLoader = server.getAdvancementLoader();
-        PlayerEntity player = server.getPlayerManager().getPlayer(client.player.getUuid());
+//        ServerAdvancementLoader advancementLoader = server.getAdvancementLoader();
+        PlayerEntity player = client.player;
         assert player != null;
 
         MCXP = player.experienceLevel;
@@ -314,15 +319,23 @@ public class AltarHandledScreen extends HandledScreen<ScreenHandler> {
             advancementID[0] = new Identifier(origin.getIdentifier()+"_upgrade_a");
             advancementID[1] = new Identifier(origin.getIdentifier()+"_upgrade_b");
             try {
-                originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeIdentifier(advancementID[0]);
+                buf.writeInt(0);
+                ClientSidePacketRegistryImpl.INSTANCE.sendToServer(Declarar.getAdvancementPacket,buf);
+//                originUpgrades[0] =OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[0])).get().getUpgradeToOrigin());
             } catch (Exception exception){
-                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getCause()));
+                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.toString()));
                 originUpgrades[0]=null;
             }
             try {
-                originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeIdentifier(advancementID[1]);
+                buf.writeInt(1);
+                ClientSidePacketRegistryImpl.INSTANCE.sendToServer(Declarar.getAdvancementPacket,buf);
+//                originUpgrades[1] = OriginRegistry.get(origin.getUpgrade(advancementLoader.get(advancementID[1])).get().getUpgradeToOrigin());
             } catch (Exception exception){
-                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.getMessage()));
+                Logger.getGlobal().log(Level.SEVERE, String.valueOf(exception.toString()));
                 originUpgrades[1]=null;
             }
         } else {

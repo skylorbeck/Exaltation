@@ -3,7 +3,9 @@ package website.skylorbeck.minecraft.exaltation.blocks.screens;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.origins.origin.Origin;
 import io.github.apace100.origins.origin.OriginLayers;
+import io.github.apace100.origins.origin.OriginRegistry;
 import io.github.apace100.origins.registry.ModComponents;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -16,6 +18,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ServerAdvancementLoader;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -27,6 +31,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 import website.skylorbeck.minecraft.exaltation.blocks.AltarAbstract;
 import website.skylorbeck.minecraft.exaltation.cardinal.XPComponent;
@@ -42,16 +47,16 @@ public class AltarScreenHandler extends ScreenHandler {
     private final ScreenHandlerContext context;
 
     public AltarScreenHandler(int syncId, PlayerInventory pInv) {
-        this(syncId,pInv,ScreenHandlerContext.EMPTY);
+        this(syncId, pInv, ScreenHandlerContext.EMPTY);
     }
 
     public AltarScreenHandler(int syncid, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
-        this(syncid,playerInventory);
+        this(syncid, playerInventory);
         this.pos = packetByteBuf.readBlockPos();
     }
 
-    public AltarScreenHandler(int syncId, PlayerInventory pInv, ScreenHandlerContext context,BlockPos pos) {
-        this(syncId,pInv,context);
+    public AltarScreenHandler(int syncId, PlayerInventory pInv, ScreenHandlerContext context, BlockPos pos) {
+        this(syncId, pInv, context);
         this.pos = pos;
     }
 
@@ -107,17 +112,20 @@ public class AltarScreenHandler extends ScreenHandler {
         int xp = EXALXP.get(player).getLevel();
         boolean hasUpgrade = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier("class"))).hasUpgrade();
         int altarLevel = 0;
-        switch (((AltarAbstract)player.world.getBlockState(this.pos).getBlock()).getTier()){
+        switch (((AltarAbstract) player.world.getBlockState(this.pos).getBlock()).getTier()) {
             case 0 -> altarLevel = 9;
             case 1 -> altarLevel = 19;
             case 2 -> altarLevel = 34;
             case 3 -> altarLevel = 49;
-            case 4 -> {altarLevel = 50;canAscend = true;}
+            case 4 -> {
+                altarLevel = 50;
+                canAscend = true;
+            }
         }
-        boolean altarTier = !(xp>altarLevel);
+        boolean altarTier = !(xp > altarLevel);
 
-        if (altarTier){
-            if (!hasUpgrade){
+        if (altarTier) {
+            if (!hasUpgrade) {
                 if (xp >= 50) {
                     player.sendMessage(new TranslatableText("exaltation.levelcap"), true);
                     return false;
@@ -125,8 +133,8 @@ public class AltarScreenHandler extends ScreenHandler {
                     return true;
                 }
             } else {
-                if (xp == 50){
-                    if (canAscend){
+                if (xp == 50) {
+                    if (canAscend) {
                         return true;
                     } else {
                         player.sendMessage(new TranslatableText("exaltation.weakaltar"), true);
@@ -136,16 +144,16 @@ public class AltarScreenHandler extends ScreenHandler {
                 return true;
             }
         } else {
-            player.sendMessage(new TranslatableText("exaltation.toostrong"),true);
+            player.sendMessage(new TranslatableText("exaltation.toostrong"), true);
             return false;
         }
     }
 
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
-        switch (id){
-            case 0,1 ->{
-                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier( "class")));
+        switch (id) {
+            case 0, 1 -> {
+                Origin origin = ModComponents.ORIGIN.get(player).getOrigin(OriginLayers.getLayer(Declarar.getIdentifier("class")));
                 Identifier advancementID = id == 0 ? new Identifier(origin.getIdentifier() + "_upgrade_a") : new Identifier(origin.getIdentifier() + "_upgrade_b");
                 if (PowerHolderComponent.hasPower(player, ResetLevelPower.class)) {
                     EXALXP.get(player).setLevel(1);
@@ -159,53 +167,54 @@ public class AltarScreenHandler extends ScreenHandler {
                 this.context.run(((world, blockPos) -> {
                     world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                 }));
+                this.close(player);
             }
             case 3 -> {
-                XPComponent xpComponent= EXALXP.get(player);
+                XPComponent xpComponent = EXALXP.get(player);
                 int APOXPLVL = xpComponent.getLevel();
                 int xpcost = xpComponent.getLevelUpCost();
 
-                if ((APOXPLVL+1)%5==0 && PowerHolderComponent.hasPower(player, ConsumingItemPower.class) && !player.isCreative()) {
-                        ItemStack item = inventory.getStack(0);
-                        Item itemcost = APOXPLVL>=44?Items.DIAMOND:PowerHolderComponent.getPowers(player,ConsumingItemPower.class).get(0).getItem();
-                        int cost = APOXPLVL>=44?APOXPLVL>=49?2:1:Math.min(Math.floorDiv(APOXPLVL+1,5),4);
+                if ((APOXPLVL + 1) % 5 == 0 && PowerHolderComponent.hasPower(player, ConsumingItemPower.class) && !player.isCreative()) {
+                    ItemStack item = inventory.getStack(0);
+                    Item itemcost = APOXPLVL >= 44 ? Items.DIAMOND : PowerHolderComponent.getPowers(player, ConsumingItemPower.class).get(0).getItem();
+                    int cost = APOXPLVL >= 44 ? APOXPLVL >= 49 ? 2 : 1 : Math.min(Math.floorDiv(APOXPLVL + 1, 5), 4);
 
-                        if ((!item.getItem().equals(itemcost)||item.getCount()<5*cost)) {
+                    if ((!item.getItem().equals(itemcost) || item.getCount() < 5 * cost)) {
+                        this.context.run(((world, blockPos) -> {
+                            player.sendMessage(Text.of("You are lacking " + 5 * cost + " " + itemcost.getName().getString()), false);
+                            world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                        }));
+                        return true;
+                    } else {
+                        if (item.getCount() >= 5 * cost) {
+                            ItemStack itemStack = item;
                             this.context.run(((world, blockPos) -> {
-                                player.sendMessage(Text.of("You are lacking "+5*cost+" "+itemcost.getName().getString()),false);
-                                world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                            }));
-                            return true;
-                        } else {
-                            if (item.getCount()>=5*cost) {
-                                ItemStack itemStack = item;
-                                this.context.run(((world, blockPos) -> {
-                                    itemStack.decrement(5 * cost);
-                                    this.inventory.setStack(0, itemStack);
-                                    if (itemStack.isEmpty()) {
-                                        this.inventory.setStack(0, ItemStack.EMPTY);
-                                    }
-
-                                    this.inventory.markDirty();
-                                    this.onContentChanged(this.inventory);
-                                }));
-                                if (player.experienceLevel>=xpcost) {
-                                    player.addExperienceLevels(-(xpcost));
-                                    xpComponent.addLevel(1);
-                                    EXALXP.sync(player);
-                                    this.context.run(((world, blockPos) -> {
-                                        world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                                    }));
-                                } else {
-                                    this.context.run(((world, blockPos) -> {
-                                        player.sendMessage(Text.of("You are lacking "+xpcost+" experience levels"),false);
-                                        world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
-                                    }));
+                                itemStack.decrement(5 * cost);
+                                this.inventory.setStack(0, itemStack);
+                                if (itemStack.isEmpty()) {
+                                    this.inventory.setStack(0, ItemStack.EMPTY);
                                 }
+
+                                this.inventory.markDirty();
+                                this.onContentChanged(this.inventory);
+                            }));
+                            if (player.experienceLevel >= xpcost) {
+                                player.addExperienceLevels(-(xpcost));
+                                xpComponent.addLevel(1);
+                                EXALXP.sync(player);
+                                this.context.run(((world, blockPos) -> {
+                                    world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                                }));
+                            } else {
+                                this.context.run(((world, blockPos) -> {
+                                    player.sendMessage(Text.of("You are lacking " + xpcost + " experience levels"), false);
+                                    world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                                }));
                             }
                         }
+                    }
                 } else {
-                    if (player.experienceLevel>=xpcost || player.isCreative()) {
+                    if (player.experienceLevel >= xpcost || player.isCreative()) {
                         player.addExperienceLevels(-(xpcost));
                         xpComponent.addLevel(1);
                         EXALXP.sync(player);
@@ -214,15 +223,17 @@ public class AltarScreenHandler extends ScreenHandler {
                         }));
                     } else {
                         this.context.run(((world, blockPos) -> {
-                            player.sendMessage(Text.of("You are lacking "+xpcost+" experience levels"),false);
+                            player.sendMessage(Text.of("You are lacking " + xpcost + " experience levels"), false);
                             world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
                         }));
                     }
                 }
             }
         }
-        assert MinecraftClient.getInstance().currentScreen != null;
-        ((AltarHandledScreen)MinecraftClient.getInstance().currentScreen).levelUpClicked();
+        if (player.world.isClient()) {
+            assert MinecraftClient.getInstance().currentScreen != null;
+            ((AltarHandledScreen) MinecraftClient.getInstance().currentScreen).levelUpClicked();
+        }
         return true;
     }
 
@@ -245,5 +256,10 @@ public class AltarScreenHandler extends ScreenHandler {
 
     public void setPos(BlockPos pos) {
         this.pos = pos;
+    }
+
+    public void sendAdvancement(Identifier identifier,int slot){
+        assert MinecraftClient.getInstance().currentScreen != null;
+        ((AltarHandledScreen) MinecraftClient.getInstance().currentScreen).originUpgrades[slot] = OriginRegistry.get(identifier);
     }
 }

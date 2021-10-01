@@ -35,10 +35,14 @@ import website.skylorbeck.minecraft.exaltation.statuseffects.WolfMarkEffect;
 import java.util.UUID;
 
 public class Declarar {
+
     public static final String MODID = "exaltation";
     public static Identifier getIdentifier(String string){
         return new Identifier(MODID,string);
     }
+    public static Identifier getAdvancementPacket = Declarar.getIdentifier("getadvancementpacket");
+    public static Identifier sendAdvancementPacket = Declarar.getIdentifier("sendadvancementpacket");
+
 
     public static final Block stonealtar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),0);
     public static final Block ironaltar = new AltarAbstract(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).nonOpaque().luminance(5).breakByTool(FabricToolTags.PICKAXES).breakByHand(true),1);

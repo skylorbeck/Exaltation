@@ -6,13 +6,19 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 import website.skylorbeck.minecraft.exaltation.Declarar;
 import website.skylorbeck.minecraft.exaltation.Registrar;
 import website.skylorbeck.minecraft.exaltation.blocks.entities.AltarEntityRenderer;
 import website.skylorbeck.minecraft.exaltation.blocks.entities.AltarItemEntityRenderer;
+import website.skylorbeck.minecraft.exaltation.blocks.screens.AltarScreenHandler;
 import website.skylorbeck.minecraft.exaltation.hud.ExaltationHud;
+
+import static website.skylorbeck.minecraft.exaltation.Declarar.MODID;
+import static website.skylorbeck.minecraft.skylorlib.Registrar.regClientSidePacket;
+import static website.skylorbeck.minecraft.skylorlib.Registrar.regServerSidePacket;
 
 @net.fabricmc.api.Environment(net.fabricmc.api.EnvType.CLIENT)
 public class ExaltationClient implements ClientModInitializer{
@@ -31,25 +37,10 @@ public class ExaltationClient implements ClientModInitializer{
         GeoItemRenderer.registerItemRenderer(Declarar.netheritealtarItem,new AltarItemEntityRenderer());
         exaltationHud = new ExaltationHud();
 
-
-        /*ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (bind1.wasPressed()) {
-                PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
-                APOXP.get(playerEntity).setLevel(1);
-                client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
-                APOXP.get(playerEntity).setAscended(false);
-                APOXP.sync(playerEntity);
-            }
-        });
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (bind2.wasPressed()) {
-                PlayerEntity playerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(client.player.getUuid());
-                APOXP.get(playerEntity).setLevel(50);
-                client.player.sendChatMessage("Level: "+ APOXP.get(playerEntity).getLevel());
-                APOXP.sync(playerEntity);
-            }
-        });*/
-
-
+        regClientSidePacket("sendadvancementpacket",MODID,((context, buffer) ->{
+            Identifier identifier = buffer.readIdentifier();
+            int slot = buffer.readInt();
+                context.getTaskQueue().execute(() -> ((AltarScreenHandler)context.getPlayer().currentScreenHandler).sendAdvancement(identifier,slot));
+        }));
     }
 }

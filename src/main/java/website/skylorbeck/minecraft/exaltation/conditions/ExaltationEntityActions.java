@@ -244,7 +244,7 @@ public class ExaltationEntityActions {
                     if (((PlayerEntity) entity).getMainHandStack().isOf(Registry.ITEM.get(new Identifier(data.getString("item")))))
                         ((PlayerEntityInterface) entity).setSpyGlassOveride(!((PlayerEntityInterface) entity).getSpyGlassOverride());
                     else
-                        ((PlayerEntityInterface) entity).setSpyGlassOveride(false);//todo fix this staying zoomed in
+                        ((PlayerEntityInterface) entity).setSpyGlassOveride(false);
                 }));
 
         register(new ActionFactory<>(Declarar.getIdentifier("arrow_spawn"), new SerializableData()
