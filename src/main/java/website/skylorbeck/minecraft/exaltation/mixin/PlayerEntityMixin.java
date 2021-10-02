@@ -61,7 +61,7 @@ public class PlayerEntityMixin implements PlayerEntityInterface {
 
     @Redirect(at = @At(value = "INVOKE",target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),method = "attack")
     private boolean injectedAttack(Entity entity, DamageSource source, float amount){
-        if (((LivingEntity)entity).hasStatusEffect(Declarar.WOLFMARK))
+        if (entity instanceof LivingEntity && ((LivingEntity)entity).hasStatusEffect(Declarar.WOLFMARK))
             return entity.damage(source, (float) (amount*1.5));
         else return entity.damage(source,amount);
     }
