@@ -93,12 +93,10 @@ public class CraftingScreenHandlerMixin {
         }
         if (PowerHolderComponent.hasPower(player, ArcanemithSwordBuffPower.class)) {
             Item item = stack.getItem();
-            if (item instanceof ArmorItem) {
-                if (((ArmorItem) item).getSlotType() == EquipmentSlot.FEET) {
+            if (item instanceof SwordItem) {
                     stack.getOrCreateNbt().putBoolean("ApoSmith", true);
                     Enchantment[] enchantment = new Enchantment[]{Declarar.WITHERASPECT, Declarar.POISONASPECT, Declarar.POISONASPECT};
                     stack.addEnchantment(enchantment[world.random.nextInt(enchantment.length)], 3);
-                }
             }
         }
         craftingResultInventory.setStack(slot, stack);
